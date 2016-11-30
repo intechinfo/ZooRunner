@@ -25,3 +25,12 @@ C:\Users\Luc\Desktop\ZooRunner(test)\ZooRunner.Tests\bin\Debug\nunit.framework.x
 C:\Users\Luc\Desktop\ZooRunner(test)\ZooRunner.Tests\obj\Debug\ZooRunner.Tests.csprojResolveAssemblyReference.cache
 C:\Users\Luc\Desktop\ZooRunner(test)\ZooRunner.Tests\obj\Debug\ZooRunner.Tests.dll
 C:\Users\Luc\Desktop\ZooRunner(test)\ZooRunner.Tests\obj\Debug\ZooRunner.Tests.pdb
+C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner.Tests\bin\Debug\ZooRunner.Tests.dll
+C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner.Tests\bin\Debug\ZooRunner.Tests.pdb
+C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner.Tests\bin\Debug\nunit.framework.dll
+C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner.Tests\bin\Debug\ZooRunner2.dll
+C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner.Tests\bin\Debug\ZooRunner2.pdb
+C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner.Tests\bin\Debug\nunit.framework.xml
+C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner.Tests\obj\Debug\ZooRunner.Tests.csprojResolveAssemblyReference.cache
+C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner.Tests\obj\Debug\ZooRunner.Tests.dll
+C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner.Tests\obj\Debug\ZooRunner.Tests.pdb
