@@ -1,0 +1,60 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ZooRunner
+{
+    public class AnimalType
+    {
+        readonly Type _animalType;
+        readonly MethodInfo _factoryMethod;
+        readonly MethodInfo _getNameMethod;
+        readonly MethodInfo _getPositionXMethod;
+        readonly MethodInfo _getPositionYMethod;
+        readonly object _zoo;
+
+        public AnimalType(
+            object zoo, 
+            Type animalType,
+            MethodInfo factoryMethod,
+            MethodInfo getNameMethod,
+            MethodInfo getPositionXMethod,
+            MethodInfo getPositionYMethod
+            )
+        {
+            _zoo = zoo;
+            _animalType = animalType;
+            _factoryMethod = factoryMethod;
+            _getNameMethod = getNameMethod;
+            _getPositionXMethod = getPositionXMethod;
+            _getPositionYMethod = getPositionYMethod;
+        }
+
+        internal string GetNameFor(object animal)
+        {
+            return (string)_getNameMethod.Invoke(animal, null);
+        }
+
+        internal double GetPositionXFor(object animal)
+        {
+            return (double)_getPositionXMethod.Invoke(animal, null);
+        }
+
+        internal double GetPositionYFor(object animal)
+        {
+            return (double)_getPositionYMethod.Invoke(animal, null);
+        }
+
+        public string Name => _animalType.Name;
+
+        public AnimalAdapter CreateInstance( string name )
+        {
+            object a = _factoryMethod.Invoke(_zoo, new[] { name });
+            return new AnimalAdapter(a, this);
+        }
+
+    }
+}
