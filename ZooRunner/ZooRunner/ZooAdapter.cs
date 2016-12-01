@@ -15,6 +15,8 @@ namespace ZooRunner
         readonly List<AnimalType> _animalTypes;
         readonly MethodInfo _updateMethod;
         readonly double _meterDefinition;
+        readonly int _withInMeter;
+        readonly int _mapSize;
 
         ZooAdapter(object zoo, Type zooType)
         {
@@ -24,6 +26,8 @@ namespace ZooRunner
             _animalTypes = CreateAnimalTypes( zoo, zooType );
             _updateMethod = _zooType.GetMethod("Update");
             _meterDefinition = (double)_zooType.GetProperty("MeterDefinition").GetGetMethod().Invoke(zoo,null);
+            _withInMeter = (int)(1 / _meterDefinition) * 2;
+            _mapSize = _withInMeter * 1000;
         }
 
         public static ZooAdapter Load( string fileName )
@@ -59,6 +63,12 @@ namespace ZooRunner
         public IReadOnlyList<AnimalType> AnimalTypes => _animalTypes;
 
         public void Update() => _updateMethod.Invoke(_zoo, null);
+
+        public int WithInMeter => _withInMeter;
+
+        public int MapSize => _mapSize;
+
+        public double MeterDefinition => _meterDefinition;
 
          
     }

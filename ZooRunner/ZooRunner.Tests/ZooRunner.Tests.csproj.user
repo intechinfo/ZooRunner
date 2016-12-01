@@ -5,4 +5,7 @@
     <StartProgram>C:\Users\Luc\Documents\Visual Studio 2015\Projects\ZooRunner\packages\NUnit.Runners.Net4.2.6.4\tools\nunit.exe</StartProgram>
     <StartArguments>ZooRunner.Tests.dll</StartArguments>
   </PropertyGroup>
+  <PropertyGroup>
+    <ProjectView>ShowAllFiles</ProjectView>
+  </PropertyGroup>
 </Project>

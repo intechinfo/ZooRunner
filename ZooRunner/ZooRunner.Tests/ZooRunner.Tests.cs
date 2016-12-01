@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,9 +15,10 @@ namespace ZooRunner.Tests
         [Test]
         public void create_zoo_and_animal()
         {
-            ZooAdapter sut = ZooAdapter.Load("C:\\Users\\Luc\\Desktop\\ZooRunner\\ZooSample\\obj\\Debug\\ZooSample.dll");
+            var path = TestHelper.SolutionPath + @"\ZooSample\obj\Debug\ZooSample.dll";
 
-            AnimalAdapter bob = sut.AnimalTypes[0].CreateInstance("Bob");
+            ZooAdapter sut = ZooAdapter.Load(path); AnimalAdapter bob = sut.AnimalTypes[0].CreateInstance("Bob");
+
             AnimalAdapter roger = sut.AnimalTypes[0].CreateInstance("Roger");
             AnimalAdapter loic = sut.AnimalTypes[1].CreateInstance("Loïc");
             AnimalAdapter suarez = sut.AnimalTypes[1].CreateInstance("Suarez");
@@ -30,7 +32,9 @@ namespace ZooRunner.Tests
         [Test]
         public void initial_position_works()
         {
-            ZooAdapter sut = ZooAdapter.Load("C:\\Users\\Luc\\Desktop\\ZooRunner\\ZooSample\\obj\\Debug\\ZooSample.dll");
+            var path = TestHelper.SolutionPath + @"\ZooSample\obj\Debug\ZooSample.dll";
+
+            ZooAdapter sut = ZooAdapter.Load(path);
 
             AnimalAdapter bob = sut.AnimalTypes[0].CreateInstance("Bob");
             AnimalAdapter roger = sut.AnimalTypes[0].CreateInstance("Roger");
@@ -50,47 +54,39 @@ namespace ZooRunner.Tests
         }
 
         [Test]
-        public void create_multiple_animals()
+        public void meter_definition_works()
         {
-            ZooAdapter sut = ZooAdapter.Load("C:\\Users\\Luc\\Desktop\\ZooRunner\\ZooSample\\obj\\Debug\\ZooSample.dll");
+            var path = TestHelper.SolutionPath + @"\ZooSample\obj\Debug\ZooSample.dll";
 
-            AnimalAdapter bob = sut.AnimalTypes[0].CreateInstance("Bob");
-            AnimalAdapter roger = sut.AnimalTypes[0].CreateInstance("Roger");
-            AnimalAdapter loic = sut.AnimalTypes[1].CreateInstance("Loïc");
-            AnimalAdapter suarez = sut.AnimalTypes[1].CreateInstance("Suarez");
+            ZooAdapter sut = ZooAdapter.Load(path); AnimalAdapter bob = sut.AnimalTypes[0].CreateInstance("Bob");
 
-            double initialPositionXY = 0;
+            double meterDefinition = 0.001;
 
-            Assert.That(bob.X, Is.EqualTo(initialPositionXY));
-            Assert.That(roger.X, Is.EqualTo(initialPositionXY));
-            Assert.That(loic.X, Is.EqualTo(initialPositionXY));
-            Assert.That(suarez.X, Is.EqualTo(initialPositionXY));
-            Assert.That(bob.Y, Is.EqualTo(initialPositionXY));
-            Assert.That(roger.Y, Is.EqualTo(initialPositionXY));
-            Assert.That(loic.Y, Is.EqualTo(initialPositionXY));
-            Assert.That(suarez.Y, Is.EqualTo(initialPositionXY));
+            Assert.That(sut.MeterDefinition, Is.EqualTo(meterDefinition));
         }
 
         [Test]
-        public void animals_can_move()
+        public void map_size_works()
         {
-            ZooAdapter sut = ZooAdapter.Load("C:\\Users\\Luc\\Desktop\\ZooRunner\\ZooSample\\obj\\Debug\\ZooSample.dll");
+            var path = TestHelper.SolutionPath + @"\ZooSample\obj\Debug\ZooSample.dll";
 
-            AnimalAdapter bob = sut.AnimalTypes[0].CreateInstance("Bob");
-            AnimalAdapter roger = sut.AnimalTypes[0].CreateInstance("Roger");
-            AnimalAdapter loic = sut.AnimalTypes[1].CreateInstance("Loïc");
-            AnimalAdapter suarez = sut.AnimalTypes[1].CreateInstance("Suarez");
+            ZooAdapter sut = ZooAdapter.Load(path);
 
-            double initialPositionXY = 0;
+            int mapSize = 2000000;
 
-            Assert.That(bob.X, Is.EqualTo(initialPositionXY));
-            Assert.That(roger.X, Is.EqualTo(initialPositionXY));
-            Assert.That(loic.X, Is.EqualTo(initialPositionXY));
-            Assert.That(suarez.X, Is.EqualTo(initialPositionXY));
-            Assert.That(bob.Y, Is.EqualTo(initialPositionXY));
-            Assert.That(roger.Y, Is.EqualTo(initialPositionXY));
-            Assert.That(loic.Y, Is.EqualTo(initialPositionXY));
-            Assert.That(suarez.Y, Is.EqualTo(initialPositionXY));
+            Assert.That(sut.MapSize, Is.EqualTo(mapSize));
+        }
+
+        [Test]
+        public void with_in_meter_works()
+        {
+            var path = TestHelper.SolutionPath + @"\ZooSample\obj\Debug\ZooSample.dll";
+
+            ZooAdapter sut = ZooAdapter.Load(path);
+
+            int withInMeter = 2000;
+
+            Assert.That(sut.WithInMeter, Is.EqualTo(withInMeter));
         }
     }
 }
