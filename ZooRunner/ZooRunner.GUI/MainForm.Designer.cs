@@ -46,6 +46,7 @@
             this._zooViewPortControl.Size = new System.Drawing.Size(598, 427);
             this._zooViewPortControl.TabIndex = 5;
             this._zooViewPortControl.Text = "zooViewPortControl";
+            this._zooViewPortControl.MouseEnter += new System.EventHandler(this._zooViewPortControl_MouseEnter);
             // 
             // _controlPanel
             // 

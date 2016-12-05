@@ -14,6 +14,10 @@ namespace ZooRunner
         Map _map;
         ViewPort _viewPort;
         int _boxCount;
+        int _zoomMax;
+        int _zoomMin;
+        int _zoomValue;
+        int _zoomScale;
 
         public ZooViewPortControl()
         {
@@ -22,6 +26,10 @@ namespace ZooRunner
             _map = new Map(10, 11);
             _viewPort = new ViewPort(_map, 1);
             _viewPort.AreaChanged += _viewPort_AreaChanged;
+            _zoomMax = 1000;
+            _zoomMin = 0;
+            _zoomValue = 1000;
+            _zoomScale = 50;
         }
 
         void _viewPort_AreaChanged(object sender, EventArgs e)
@@ -91,6 +99,21 @@ namespace ZooRunner
         {
             get { return _viewPort.ShowGridLines; }
             set { _viewPort.ShowGridLines = value; }
+        }
+
+        protected override void OnMouseWheel(MouseEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                if (_zoomValue - _zoomScale < _zoomMin) _zoomValue = _zoomMin;
+                else _zoomValue -= _zoomScale;
+            }
+            else
+            {
+                if (_zoomValue + _zoomScale > _zoomMax) _zoomValue = _zoomMax;
+                else _zoomValue += _zoomScale;
+            }
+            _viewPort.UserZoomFactor = (double)(_zoomMax - _zoomValue) / (double)_zoomMax;
         }
 
         protected override void OnPaint(PaintEventArgs e)

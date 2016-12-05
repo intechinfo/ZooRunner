@@ -18,5 +18,9 @@ namespace ZooRunner.GUI
             InitializeComponent();
         }
 
+        private void _zooViewPortControl_MouseEnter(object sender, EventArgs e)
+        {
+            _zooViewPortControl.Focus();
+        }
     }
 }
