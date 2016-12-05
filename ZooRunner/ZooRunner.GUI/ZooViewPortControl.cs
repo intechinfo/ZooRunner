@@ -87,6 +87,12 @@ namespace ZooRunner
             base.OnResize(e);
         }
 
+        public bool ShowGridLines
+        {
+            get { return _viewPort.ShowGridLines; }
+            set { _viewPort.ShowGridLines = value; }
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             if (_viewPort == null || this.IsInDesignMode())
