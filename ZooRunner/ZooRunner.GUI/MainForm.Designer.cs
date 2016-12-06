@@ -46,14 +46,13 @@
             this._zooViewPortControl.Size = new System.Drawing.Size(598, 427);
             this._zooViewPortControl.TabIndex = 5;
             this._zooViewPortControl.Text = "zooViewPortControl";
-            this._zooViewPortControl.MouseEnter += new System.EventHandler(this._zooViewPortControl_MouseEnter);
             // 
             // _controlPanel
             // 
             this._controlPanel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this._controlPanel.BackColor = System.Drawing.SystemColors.WindowFrame;
             this._controlPanel.Location = new System.Drawing.Point(11, 444);
-            this._controlPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this._controlPanel.Margin = new System.Windows.Forms.Padding(2);
             this._controlPanel.Name = "_controlPanel";
             this._controlPanel.Size = new System.Drawing.Size(599, 101);
             this._controlPanel.TabIndex = 4;

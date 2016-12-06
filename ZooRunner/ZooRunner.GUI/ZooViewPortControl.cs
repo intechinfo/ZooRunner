@@ -101,6 +101,11 @@ namespace ZooRunner
             set { _viewPort.ShowGridLines = value; }
         }
 
+        protected override void OnMouseEnter(EventArgs e)
+        {
+            this.BackColor = Color.White;
+            this.Focus();
+        }
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             if (e.Delta > 0)
@@ -114,6 +119,29 @@ namespace ZooRunner
                 else _zoomValue += _zoomScale;
             }
             _viewPort.UserZoomFactor = (double)(_zoomMax - _zoomValue) / (double)_zoomMax;
+        }
+
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            BackColor = Color.Tomato;
+        }
+
+        protected override void OnMouseUp(MouseEventArgs e)
+        {
+            BackColor = Color.Green;
+        }
+
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            
+            base.OnMouseMove(e);
+        }
+
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            this.BackColor = Color.WhiteSmoke;
+            MessageBox.Show(this.Parent.Name+"         "+this.Parent.CanFocus.ToString());
+            base.OnLeave(e);
         }
 
         protected override void OnPaint(PaintEventArgs e)
