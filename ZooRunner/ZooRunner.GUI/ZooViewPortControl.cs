@@ -108,6 +108,7 @@ namespace ZooRunner
         protected override void OnMouseEnter(EventArgs e)
         {
             this.BackColor = Color.White;
+            this.Cursor = Cursors.Hand;
             this.Focus();
         }
         protected override void OnMouseWheel(MouseEventArgs e)
@@ -131,7 +132,7 @@ namespace ZooRunner
             {
                 if (!_mousepressed)
                 {
-                    BackColor = Color.Tomato;
+                    this.Cursor = Cursors.NoMove2D;
                     _mousepressed = true;
                     _mouseDown = e.Location;
                 }
@@ -142,7 +143,7 @@ namespace ZooRunner
         {
             if(e.Button == MouseButtons.Left)
             {
-                this.BackColor = Color.Green;
+                this.Cursor = Cursors.Hand;
                 _mousepressed = false;
             }
         }
@@ -152,13 +153,10 @@ namespace ZooRunner
             if(e.Button == MouseButtons.Left)
             {
                 Point mousePositionNow = e.Location;
-
                 int deltaX = mousePositionNow.X - _mouseDown.X;
                 int deltaY = mousePositionNow.Y - _mouseDown.Y;
-
-                //_viewPort.MoveTo();
+                _viewPort.MouseMove(e.Location, this.Size);
             }
-
             base.OnMouseMove(e);
         }
 

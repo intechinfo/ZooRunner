@@ -208,5 +208,24 @@ namespace ZooRunner
             _map.Draw(g, _viewPort, _clientScaleFactor, ShowGridLines);
         }
 
+        public void MouseMove(Point location, Size controleSize)
+        {
+            Point transformation = MousePostionTransformation(_map, _viewPort, location, controleSize);
+            MoveTo(transformation.X, transformation.Y);
+        }
+
+        internal Point MousePostionTransformation(Map map, Rectangle viewport , Point location, Size controlSize)
+        {
+            // Mouse position relation with viewport (Cross product)
+            location.X = (location.X * _map.Area.Width) / controlSize.Width;
+            location.Y = (location.Y * _map.Area.Height) / controlSize.Height;
+
+            // Increment position of viewport compared to the map
+            //location.X += viewport.Left;
+            //location.Y += viewport.Top;
+
+            return location;
+            
+        }
     }
 }
