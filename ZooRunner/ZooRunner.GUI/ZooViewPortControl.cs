@@ -18,6 +18,8 @@ namespace ZooRunner
         int _zoomMin;
         int _zoomValue;
         int _zoomScale;
+        bool _mousepressed;
+        Point _mouseDown;
 
         public ZooViewPortControl()
         {
@@ -30,6 +32,8 @@ namespace ZooRunner
             _zoomMin = 0;
             _zoomValue = 1000;
             _zoomScale = 50;
+            _mousepressed = false;
+            _mouseDown = new Point();
         }
 
         void _viewPort_AreaChanged(object sender, EventArgs e)
@@ -123,24 +127,44 @@ namespace ZooRunner
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            BackColor = Color.Tomato;
+            if(e.Button == MouseButtons.Left)
+            {
+                if (!_mousepressed)
+                {
+                    BackColor = Color.Tomato;
+                    _mousepressed = true;
+                    _mouseDown = e.Location;
+                }
+            }
         }
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            BackColor = Color.Green;
+            if(e.Button == MouseButtons.Left)
+            {
+                this.BackColor = Color.Green;
+                _mousepressed = false;
+            }
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            
+            if(e.Button == MouseButtons.Left)
+            {
+                Point mousePositionNow = e.Location;
+
+                int deltaX = mousePositionNow.X - _mouseDown.X;
+                int deltaY = mousePositionNow.Y - _mouseDown.Y;
+
+                //_viewPort.MoveTo();
+            }
+
             base.OnMouseMove(e);
         }
 
         protected override void OnMouseLeave(EventArgs e)
         {
             this.BackColor = Color.WhiteSmoke;
-            MessageBox.Show(this.Parent.Name+"         "+this.Parent.CanFocus.ToString());
             base.OnLeave(e);
         }
 
