@@ -16,6 +16,10 @@ namespace ZooRunner.GUI
         {
             InitializeComponent();
         }
-       
+
+        private void OnUserGivesDll(object sender, ZooAdapter e)
+        {
+            MessageBox.Show(e.AnimalTypes[0].Name);
+        }
     }
 }

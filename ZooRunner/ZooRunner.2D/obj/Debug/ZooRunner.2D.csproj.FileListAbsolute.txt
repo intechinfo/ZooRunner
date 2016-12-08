@@ -6,3 +6,4 @@ C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner.2D\bin\Debug\ZooRunner.2D.dll
 C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner.2D\bin\Debug\ZooRunner.2D.pdb
 C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner.2D\obj\Debug\ZooRunner.2D.dll
 C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner.2D\obj\Debug\ZooRunner.2D.pdb
+C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner.2D\obj\Debug\ZooRunner.2D.csprojResolveAssemblyReference.cache

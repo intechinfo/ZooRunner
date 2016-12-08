@@ -23,11 +23,14 @@ namespace ZooRunner.GUI
             _timer = false;
         }
 
+        public event EventHandler<ZooAdapter> UserGivesDll;
+
         private void _dllBouton_Click(object sender, EventArgs e)
         {
             if (_dllOpenFileDialog.ShowDialog() == DialogResult.OK)
             {
                 _zoo = ZooAdapter.Load(_dllOpenFileDialog.FileName);
+                UserGivesDll?.Invoke(this, _zoo);
                 this.Text = _dllOpenFileDialog.FileName;
                 _createAnimalsBouton.Enabled = true;
                 _gameLoopBouton.Enabled = true;
