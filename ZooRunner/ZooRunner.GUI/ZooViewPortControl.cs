@@ -132,7 +132,7 @@ namespace ZooRunner
             {
                 if (!_mousepressed)
                 {
-                    this.Cursor = Cursors.NoMove2D;
+                    this.Cursor = Cursors.SizeAll;
                     _mousepressed = true;
                     _mouseDown = e.Location;
                 }
@@ -153,8 +153,8 @@ namespace ZooRunner
             if(e.Button == MouseButtons.Left)
             {
                 Point mousePositionNow = e.Location;
-                int deltaX = mousePositionNow.X - _mouseDown.X;
-                int deltaY = mousePositionNow.Y - _mouseDown.Y;
+                int deltaX = _mouseDown.X - mousePositionNow.X;
+                int deltaY = _mouseDown.Y - mousePositionNow.Y;
                 _viewPort.MouseMove(e.Location, this.Size);
             }
             base.OnMouseMove(e);
@@ -163,6 +163,7 @@ namespace ZooRunner
         protected override void OnMouseLeave(EventArgs e)
         {
             this.BackColor = Color.WhiteSmoke;
+            this.Parent.Controls[1].Focus();
             base.OnLeave(e);
         }
 
@@ -178,5 +179,6 @@ namespace ZooRunner
             }
             base.OnPaint(e);
         }
+
     }
 }
