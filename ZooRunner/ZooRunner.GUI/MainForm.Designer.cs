@@ -40,12 +40,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this._zooViewPortControl.BackColor = System.Drawing.SystemColors.Control;
             this._zooViewPortControl.BoxCount = 20;
+            this._zooViewPortControl.Enabled = false;
             this._zooViewPortControl.Location = new System.Drawing.Point(12, 12);
             this._zooViewPortControl.Name = "_zooViewPortControl";
-            this._zooViewPortControl.ShowGridLines = true;
+            this._zooViewPortControl.ShowGridLines = false;
             this._zooViewPortControl.Size = new System.Drawing.Size(775, 427);
             this._zooViewPortControl.TabIndex = 5;
             this._zooViewPortControl.Text = "zooViewPortControl";
+            this._zooViewPortControl.MouseLeaveControl += new System.EventHandler(this.OnMouseLeaveControl);
             // 
             // _controlPanel
             // 
@@ -59,6 +61,7 @@
             this._controlPanel.UserGivesDll += new System.EventHandler<ZooRunner.ZooAdapter>(this.OnUserGivesDll);
             this._controlPanel.TimerTick += new System.EventHandler(this.OnTimerTick);
             this._controlPanel.BoxCountChange += new System.EventHandler<int>(this.OnBoxCountChange);
+            this._controlPanel.ShowGridLines += new System.EventHandler<bool>(this.OnShowGridLines);
             // 
             // MainForm
             // 

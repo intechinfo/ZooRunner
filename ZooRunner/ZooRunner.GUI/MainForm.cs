@@ -19,17 +19,28 @@ namespace ZooRunner.GUI
 
         private void OnUserGivesDll(object sender, ZooAdapter e)
         {
+            _zooViewPortControl.Enabled = true;
             _zooViewPortControl.SetZoo(e);
         }
 
         private void OnTimerTick(object sender, EventArgs e)
         {
-            _zooViewPortControl.BoxCount = 50;
+            
         }
 
         private void OnBoxCountChange(object sender, int e)
         {
             _zooViewPortControl.BoxCount = e;
+        }
+
+        private void OnShowGridLines(object sender, bool e)
+        {
+            _zooViewPortControl.ShowGridLines = e;
+        }
+
+        private void OnMouseLeaveControl(object sender, EventArgs e)
+        {
+            _controlPanel.Focus();
         }
     }
 }

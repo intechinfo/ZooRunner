@@ -26,6 +26,7 @@ namespace ZooRunner.GUI
         public event EventHandler<ZooAdapter> UserGivesDll;
         public event EventHandler TimerTick;
         public event EventHandler<int> BoxCountChange;
+        public event EventHandler <bool> ShowGridLines;
 
         private void _dllBouton_Click(object sender, EventArgs e)
         {
@@ -38,6 +39,7 @@ namespace ZooRunner.GUI
                 _gameLoopBouton.Enabled = true;
                 _boxCountLabel.Enabled = true;
                 _boxCountNumericUpDown.Enabled = true;
+                _showGridLinesCheckBox.Enabled = true;
             }
         }
 
@@ -86,6 +88,11 @@ namespace ZooRunner.GUI
         private void _boxCountNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
             BoxCountChange?.Invoke(this, (int)_boxCountNumericUpDown.Value);
+        }
+
+        private void _showGridLinesCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            ShowGridLines?.Invoke(sender, _showGridLinesCheckBox.Checked);
         }
     }
 }
