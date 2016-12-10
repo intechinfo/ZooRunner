@@ -19,7 +19,17 @@ namespace ZooRunner.GUI
 
         private void OnUserGivesDll(object sender, ZooAdapter e)
         {
-            MessageBox.Show(e.AnimalTypes[0].Name);
+            _zooViewPortControl.SetZoo(e);
+        }
+
+        private void OnTimerTick(object sender, EventArgs e)
+        {
+            _zooViewPortControl.BoxCount = 50;
+        }
+
+        private void OnBoxCountChange(object sender, int e)
+        {
+            _zooViewPortControl.BoxCount = e;
         }
     }
 }

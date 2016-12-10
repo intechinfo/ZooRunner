@@ -52,11 +52,13 @@
             this._controlPanel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this._controlPanel.BackColor = System.Drawing.SystemColors.WindowFrame;
             this._controlPanel.Location = new System.Drawing.Point(12, 444);
-            this._controlPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this._controlPanel.Margin = new System.Windows.Forms.Padding(2);
             this._controlPanel.Name = "_controlPanel";
             this._controlPanel.Size = new System.Drawing.Size(775, 101);
             this._controlPanel.TabIndex = 4;
             this._controlPanel.UserGivesDll += new System.EventHandler<ZooRunner.ZooAdapter>(this.OnUserGivesDll);
+            this._controlPanel.TimerTick += new System.EventHandler(this.OnTimerTick);
+            this._controlPanel.BoxCountChange += new System.EventHandler<int>(this.OnBoxCountChange);
             // 
             // MainForm
             // 

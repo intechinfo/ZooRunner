@@ -24,6 +24,8 @@ namespace ZooRunner.GUI
         }
 
         public event EventHandler<ZooAdapter> UserGivesDll;
+        public event EventHandler TimerTick;
+        public event EventHandler<int> BoxCountChange;
 
         private void _dllBouton_Click(object sender, EventArgs e)
         {
@@ -34,6 +36,8 @@ namespace ZooRunner.GUI
                 this.Text = _dllOpenFileDialog.FileName;
                 _createAnimalsBouton.Enabled = true;
                 _gameLoopBouton.Enabled = true;
+                _boxCountLabel.Enabled = true;
+                _boxCountNumericUpDown.Enabled = true;
             }
         }
 
@@ -75,8 +79,13 @@ namespace ZooRunner.GUI
 
         private void _gameLoopTimer_Tick(object sender, EventArgs e)
         {
-            MessageBox.Show("Tick");
+            TimerTick?.Invoke(this, e);
             _zoo.Update();
+        }
+
+        private void _boxCountNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            BoxCountChange?.Invoke(this, (int)_boxCountNumericUpDown.Value);
         }
     }
 }

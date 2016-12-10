@@ -81,6 +81,8 @@ namespace ZooRunner
             if(_viewPort != null ) _viewPort.AreaChanged -= _viewPort_AreaChanged;
             _map = new Map(10, _boxCount);
             _viewPort = new ViewPort(_map, 5);
+            _viewPort.ShowGridLines = true; //
+            _viewPort.SetClientSize(ClientSize); // 
             _viewPort.AreaChanged += _viewPort_AreaChanged;
             Invalidate();
 
@@ -111,6 +113,7 @@ namespace ZooRunner
             this.Cursor = Cursors.Hand;
             this.Focus();
         }
+
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             if (e.Delta > 0)
@@ -169,7 +172,7 @@ namespace ZooRunner
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (_viewPort == null || this.IsInDesignMode())
+            if (_viewPort == null || _zoo == null || this.IsInDesignMode())
             {
                 e.Graphics.FillRectangle(Brushes.Yellow, e.ClipRectangle);
             }
