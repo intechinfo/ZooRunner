@@ -9,11 +9,30 @@ namespace ZooSample
     public class Zoo
     {
         readonly Dictionary<string, Animal> _animals;
+        readonly Random _random;
 
         public Zoo()
+            : this(new Random())
         {
+        }
+
+        public Zoo(int randomSeed)
+            : this(new Random(randomSeed))
+        {
+        }
+
+        Zoo(Random random)
+        {
+            _random = random;
             _animals = new Dictionary<string, Animal>();
         }
+
+        internal bool Probability(double p)
+        {
+            return _random.NextDouble() < p;
+        }
+            
+        internal Random Randomizer => _random;
 
         public Cat CreateCat(string name)
         {

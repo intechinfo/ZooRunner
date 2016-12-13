@@ -23,17 +23,20 @@ namespace ZooSample
 
         public void MoveRandom()
         {
-
+            double randX = GetRandomNumber(-1, 1);
+            double randY = GetRandomNumber(-1, 1);
+            _direction = new Point(randX, randY);
+            SetPosition(_direction);
         }
 
         internal override void Update()
         {
-            SetPosition(new Point(Position.X + _direction.X, Position.Y + _direction.Y));
-            if (_isRandomWalking)
-            {
-                _direction = new Point();
-            }
-            //_pos += _direction;
+            MoveRandom();
+        }
+
+        public double GetRandomNumber(double minimum, double maximum)
+        {
+            return Context.Randomizer.NextDouble() * (maximum - minimum) + minimum;
         }
     }
 }
