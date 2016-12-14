@@ -178,6 +178,12 @@ namespace ZooRunner
             base.OnLeave(e);
         }
 
+        public void TimerTick(List<AnimalAdapter> animals)
+        {
+            _viewPort.DriverAssignment(_zoo, animals);
+            Invalidate();
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             if (_viewPort == null || _zoo == null || this.IsInDesignMode())

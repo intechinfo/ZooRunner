@@ -24,7 +24,7 @@ namespace ZooRunner.GUI
         }
 
         public event EventHandler<ZooAdapter> UserGivesDll;
-        public event EventHandler TimerTick;
+        public event EventHandler <List<AnimalAdapter>> TimerTick;
         public event EventHandler<int> BoxCountChange;
         public event EventHandler <bool> ShowGridLines;
 
@@ -81,8 +81,8 @@ namespace ZooRunner.GUI
 
         private void _gameLoopTimer_Tick(object sender, EventArgs e)
         {
-            TimerTick?.Invoke(this, e);
             _zoo.Update();
+            TimerTick?.Invoke(this, _animals);
         }
 
         private void _boxCountNumericUpDown_ValueChanged(object sender, EventArgs e)

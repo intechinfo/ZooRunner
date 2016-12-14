@@ -23,10 +23,6 @@ namespace ZooRunner.GUI
             _zooViewPortControl.SetZoo(e);
         }
 
-        private void OnTimerTick(object sender, EventArgs e)
-        {
-            
-        }
 
         private void OnBoxCountChange(object sender, int e)
         {
@@ -41,6 +37,11 @@ namespace ZooRunner.GUI
         private void OnMouseLeaveControl(object sender, EventArgs e)
         {
             _controlPanel.Focus();
+        }
+
+        private void OnTimerTick(object sender, List<AnimalAdapter> e)
+        {
+            _zooViewPortControl.TimerTick(e);
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZooRunner.GUI;
 
 namespace ZooRunner
 {
@@ -219,13 +220,83 @@ namespace ZooRunner
             // Mouse position relation with viewport (Cross product)
             location.X = (location.X * _map.Area.Width) / controlSize.Width;
             location.Y = (location.Y * _map.Area.Height) / controlSize.Height;
+            return location;           
+        }
 
-            // Increment position of viewport compared to the map
-            //location.X += viewport.Left;
-            //location.Y += viewport.Top;
+        // Optimizable
+        public void DriverAssignment(ZooAdapter zoo, List <AnimalAdapter> animals)
+        {
+            UnsetDrivers();
 
-            return location;
-            
+            for (int i = 0; i < animals.Count; i++)
+            {
+                double x = 0;
+                double y = 0;
+
+                if (animals[i].X > 0)
+                {
+                    x = animals[i].X * 1000 * zoo.WithInMeter;
+                    x = (x / zoo.MapSize) * 100;
+                    x = (Map.Area.Width / 2 * x) / 100;
+                    x += Map.Area.Width / 2; 
+                }
+
+                if(animals[i].Y > 0)
+                {
+                    y = animals[i].Y * 1000 * zoo.WithInMeter;
+                    y = (y / zoo.MapSize) * 100;
+                    y = (Map.Area.Height / 2 * y) / 100;
+                    y += Map.Area.Height / 2;
+                }
+
+                if(animals[i].X < 0)
+                {
+                    x = (animals[i].X * -1) * 1000 * zoo.WithInMeter;
+                    x = (x / zoo.MapSize) * 100;
+                    x = (Map.Area.Width / 2 * x) / 100;
+
+                }
+
+                if(animals[i].Y < 0)
+                {
+                    y = (animals[i].Y * -1) * 1000 * zoo.WithInMeter;
+                    y = (y / zoo.MapSize) * 100;
+                    y = (Map.Area.Height / 2 * y) / 100;
+                }
+
+                int ligneSupported = _map.BoxWidth;
+                int columnSupported = _map.BoxWidth;
+
+                for (int n = 0; n < _map.BoxCount; n++)
+                {
+                    for (int z = 0; z < _map.BoxCount; z++)
+                    {
+
+                        if (x < ligneSupported && x > ligneSupported - _map.BoxWidth)
+                        {
+                            if (y < columnSupported && y > columnSupported - _map.BoxWidth)
+                            {
+                                Driver driver = new Driver();
+                                _map[n, z].Driver = driver;
+                            }
+                        }
+                        columnSupported += _map.BoxWidth;
+                    }
+                    columnSupported = _map.BoxWidth;
+                    ligneSupported += _map.BoxWidth;
+                }
+            }  
+        }
+
+        void UnsetDrivers()
+        {
+            for(int i = 0; i < _map.BoxCount; i++)
+            {
+                for(int n = 0; n < _map.BoxCount; n++)
+                {
+                    _map[i, n].Driver = null;
+                }
+            }
         }
     }
 }
