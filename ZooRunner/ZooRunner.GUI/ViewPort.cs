@@ -232,16 +232,24 @@ namespace ZooRunner
             {
                 double x = 0;
                 double y = 0;
+                bool shortCut = false;
 
                 if (animals[i].X > 0)
                 {
-                    x = animals[i].X * 1000 * zoo.WithInMeter;
+                    x = animals[i].X * 1000 * zoo.WithInMeter; // 1000 => 1 / meterDefinition
                     x = (x / zoo.MapSize) * 100;
                     x = (Map.Area.Width / 2 * x) / 100;
                     x += Map.Area.Width / 2; 
                 }
 
-                if(animals[i].Y > 0)
+                else if (animals[i].X < 0)
+                {
+                    x = (animals[i].X * -1) * 1000 * zoo.WithInMeter;
+                    x = (x / zoo.MapSize) * 100;
+                    x = (Map.Area.Width / 2 * x) / 100;
+
+                }
+                if (animals[i].Y > 0)
                 {
                     y = animals[i].Y * 1000 * zoo.WithInMeter;
                     y = (y / zoo.MapSize) * 100;
@@ -249,15 +257,7 @@ namespace ZooRunner
                     y += Map.Area.Height / 2;
                 }
 
-                if(animals[i].X < 0)
-                {
-                    x = (animals[i].X * -1) * 1000 * zoo.WithInMeter;
-                    x = (x / zoo.MapSize) * 100;
-                    x = (Map.Area.Width / 2 * x) / 100;
-
-                }
-
-                if(animals[i].Y < 0)
+                else if(animals[i].Y < 0)
                 {
                     y = (animals[i].Y * -1) * 1000 * zoo.WithInMeter;
                     y = (y / zoo.MapSize) * 100;
@@ -276,11 +276,27 @@ namespace ZooRunner
                         {
                             if (y < columnSupported && y > columnSupported - _map.BoxWidth)
                             {
-                                Driver driver = new Driver();
-                                _map[n, z].Driver = driver;
+                                if(_map[n,z].Driver == null)
+                                {
+                                    Driver driver = new Driver();
+                                    driver.AddAnimal(animals[i]);
+                                    _map[n, z].Driver = driver;
+                                    
+                                }
+                                else
+                                {
+                                    _map[n, z].Driver.AddAnimal(animals[i]);
+                                }
+                                shortCut = true;
+                                break;                                                      
                             }
                         }
                         columnSupported += _map.BoxWidth;
+                    }
+                    if(shortCut == true)
+                    {
+                        shortCut = false;
+                        break;
                     }
                     columnSupported = _map.BoxWidth;
                     ligneSupported += _map.BoxWidth;
