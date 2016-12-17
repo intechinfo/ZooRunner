@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ZooRunner.GUI;
 
 namespace ZooRunner
 {
@@ -180,7 +181,7 @@ namespace ZooRunner
 
         public void TimerTick(List<AnimalAdapter> animals)
         {
-            _viewPort.DriverAssignment(_zoo, animals);
+            _viewPort.DriverAssignment(_zoo, animals, AnimalsRepresentation);
             Invalidate();
         }
 
@@ -196,6 +197,8 @@ namespace ZooRunner
             }
             base.OnPaint(e);
         }
+
+        public AnimalsRedering AnimalsRepresentation { get; set; }
 
     }
 }

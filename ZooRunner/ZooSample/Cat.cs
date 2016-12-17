@@ -9,7 +9,6 @@ namespace ZooSample
     public class Cat : Animal
     {
         Point _direction;
-        bool _isRandomWalking;
 
         internal Cat(Zoo ctx, string name)
             : base(ctx, name)

@@ -15,18 +15,21 @@ namespace ZooRunner.GUI
         ZooAdapter _zoo;
         List<AnimalAdapter> _animals;
         bool _timer;
+        AnimalsRedering _animalsRedering;
 
         public ControlPanel()
         {
             InitializeComponent();
             _animals = new List<AnimalAdapter>();
             _timer = false;
+            _animalsRedering = new AnimalsRedering();
         }
 
         public event EventHandler<ZooAdapter> UserGivesDll;
         public event EventHandler <List<AnimalAdapter>> TimerTick;
         public event EventHandler<int> BoxCountChange;
         public event EventHandler <bool> ShowGridLines;
+        public event EventHandler <AnimalsRedering> AnimalsRederingChange;
 
         private void _dllBouton_Click(object sender, EventArgs e)
         {
@@ -40,6 +43,7 @@ namespace ZooRunner.GUI
                 _boxCountLabel.Enabled = true;
                 _boxCountNumericUpDown.Enabled = true;
                 _showGridLinesCheckBox.Enabled = true;
+                _representationButton.Enabled = true;
             }
         }
 
@@ -93,6 +97,16 @@ namespace ZooRunner.GUI
         private void _showGridLinesCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             ShowGridLines?.Invoke(sender, _showGridLinesCheckBox.Checked);
+        }
+
+        private void _representationButton_Click(object sender, EventArgs e)
+        {
+            AnimalsRepresentation representation = new AnimalsRepresentation(_zoo, _animalsRedering);
+            if (representation.ShowDialog() == DialogResult.OK)
+            {
+                AnimalsRederingChange?.Invoke(this, _animalsRedering);
+            }
+            representation.Dispose();
         }
     }
 }

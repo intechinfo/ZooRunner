@@ -15,6 +15,7 @@ namespace ZooRunner.GUI
         {
             _animals = new List<AnimalAdapter>();
         }
+
         public void Draw(Box box, Graphics g, Rectangle rectSource, float scaleFactor)
         {
             for(int i = 0; i < _animals.Count; i++)
@@ -22,9 +23,27 @@ namespace ZooRunner.GUI
                 int x = Truncate(_animals[i].X);
                 int y = Truncate(_animals[i].Y);
 
-                Pen blackPen = new Pen(Color.Black);
                 Rectangle animalBody = new Rectangle(x, y, 100, 100); // 100 & 100 => Animal size
-                g.DrawRectangle(blackPen, animalBody);
+
+                if (AnimalsRepresentation != null && AnimalsRepresentation.AnimalsRepresentation.ContainsKey(_animals[i].GetType))
+                {
+                    Pen customPen = new Pen(AnimalsRepresentation.AnimalsRepresentation[_animals[i].GetType].ChangeColor);
+
+                    if(AnimalsRepresentation.AnimalsRepresentation[_animals[i].GetType].Figure == "Rectangle")
+                    {
+                        
+                        g.DrawRectangle(customPen, animalBody);
+                    }
+                    else
+                    {
+                        g.DrawEllipse(customPen, animalBody);
+                    }                    
+                }
+                else
+                {
+                    Pen blackPen = new Pen(Color.Black);
+                    g.DrawRectangle(blackPen, animalBody);
+                }
             }
         }
 
@@ -48,5 +67,7 @@ namespace ZooRunner.GUI
             }
             return (int)myDouble;
         }
+
+        public AnimalsRedering AnimalsRepresentation { get; set; }
     }
 }

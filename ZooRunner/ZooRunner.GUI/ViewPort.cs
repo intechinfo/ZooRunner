@@ -224,7 +224,7 @@ namespace ZooRunner
         }
 
         // Optimizable
-        public void DriverAssignment(ZooAdapter zoo, List <AnimalAdapter> animals)
+        public void DriverAssignment(ZooAdapter zoo, List <AnimalAdapter> animals, AnimalsRedering animalsRepresentation)
         {
             UnsetDrivers();
 
@@ -280,6 +280,7 @@ namespace ZooRunner
                                 {
                                     Driver driver = new Driver();
                                     driver.AddAnimal(animals[i]);
+                                    driver.AnimalsRepresentation = animalsRepresentation;
                                     _map[n, z].Driver = driver;
                                     
                                 }

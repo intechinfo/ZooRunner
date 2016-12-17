@@ -42,3 +42,4 @@ C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner.GUI\obj\Debug\ZooRunner.GUI.Properties.
 C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner.GUI\obj\Debug\ZooRunner.GUI.ViewPortDemoControl.resources
 C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner.GUI\obj\Debug\ZooRunner.GUI.csproj.GenerateResource.Cache
 C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner.GUI\obj\Debug\ZooRunner.GUI.ControlPanel.resources
+C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner.GUI\obj\Debug\ZooRunner.GUI.AnimalsRepresentation.resources

@@ -24,20 +24,20 @@ namespace ZooRunner.GUI
 
         private void CreateAnimals_Load(object sender, EventArgs e)
         {
-            for (int incre = 0; incre <= _zoo.AnimalTypes.Count - 1; incre++)
+            for (int i = 0; i < _zoo.AnimalTypes.Count; i++)
             {
-                animalsComboBox.Items.Add(_zoo.AnimalTypes[incre].Name);
+                _animalsComboBox.Items.Add(_zoo.AnimalTypes[i].Name);
 
             }
-            animalsComboBox.SelectedIndex = 0;
+            _animalsComboBox.SelectedIndex = 0;
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void _addButton_Click(object sender, EventArgs e)
         {
-            for(int incre = 0; incre <= animalsNumericUpDown.Value - 1; incre++)
+            for(int incre = 0; incre <= _animalsNumericUpDown.Value - 1; incre++)
             {
                 string guid = Guid.NewGuid().ToString();
-                AnimalAdapter animal = _zoo.AnimalTypes[animalsComboBox.SelectedIndex].CreateInstance(guid);
+                AnimalAdapter animal = _zoo.AnimalTypes[_animalsComboBox.SelectedIndex].CreateInstance(guid);
                 _animals.Add(animal);
             }
         }

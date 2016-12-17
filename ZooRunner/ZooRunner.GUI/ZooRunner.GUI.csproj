@@ -46,6 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnimalsRedering.cs" />
+    <Compile Include="AnimalsRepresentation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AnimalsRepresentation.Designer.cs">
+      <DependentUpon>AnimalsRepresentation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AnimalsTypeRendering.cs" />
     <Compile Include="ControlExtensions.cs" />
     <Compile Include="ControlPanel.cs">
       <SubType>UserControl</SubType>
@@ -81,6 +89,9 @@
     <Compile Include="ViewPortDemoControl.Designer.cs">
       <DependentUpon>ViewPortDemoControl.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AnimalsRepresentation.resx">
+      <DependentUpon>AnimalsRepresentation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ControlPanel.resx">
       <DependentUpon>ControlPanel.cs</DependentUpon>
     </EmbeddedResource>

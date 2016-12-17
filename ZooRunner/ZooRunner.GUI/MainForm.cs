@@ -43,5 +43,10 @@ namespace ZooRunner.GUI
         {
             _zooViewPortControl.TimerTick(e);
         }
+
+        private void OnAnimalsRederingChange(object sender, AnimalsRedering e)
+        {
+            _zooViewPortControl.AnimalsRepresentation = e;
+        }
     }
 }

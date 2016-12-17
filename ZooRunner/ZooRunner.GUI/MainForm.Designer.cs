@@ -61,9 +61,10 @@ namespace ZooRunner.GUI
             this._controlPanel.Size = new System.Drawing.Size(775, 101);
             this._controlPanel.TabIndex = 4;
             this._controlPanel.UserGivesDll += new System.EventHandler<ZooRunner.ZooAdapter>(this.OnUserGivesDll);
-            this._controlPanel.TimerTick += new System.EventHandler<List<AnimalAdapter>>(this.OnTimerTick);
+            this._controlPanel.TimerTick += new System.EventHandler<System.Collections.Generic.List<ZooRunner.AnimalAdapter>>(this.OnTimerTick);
             this._controlPanel.BoxCountChange += new System.EventHandler<int>(this.OnBoxCountChange);
             this._controlPanel.ShowGridLines += new System.EventHandler<bool>(this.OnShowGridLines);
+            this._controlPanel.AnimalsRederingChange += new System.EventHandler<ZooRunner.GUI.AnimalsRedering>(this.OnAnimalsRederingChange);
             // 
             // MainForm
             // 
