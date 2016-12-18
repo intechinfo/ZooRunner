@@ -48,5 +48,10 @@ namespace ZooRunner.GUI
         {
             _zooViewPortControl.AnimalsRepresentation = e;
         }
+
+        private void OnAreaChanged(object sender, string e)
+        {
+            _informations.DisplayInfos(e);
+        }
     }
 }

@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this._representationButton = new System.Windows.Forms.Button();
             this._showGridLinesCheckBox = new System.Windows.Forms.CheckBox();
             this._boxCountLabel = new System.Windows.Forms.Label();
             this._boxCountNumericUpDown = new System.Windows.Forms.NumericUpDown();
@@ -41,7 +42,6 @@
             this._dllBouton = new System.Windows.Forms.Button();
             this._dllOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this._gameLoopTimer = new System.Windows.Forms.Timer(this.components);
-            this._representationButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._boxCountNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._timerTrackBar)).BeginInit();
@@ -49,9 +49,6 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this._representationButton);
             this.panel1.Controls.Add(this._showGridLinesCheckBox);
             this.panel1.Controls.Add(this._boxCountLabel);
@@ -62,11 +59,23 @@
             this.panel1.Controls.Add(this._gameLoopBouton);
             this.panel1.Controls.Add(this._createAnimalsBouton);
             this.panel1.Controls.Add(this._dllBouton);
-            this.panel1.Location = new System.Drawing.Point(2, 2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(690, 116);
+            this.panel1.Size = new System.Drawing.Size(693, 120);
             this.panel1.TabIndex = 0;
+            // 
+            // _representationButton
+            // 
+            this._representationButton.Enabled = false;
+            this._representationButton.Location = new System.Drawing.Point(160, 31);
+            this._representationButton.Name = "_representationButton";
+            this._representationButton.Size = new System.Drawing.Size(98, 26);
+            this._representationButton.TabIndex = 9;
+            this._representationButton.Text = "Representation";
+            this._representationButton.UseVisualStyleBackColor = true;
+            this._representationButton.Click += new System.EventHandler(this._representationButton_Click);
             // 
             // _showGridLinesCheckBox
             // 
@@ -188,17 +197,6 @@
             // 
             this._gameLoopTimer.Interval = 10000;
             this._gameLoopTimer.Tick += new System.EventHandler(this._gameLoopTimer_Tick);
-            // 
-            // _representationButton
-            // 
-            this._representationButton.Enabled = false;
-            this._representationButton.Location = new System.Drawing.Point(160, 31);
-            this._representationButton.Name = "_representationButton";
-            this._representationButton.Size = new System.Drawing.Size(98, 26);
-            this._representationButton.TabIndex = 9;
-            this._representationButton.Text = "Representation";
-            this._representationButton.UseVisualStyleBackColor = true;
-            this._representationButton.Click += new System.EventHandler(this._representationButton_Click);
             // 
             // ControlPanel
             // 

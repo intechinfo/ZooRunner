@@ -31,34 +31,45 @@ namespace ZooRunner.GUI
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            this._informations = new ZooRunner.GUI.Informations();
             this._zooViewPortControl = new ZooRunner.ZooViewPortControl();
             this._controlPanel = new ZooRunner.GUI.ControlPanel();
             this.SuspendLayout();
+            // 
+            // _informations
+            // 
+            this._informations.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this._informations.Location = new System.Drawing.Point(711, 445);
+            this._informations.Name = "_informations";
+            this._informations.Size = new System.Drawing.Size(232, 101);
+            this._informations.TabIndex = 6;
             // 
             // _zooViewPortControl
             // 
             this._zooViewPortControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this._zooViewPortControl.AnimalsRepresentation = null;
             this._zooViewPortControl.BackColor = System.Drawing.SystemColors.Control;
             this._zooViewPortControl.BoxCount = 20;
             this._zooViewPortControl.Enabled = false;
             this._zooViewPortControl.Location = new System.Drawing.Point(12, 12);
             this._zooViewPortControl.Name = "_zooViewPortControl";
             this._zooViewPortControl.ShowGridLines = false;
-            this._zooViewPortControl.Size = new System.Drawing.Size(775, 427);
+            this._zooViewPortControl.Size = new System.Drawing.Size(929, 427);
             this._zooViewPortControl.TabIndex = 5;
             this._zooViewPortControl.Text = "zooViewPortControl";
             this._zooViewPortControl.MouseLeaveControl += new System.EventHandler(this.OnMouseLeaveControl);
+            this._zooViewPortControl.AreaChanged += new System.EventHandler<string>(this.OnAreaChanged);
             // 
             // _controlPanel
             // 
             this._controlPanel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this._controlPanel.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this._controlPanel.Location = new System.Drawing.Point(12, 444);
+            this._controlPanel.Location = new System.Drawing.Point(15, 444);
             this._controlPanel.Margin = new System.Windows.Forms.Padding(2);
             this._controlPanel.Name = "_controlPanel";
-            this._controlPanel.Size = new System.Drawing.Size(775, 101);
+            this._controlPanel.Size = new System.Drawing.Size(691, 101);
             this._controlPanel.TabIndex = 4;
             this._controlPanel.UserGivesDll += new System.EventHandler<ZooRunner.ZooAdapter>(this.OnUserGivesDll);
             this._controlPanel.TimerTick += new System.EventHandler<System.Collections.Generic.List<ZooRunner.AnimalAdapter>>(this.OnTimerTick);
@@ -70,7 +81,8 @@ namespace ZooRunner.GUI
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(798, 556);
+            this.ClientSize = new System.Drawing.Size(953, 556);
+            this.Controls.Add(this._informations);
             this.Controls.Add(this._zooViewPortControl);
             this.Controls.Add(this._controlPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -84,6 +96,7 @@ namespace ZooRunner.GUI
         #endregion
         private ControlPanel _controlPanel;
         private ZooViewPortControl _zooViewPortControl;
+        private Informations _informations;
     }
 }
 

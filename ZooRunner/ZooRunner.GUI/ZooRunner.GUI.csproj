@@ -68,6 +68,12 @@
       <DependentUpon>CreateAnimals.cs</DependentUpon>
     </Compile>
     <Compile Include="Driver.cs" />
+    <Compile Include="Informations.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Informations.Designer.cs">
+      <DependentUpon>Informations.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +103,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CreateAnimals.resx">
       <DependentUpon>CreateAnimals.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Informations.resx">
+      <DependentUpon>Informations.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
