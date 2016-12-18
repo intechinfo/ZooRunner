@@ -41,6 +41,7 @@ namespace ZooRunner
         public event EventHandler MouseLeaveControl;
         public event EventHandler<string> AreaChanged;
 
+
         void _viewPort_AreaChanged(object sender, EventArgs e)
         {
             DisplayInfo();
@@ -204,13 +205,24 @@ namespace ZooRunner
 
         void DisplayInfo()
         {
-            StringBuilder b = new StringBuilder();
-            b.Append("ViewPort: ").Append(_viewPort.Area).AppendLine();
-            b.Append("Zoom: ").Append(_viewPort.UserZoomFactor).AppendLine();
-            b.Append("ClientScaleFactor: ").Append(_viewPort.ClientScaleFactor).AppendLine();
-            b.Append("ClientSize: ").Append(this.ClientSize).AppendLine();
-            string informations = b.ToString();
-            AreaChanged?.Invoke(this, informations);
+            if (this.Enabled == true)
+            {
+                StringBuilder b = new StringBuilder();
+                b.Append("ViewPort: ").AppendLine();
+                b.Append(_viewPort.Area).AppendLine();
+                b.Append("Zoom: ").AppendLine();
+                b.Append(_viewPort.UserZoomFactor * 100+"%").AppendLine();
+                b.Append("ClientSize: ").AppendLine();
+                b.Append(this.ClientSize).AppendLine();
+                string informations = b.ToString();
+                AreaChanged?.Invoke(this, informations);
+            }
+        }
+
+        protected override void OnEnabledChanged(EventArgs e)
+        {
+            DisplayInfo();
+            base.OnEnabledChanged(e);
         }
     }
 }

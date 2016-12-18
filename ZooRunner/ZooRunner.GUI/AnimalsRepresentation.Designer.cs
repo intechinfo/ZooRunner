@@ -42,7 +42,7 @@
             // _typeLabel
             // 
             this._typeLabel.AutoSize = true;
-            this._typeLabel.Location = new System.Drawing.Point(12, 91);
+            this._typeLabel.Location = new System.Drawing.Point(12, 70);
             this._typeLabel.Name = "_typeLabel";
             this._typeLabel.Size = new System.Drawing.Size(37, 13);
             this._typeLabel.TabIndex = 0;
@@ -52,7 +52,7 @@
             // 
             this._typeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._typeComboBox.FormattingEnabled = true;
-            this._typeComboBox.Location = new System.Drawing.Point(55, 88);
+            this._typeComboBox.Location = new System.Drawing.Point(55, 67);
             this._typeComboBox.Name = "_typeComboBox";
             this._typeComboBox.Size = new System.Drawing.Size(121, 21);
             this._typeComboBox.TabIndex = 1;
@@ -60,7 +60,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(182, 91);
+            this.label1.Location = new System.Drawing.Point(182, 70);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(85, 13);
             this.label1.TabIndex = 2;
@@ -70,7 +70,7 @@
             // 
             this._figureComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._figureComboBox.FormattingEnabled = true;
-            this._figureComboBox.Location = new System.Drawing.Point(273, 88);
+            this._figureComboBox.Location = new System.Drawing.Point(273, 67);
             this._figureComboBox.Name = "_figureComboBox";
             this._figureComboBox.Size = new System.Drawing.Size(121, 21);
             this._figureComboBox.TabIndex = 3;
@@ -78,7 +78,7 @@
             // _okButton
             // 
             this._okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this._okButton.Location = new System.Drawing.Point(192, 226);
+            this._okButton.Location = new System.Drawing.Point(165, 119);
             this._okButton.Name = "_okButton";
             this._okButton.Size = new System.Drawing.Size(75, 23);
             this._okButton.TabIndex = 4;
@@ -88,7 +88,7 @@
             // _cancelButton
             // 
             this._cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this._cancelButton.Location = new System.Drawing.Point(305, 226);
+            this._cancelButton.Location = new System.Drawing.Point(302, 119);
             this._cancelButton.Name = "_cancelButton";
             this._cancelButton.Size = new System.Drawing.Size(75, 23);
             this._cancelButton.TabIndex = 5;
@@ -97,7 +97,7 @@
             // 
             // _colorButton
             // 
-            this._colorButton.Location = new System.Drawing.Point(400, 86);
+            this._colorButton.Location = new System.Drawing.Point(400, 65);
             this._colorButton.Name = "_colorButton";
             this._colorButton.Size = new System.Drawing.Size(75, 23);
             this._colorButton.TabIndex = 6;
@@ -107,7 +107,7 @@
             // 
             // _modifyButton
             // 
-            this._modifyButton.Location = new System.Drawing.Point(481, 86);
+            this._modifyButton.Location = new System.Drawing.Point(480, 65);
             this._modifyButton.Name = "_modifyButton";
             this._modifyButton.Size = new System.Drawing.Size(75, 23);
             this._modifyButton.TabIndex = 7;
@@ -119,7 +119,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(567, 258);
+            this.ClientSize = new System.Drawing.Size(567, 154);
             this.Controls.Add(this._modifyButton);
             this.Controls.Add(this._colorButton);
             this.Controls.Add(this._cancelButton);
@@ -128,6 +128,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this._typeComboBox);
             this.Controls.Add(this._typeLabel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "AnimalsRepresentation";
             this.Text = "Animals representation";
             this.Load += new System.EventHandler(this.AnimalsRepresentation_Load);

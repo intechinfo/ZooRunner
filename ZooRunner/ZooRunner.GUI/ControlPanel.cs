@@ -38,6 +38,7 @@ namespace ZooRunner.GUI
                 _zoo = ZooAdapter.Load(_dllOpenFileDialog.FileName);
                 UserGivesDll?.Invoke(this, _zoo);
                 this.Text = _dllOpenFileDialog.FileName;
+                _animals.Clear();
                 _createAnimalsBouton.Enabled = true;
                 _gameLoopBouton.Enabled = true;
                 _boxCountLabel.Enabled = true;
@@ -66,6 +67,7 @@ namespace ZooRunner.GUI
                 _timerTrackBar.Enabled = true;
                 _slowLabel.Enabled = true;
                 _fastLabel.Enabled = true;
+                _dllBouton.Enabled = false;
             }
             else
             {
@@ -75,6 +77,7 @@ namespace ZooRunner.GUI
                 _timerTrackBar.Enabled = false;
                 _slowLabel.Enabled = false;
                 _fastLabel.Enabled = false;
+                _dllBouton.Enabled = true;
             }
         }
 

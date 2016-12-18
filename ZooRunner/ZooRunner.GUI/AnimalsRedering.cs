@@ -29,7 +29,6 @@ namespace ZooRunner.GUI
                 _animalsRedering[typeName].Figure = figure;
             }
         }
-
         public Dictionary<string, AnimalsTypeRendering> AnimalsRepresentation => _animalsRedering;
     }
 }

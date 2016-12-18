@@ -15,4 +15,3 @@ C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner\bin\Debug\ZooRunner2.dll
 C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner\bin\Debug\ZooRunner2.pdb
 C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner\obj\Debug\ZooRunner2.dll
 C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner\obj\Debug\ZooRunner2.pdb
-C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner\obj\Debug\ZooRunner.csprojResolveAssemblyReference.cache
