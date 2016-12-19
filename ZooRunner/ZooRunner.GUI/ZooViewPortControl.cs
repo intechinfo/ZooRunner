@@ -31,9 +31,9 @@ namespace ZooRunner
             _viewPort = new ViewPort(_map, 1);
             _viewPort.AreaChanged += _viewPort_AreaChanged;
             _zoomMax = 1000;
-            _zoomMin = 0;
+            _zoomMin = 100;
             _zoomValue = 1000;
-            _zoomScale = 50;
+            _zoomScale = 25;
             _mousePressed = false;
             _mouseDown = new Point();
         }
@@ -209,7 +209,8 @@ namespace ZooRunner
             {
                 StringBuilder b = new StringBuilder();
                 b.Append("ViewPort: ").AppendLine();
-                b.Append(_viewPort.Area).AppendLine();
+                b.Append(_viewPort.Area.Size).AppendLine();
+                b.Append(_viewPort.Area.Location).AppendLine();
                 b.Append("Zoom: ").AppendLine();
                 b.Append(_viewPort.UserZoomFactor * 100+"%").AppendLine();
                 b.Append("ClientSize: ").AppendLine();

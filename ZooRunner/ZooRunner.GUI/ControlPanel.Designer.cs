@@ -61,17 +61,18 @@
             this.panel1.Controls.Add(this._dllBouton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(693, 120);
+            this.panel1.Size = new System.Drawing.Size(924, 148);
             this.panel1.TabIndex = 0;
             // 
             // _representationButton
             // 
             this._representationButton.Enabled = false;
-            this._representationButton.Location = new System.Drawing.Point(160, 31);
+            this._representationButton.Location = new System.Drawing.Point(213, 38);
+            this._representationButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this._representationButton.Name = "_representationButton";
-            this._representationButton.Size = new System.Drawing.Size(98, 26);
+            this._representationButton.Size = new System.Drawing.Size(131, 32);
             this._representationButton.TabIndex = 9;
             this._representationButton.Text = "Representation";
             this._representationButton.UseVisualStyleBackColor = true;
@@ -81,9 +82,10 @@
             // 
             this._showGridLinesCheckBox.AutoSize = true;
             this._showGridLinesCheckBox.Enabled = false;
-            this._showGridLinesCheckBox.Location = new System.Drawing.Point(161, 77);
+            this._showGridLinesCheckBox.Location = new System.Drawing.Point(215, 95);
+            this._showGridLinesCheckBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this._showGridLinesCheckBox.Name = "_showGridLinesCheckBox";
-            this._showGridLinesCheckBox.Size = new System.Drawing.Size(97, 17);
+            this._showGridLinesCheckBox.Size = new System.Drawing.Size(125, 21);
             this._showGridLinesCheckBox.TabIndex = 8;
             this._showGridLinesCheckBox.Text = "Show grid lines";
             this._showGridLinesCheckBox.UseVisualStyleBackColor = true;
@@ -93,28 +95,25 @@
             // 
             this._boxCountLabel.AutoSize = true;
             this._boxCountLabel.Enabled = false;
-            this._boxCountLabel.Location = new System.Drawing.Point(3, 78);
+            this._boxCountLabel.Location = new System.Drawing.Point(4, 96);
+            this._boxCountLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this._boxCountLabel.Name = "_boxCountLabel";
-            this._boxCountLabel.Size = new System.Drawing.Size(61, 13);
+            this._boxCountLabel.Size = new System.Drawing.Size(78, 17);
             this._boxCountLabel.TabIndex = 7;
             this._boxCountLabel.Text = "Box count :";
             // 
             // _boxCountNumericUpDown
             // 
             this._boxCountNumericUpDown.Enabled = false;
-            this._boxCountNumericUpDown.Location = new System.Drawing.Point(63, 76);
-            this._boxCountNumericUpDown.Maximum = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
+            this._boxCountNumericUpDown.Location = new System.Drawing.Point(84, 94);
+            this._boxCountNumericUpDown.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this._boxCountNumericUpDown.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this._boxCountNumericUpDown.Name = "_boxCountNumericUpDown";
-            this._boxCountNumericUpDown.Size = new System.Drawing.Size(92, 20);
+            this._boxCountNumericUpDown.Size = new System.Drawing.Size(123, 22);
             this._boxCountNumericUpDown.TabIndex = 6;
             this._boxCountNumericUpDown.Tag = "";
             this._boxCountNumericUpDown.Value = new decimal(new int[] {
@@ -128,10 +127,9 @@
             // 
             this._fastLabel.AutoSize = true;
             this._fastLabel.Enabled = false;
-            this._fastLabel.Location = new System.Drawing.Point(660, 38);
-            this._fastLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this._fastLabel.Location = new System.Drawing.Point(880, 47);
             this._fastLabel.Name = "_fastLabel";
-            this._fastLabel.Size = new System.Drawing.Size(27, 13);
+            this._fastLabel.Size = new System.Drawing.Size(35, 17);
             this._fastLabel.TabIndex = 5;
             this._fastLabel.Text = "Fast";
             // 
@@ -139,21 +137,20 @@
             // 
             this._slowLabel.AutoSize = true;
             this._slowLabel.Enabled = false;
-            this._slowLabel.Location = new System.Drawing.Point(338, 38);
-            this._slowLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this._slowLabel.Location = new System.Drawing.Point(451, 47);
             this._slowLabel.Name = "_slowLabel";
-            this._slowLabel.Size = new System.Drawing.Size(30, 13);
+            this._slowLabel.Size = new System.Drawing.Size(37, 17);
             this._slowLabel.TabIndex = 4;
             this._slowLabel.Text = "Slow";
             // 
             // _timerTrackBar
             // 
             this._timerTrackBar.Enabled = false;
-            this._timerTrackBar.Location = new System.Drawing.Point(372, 31);
-            this._timerTrackBar.Margin = new System.Windows.Forms.Padding(2);
+            this._timerTrackBar.Location = new System.Drawing.Point(496, 38);
+            this._timerTrackBar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this._timerTrackBar.Minimum = 1;
             this._timerTrackBar.Name = "_timerTrackBar";
-            this._timerTrackBar.Size = new System.Drawing.Size(284, 45);
+            this._timerTrackBar.Size = new System.Drawing.Size(379, 56);
             this._timerTrackBar.TabIndex = 2;
             this._timerTrackBar.Value = 1;
             this._timerTrackBar.ValueChanged += new System.EventHandler(this._timerTrackBar_ValueChanged);
@@ -161,10 +158,10 @@
             // _gameLoopBouton
             // 
             this._gameLoopBouton.Enabled = false;
-            this._gameLoopBouton.Location = new System.Drawing.Point(263, 31);
-            this._gameLoopBouton.Margin = new System.Windows.Forms.Padding(2);
+            this._gameLoopBouton.Location = new System.Drawing.Point(351, 38);
+            this._gameLoopBouton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this._gameLoopBouton.Name = "_gameLoopBouton";
-            this._gameLoopBouton.Size = new System.Drawing.Size(71, 26);
+            this._gameLoopBouton.Size = new System.Drawing.Size(95, 32);
             this._gameLoopBouton.TabIndex = 2;
             this._gameLoopBouton.Text = "Game loop";
             this._gameLoopBouton.UseVisualStyleBackColor = true;
@@ -173,10 +170,10 @@
             // _createAnimalsBouton
             // 
             this._createAnimalsBouton.Enabled = false;
-            this._createAnimalsBouton.Location = new System.Drawing.Point(63, 31);
-            this._createAnimalsBouton.Margin = new System.Windows.Forms.Padding(2);
+            this._createAnimalsBouton.Location = new System.Drawing.Point(84, 38);
+            this._createAnimalsBouton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this._createAnimalsBouton.Name = "_createAnimalsBouton";
-            this._createAnimalsBouton.Size = new System.Drawing.Size(92, 26);
+            this._createAnimalsBouton.Size = new System.Drawing.Size(123, 32);
             this._createAnimalsBouton.TabIndex = 1;
             this._createAnimalsBouton.Text = "Create animals";
             this._createAnimalsBouton.UseVisualStyleBackColor = true;
@@ -184,10 +181,10 @@
             // 
             // _dllBouton
             // 
-            this._dllBouton.Location = new System.Drawing.Point(2, 31);
-            this._dllBouton.Margin = new System.Windows.Forms.Padding(2);
+            this._dllBouton.Location = new System.Drawing.Point(3, 38);
+            this._dllBouton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this._dllBouton.Name = "_dllBouton";
-            this._dllBouton.Size = new System.Drawing.Size(56, 26);
+            this._dllBouton.Size = new System.Drawing.Size(75, 32);
             this._dllBouton.TabIndex = 0;
             this._dllBouton.Text = "DLL";
             this._dllBouton.UseVisualStyleBackColor = true;
@@ -200,12 +197,12 @@
             // 
             // ControlPanel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "ControlPanel";
-            this.Size = new System.Drawing.Size(693, 120);
+            this.Size = new System.Drawing.Size(924, 148);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._boxCountNumericUpDown)).EndInit();
