@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -71,5 +72,11 @@ namespace ZooSample
         }
 
         public double MeterDefinition => 0.001;
+
+        public Color ColorAt(double x,double y)
+        {
+            
+            return Color.Chartreuse;
+        }
     }
 }
