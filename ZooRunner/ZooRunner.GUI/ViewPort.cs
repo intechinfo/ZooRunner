@@ -217,92 +217,76 @@ namespace ZooRunner
 
         internal Point MousePostionTransformation(Map map, Rectangle viewport , Point location, Size controlSize)
         {
-            // Mouse position relation with viewport (Cross product)
             location.X = (location.X * _map.Area.Width) / controlSize.Width;
             location.Y = (location.Y * _map.Area.Height) / controlSize.Height;
             return location;           
         }
 
-        // Optimizable
-        public void DriverAssignment(ZooAdapter zoo, List <AnimalAdapter> animals, AnimalsRedering animalsRepresentation)
+        public void DriverAssignment(ZooAdapter zoo, List<AnimalAdapter> animals, AnimalsRedering animalsRepresentation)
         {
             UnsetDrivers();
 
-            for (int i = 0; i < animals.Count; i++)
+            for (int n = 0; n < animals.Count; n++)
             {
-                double x = 0;
-                double y = 0;
                 bool shortCut = false;
 
-                if (animals[i].X > 0)
-                {
-                    x = animals[i].X * 1000 * zoo.WithInMeter; // 1000 => 1 / meterDefinition
-                    x = (x / zoo.MapSize) * 100;
-                    x = (Map.Area.Width / 2 * x) / 100;
-                    x += Map.Area.Width / 2; 
-                }
+                double borneSupX = -1;
+                double borneInfX = -1;
 
-                else if (animals[i].X < 0)
-                {
-                    x = (animals[i].X * -1) * 1000 * zoo.WithInMeter;
-                    x = (x / zoo.MapSize) * 100;
-                    x = (Map.Area.Width / 2 * x) / 100;
+                double borneSupY = 1;
+                double borneInfY = 1;
 
-                }
-                if (animals[i].Y > 0)
-                {
-                    y = animals[i].Y * 1000 * zoo.WithInMeter;
-                    y = (y / zoo.MapSize) * 100;
-                    y = (Map.Area.Height / 2 * y) / 100;
-                    y += Map.Area.Height / 2;
-                }
+                decimal interval = 2m / (decimal)_map.BoxCount;
 
-                else if(animals[i].Y < 0)
+                for (int i = 0; i < _map.BoxCount; i++)
                 {
-                    y = (animals[i].Y * -1) * 1000 * zoo.WithInMeter;
-                    y = (y / zoo.MapSize) * 100;
-                    y = (Map.Area.Height / 2 * y) / 100;
-                }
-
-                int ligneSupported = _map.BoxWidth;
-                int columnSupported = _map.BoxWidth;
-
-                for (int n = 0; n < _map.BoxCount; n++)
-                {
-                    for (int z = 0; z < _map.BoxCount; z++)
+                    if (i == _map.BoxCount - 1)
                     {
-
-                        if (x < ligneSupported && x > ligneSupported - _map.BoxWidth)
+                        borneInfY = -1;
+                    }
+                    else
+                    {
+                        borneInfY -= (double)interval;
+                    }
+                    for (int y = 0; y < _map.BoxCount; y++)
+                    {
+                        if (y == _map.BoxCount - 1)
                         {
-                            if (y < columnSupported && y > columnSupported - _map.BoxWidth)
-                            {
-                                if(_map[n,z].Driver == null)
-                                {
-                                    Driver driver = new Driver();
-                                    driver.AddAnimal(animals[i]);
-                                    driver.AnimalsRepresentation = animalsRepresentation;
-                                    _map[n, z].Driver = driver;
-                                    
-                                }
-                                else
-                                {
-                                    _map[n, z].Driver.AddAnimal(animals[i]);
-                                }
-                                shortCut = true;
-                                break;                                                      
-                            }
+                            borneSupX = 1;
                         }
-                        columnSupported += _map.BoxWidth;
+                        else
+                        {
+                            borneSupX += (double)interval;
+                        }
+
+                        if (animals[n].X >= borneInfX && animals[n].X <= borneSupX && animals[n].Y <= borneSupY && animals[n].Y >= borneInfY)
+                        {
+                            if (_map[i, y].Driver == null)
+                            {
+                                Driver driver = new Driver();
+                                driver.AddAnimal(animals[n]);
+                                driver.AnimalsRepresentation = animalsRepresentation;
+                                driver.InferiorBoundaryX = borneInfX;
+                                driver.SuperiorBoundaryY = borneSupY;
+                                driver.Interval = (double)interval;
+                                _map[i, y].Driver = driver;
+                            }
+                            else
+                            {
+                                _map[i, y].Driver.AddAnimal(animals[n]);
+                            }
+                            shortCut = true;
+                            break;
+                        }
+                        borneInfX += (double)interval;
                     }
-                    if(shortCut == true)
-                    {
-                        shortCut = false;
-                        break;
-                    }
-                    columnSupported = _map.BoxWidth;
-                    ligneSupported += _map.BoxWidth;
+                    if (shortCut == true) break;
+
+                    borneSupY -= (double)interval;
+                    borneInfX = -1;
+                    borneSupX = -1;
                 }
-            }  
+            }
         }
 
         void UnsetDrivers()
