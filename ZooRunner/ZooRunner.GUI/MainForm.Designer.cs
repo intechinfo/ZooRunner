@@ -52,7 +52,7 @@ namespace ZooRunner.GUI
             | System.Windows.Forms.AnchorStyles.Right)));
             this._zooViewPortControl.AnimalsRepresentation = null;
             this._zooViewPortControl.BackColor = System.Drawing.SystemColors.Control;
-            this._zooViewPortControl.BoxCount = 20;
+            this._zooViewPortControl.BoxCount = 3;
             this._zooViewPortControl.Enabled = false;
             this._zooViewPortControl.Location = new System.Drawing.Point(11, 10);
             this._zooViewPortControl.Name = "_zooViewPortControl";

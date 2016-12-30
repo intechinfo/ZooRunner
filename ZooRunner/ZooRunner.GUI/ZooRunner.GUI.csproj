@@ -86,26 +86,21 @@
     <Compile Include="ZooViewPortControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ViewPortControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ViewPortDemoControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ViewPortDemoControl.Designer.cs">
-      <DependentUpon>ViewPortDemoControl.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="AnimalsRepresentation.resx">
       <DependentUpon>AnimalsRepresentation.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlPanel.resx">
       <DependentUpon>ControlPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateAnimals.resx">
       <DependentUpon>CreateAnimals.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Informations.resx">
       <DependentUpon>Informations.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -119,9 +114,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ViewPortDemoControl.resx">
-      <DependentUpon>ViewPortDemoControl.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

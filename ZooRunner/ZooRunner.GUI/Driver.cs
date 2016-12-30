@@ -20,27 +20,30 @@ namespace ZooRunner.GUI
         {
             for (int i = 0; i < _animals.Count; i++)
             {
-                double x = 0;
-                double y = 0;
+                double doubleX = 0;
+                double doubleY = 0;
 
                 // x
-                x = InferiorBoundaryX - _animals[i].X;
-                x = x / Interval * box.Area.Width;
+                doubleX = InferiorBoundaryX - _animals[i].X;
+                doubleX = doubleX / Interval * box.Area.Width;
 
-                if (x < 0) x = x * -1;
+                if (doubleX < 0) doubleX = doubleX * -1;
 
                 // y
-                y = SuperiorBoundaryY - _animals[i].Y;
-                y = y / Interval * box.Area.Height;
+                doubleY = SuperiorBoundaryY - _animals[i].Y;
+                doubleY = doubleY / Interval * box.Area.Height;
 
-                if (y < 0) y = y * -1;
+                if (doubleY < 0) doubleY = doubleY * -1;
 
                 // Animals size compensation
                 int animalsSize = 100;
-                x -= animalsSize / 2;
-                y -= animalsSize / 2;
+                doubleX -= animalsSize / 2;
+                doubleY -= animalsSize / 2;
 
-                Rectangle animalBody = new Rectangle((int)x, (int)y, animalsSize, animalsSize);
+                int x = (int)doubleX;
+                int y = (int)doubleY;
+
+                Rectangle animalBody = new Rectangle(x, y, animalsSize, animalsSize);
 
                 if (AnimalsRepresentation != null && AnimalsRepresentation.AnimalsRepresentation.ContainsKey(_animals[i].GetType))
                 {
@@ -51,9 +54,58 @@ namespace ZooRunner.GUI
 
                         g.DrawRectangle(customPen, animalBody);
                     }
-                    else
+                    else if(AnimalsRepresentation.AnimalsRepresentation[_animals[i].GetType].Figure == "Ellipse")
                     {
                         g.DrawEllipse(customPen, animalBody);
+                    }
+                    else if(AnimalsRepresentation.AnimalsRepresentation[_animals[i].GetType].Figure == "Triangle")
+                    {
+                        Point one = new Point(x, y);
+                        Point two = new Point(x + animalsSize, y);
+                        Point tree = new Point(x + animalsSize / 2, y + animalsSize);
+
+                        Point[] trianglePoints =
+                        {
+                            one,
+                            two,
+                            tree
+                        };
+
+                        g.DrawPolygon(customPen, trianglePoints);
+                    }
+                    else
+                    {
+                        Point one = new Point(x + animalsSize / 2, y);
+                        Point two = new Point(x +  animalsSize / 3 * 2, y + animalsSize / 4);
+                        Point tree = new Point(x + animalsSize, y + animalsSize / 4);
+                        Point four = new Point(x + animalsSize / 6 * 5, y + animalsSize / 2);
+                        Point five = new Point(x + animalsSize, y + animalsSize / 4 * 3);
+                        Point six = new Point(x + animalsSize / 3 * 2, y + animalsSize / 4 * 3);
+                        Point seven = new Point(x + animalsSize / 2, y + animalsSize);
+                        Point eight = new Point(x + animalsSize / 3, y + animalsSize / 4 * 3);
+                        Point nine = new Point(x, y + animalsSize / 4 * 3);
+                        Point ten = new Point(x + animalsSize / 6, y + animalsSize / 2);
+                        Point eleven = new Point(x, y + animalsSize / 4);
+                        Point twelve = new Point(x + animalsSize / 3 , y + animalsSize / 4);
+
+                        Point[] starPoints =
+                        {
+                            one,
+                            two,
+                            tree,
+                            four,
+                            five,
+                            six,
+                            seven,
+                            eight,
+                            nine,
+                            ten,
+                            eleven,
+                            twelve
+                        };
+
+                        g.DrawPolygon(customPen, starPoints);
+
                     }
                 }
                 else

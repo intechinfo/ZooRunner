@@ -26,7 +26,7 @@ namespace ZooRunner
         public ZooViewPortControl()
         {
             DoubleBuffered = true;
-            _boxCount = 20;
+            _boxCount = 10;
             _map = new Map(10, 11);
             _viewPort = new ViewPort(_map, 1);
             _viewPort.AreaChanged += _viewPort_AreaChanged;
