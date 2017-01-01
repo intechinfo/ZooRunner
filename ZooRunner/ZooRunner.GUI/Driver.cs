@@ -51,7 +51,6 @@ namespace ZooRunner.GUI
 
                     if (AnimalsRepresentation.AnimalsRepresentation[_animals[i].GetType].Figure == "Rectangle")
                     {
-
                         g.DrawRectangle(customPen, animalBody);
                     }
                     else if(AnimalsRepresentation.AnimalsRepresentation[_animals[i].GetType].Figure == "Ellipse")
@@ -73,7 +72,7 @@ namespace ZooRunner.GUI
 
                         g.DrawPolygon(customPen, trianglePoints);
                     }
-                    else
+                    else if(AnimalsRepresentation.AnimalsRepresentation[_animals[i].GetType].Figure == "Star")
                     {
                         Point one = new Point(x + animalsSize / 2, y);
                         Point two = new Point(x +  animalsSize / 3 * 2, y + animalsSize / 4);
@@ -106,6 +105,23 @@ namespace ZooRunner.GUI
 
                         g.DrawPolygon(customPen, starPoints);
 
+                    }
+                    else
+                    {
+                        Point one = new Point(x + animalsSize / 2, y);
+                        Point two = new Point(x + animalsSize, y + animalsSize / 2);
+                        Point tree = new Point(x + animalsSize / 2, y + animalsSize);
+                        Point four = new Point(x, y + animalsSize / 2);
+
+                        Point[] rhombusPoints =
+                        {
+                            one,
+                            two,
+                            tree,
+                            four
+                        };
+
+                        g.DrawPolygon(customPen, rhombusPoints);
                     }
                 }
                 else

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -14,6 +15,7 @@ namespace ZooRunner
         readonly Type _zooType;
         readonly List<AnimalType> _animalTypes;
         readonly MethodInfo _updateMethod;
+        readonly MethodInfo _colorAtMethod;
         readonly double _meterDefinition;
         readonly int _withInMeter;
         readonly int _mapSize;
@@ -25,6 +27,7 @@ namespace ZooRunner
             _zooType = zooType;
             _animalTypes = CreateAnimalTypes( zoo, zooType );
             _updateMethod = _zooType.GetMethod("Update");
+            _colorAtMethod = _zooType.GetMethod("ColorAt");
             _meterDefinition = (double)_zooType.GetProperty("MeterDefinition").GetGetMethod().Invoke(zoo,null);
             _withInMeter = (int)(1 / _meterDefinition) * 2;
             _mapSize = _withInMeter * 1000;
@@ -64,12 +67,18 @@ namespace ZooRunner
 
         public void Update() => _updateMethod.Invoke(_zoo, null);
 
+        public Color ColorAt(double x, double y)
+        {
+            var returnObject = _colorAtMethod.Invoke(_zoo, new object[] { x, y });
+            Color color = (Color)returnObject;
+            return color;
+        }
+
         public int WithInMeter => _withInMeter;
 
         public int MapSize => _mapSize;
 
         public double MeterDefinition => _meterDefinition;
-
          
     }
 }

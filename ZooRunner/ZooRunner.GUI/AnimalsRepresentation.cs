@@ -35,6 +35,7 @@ namespace ZooRunner.GUI
             _figureComboBox.Items.Add("Rectangle");
             _figureComboBox.Items.Add("Ellipse");
             _figureComboBox.Items.Add("Triangle");
+            _figureComboBox.Items.Add("Rhombus");
             _figureComboBox.Items.Add("Star");
             _figureComboBox.SelectedIndex = 0;
         }
