@@ -75,10 +75,11 @@ namespace ZooSample
 
         public Color ColorAt(double x,double y)
         {
-            if(x == 1 && y == 1)
+            if (x == y)
             {
                 return Color.Black;
             }
+
             return Color.Chartreuse;
         }
     }

@@ -141,9 +141,9 @@ namespace ZooRunner.GUI
 
         private void DrawBiomes(Box box, Graphics g, Rectangle rectSource)
         {
-            for (int i = 0; i <= box.Area.Height; i += 100) // 100 => number of biome in a box
+            for (int i = 0; i <= box.Area.Height; i += 10) // 100 => number of biome in a box
             {
-                for (int n = 0; n <= box.Area.Width; n += 100)
+                for (int n = 0; n <= box.Area.Width; n += 10)
                 {
                     decimal offsetN = (decimal)n / (decimal)box.Area.Width * 100;
                     double x = InferiorBoundaryX + Interval / 100 * (double)offsetN;
@@ -151,9 +151,39 @@ namespace ZooRunner.GUI
                     decimal offsetI = (decimal)i / (decimal)box.Area.Height * 100;
                     double y = SuperiorBoundaryY - Interval / 100 * (double)offsetI;
 
+                    x = Math.Round(x, 5);
+                    y = Math.Round(y, 5);
+
+                    //double x2 = x + Interval / 10;
+                    //double y2 = y;
+
+                    //double x3 = x + Interval / 10;
+                    //double y3 = y - Interval / 10;
+
+                    //double x4 = x;
+                    //double y4 = y - Interval / 10;
+
+                    //double x5 = x + (Interval / 10) / 2;
+                    //double y5 = y - (Interval / 10) / 2;
+
+                    //Color intermediateColor = Zoo.ColorAt(x, y);
+                    //Color intermediateColor2 = Zoo.ColorAt(x2, y2);
+                    //Color intermediateColor3 = Zoo.ColorAt(x3, y3);
+                    //Color intermediateColor4 = Zoo.ColorAt(x4, y4);
+                    //Color intermediateColor5 = Zoo.ColorAt(x5, y5);
+
+                    //int alpha = (intermediateColor.A + intermediateColor2.A + intermediateColor3.A + intermediateColor4.A + intermediateColor5.A) / 5;
+                    //int red = (intermediateColor.R + intermediateColor2.R + intermediateColor3.R + intermediateColor4.R + intermediateColor5.R) / 5;
+                    //int green = (intermediateColor.G + intermediateColor2.G + intermediateColor3.G + intermediateColor4.G + intermediateColor5.G) / 5;
+                    //int blue = (intermediateColor.B + intermediateColor2.B + intermediateColor3.B + intermediateColor4.B + intermediateColor5.B) / 5;
+
+                    //Color biomeColor = Color.FromArgb(alpha, red, green, blue);
+
                     Color biomeColor = Zoo.ColorAt(x, y);
                     Brush biomeBrush = new SolidBrush(biomeColor);
-                    Rectangle biome = new Rectangle(n, i, 100, 100);
+                    Pen biomePen = new Pen(biomeColor);
+                    Rectangle biome = new Rectangle(n, i, 10, 10);
+
                     g.FillRectangle(biomeBrush, biome);
                 }
             }
