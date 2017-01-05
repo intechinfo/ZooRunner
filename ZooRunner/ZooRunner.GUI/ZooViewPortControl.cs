@@ -184,7 +184,7 @@ namespace ZooRunner
 
         public void TimerTick(List<AnimalAdapter> animals)
         {
-            _viewPort.DriverAssignment(_zoo, animals, AnimalsRepresentation);
+            _viewPort.DriversAssignment(_zoo, animals, AnimalsRepresentation);
             Invalidate();
         }
 

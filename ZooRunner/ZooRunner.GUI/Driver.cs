@@ -18,6 +18,8 @@ namespace ZooRunner.GUI
 
         public void Draw(Box box, Graphics g, Rectangle rectSource, float scaleFactor)
         {
+            DrawBiomes(box, g, rectSource);
+
             for (int i = 0; i < _animals.Count; i++)
             {
                 double doubleX = 0;
@@ -137,6 +139,26 @@ namespace ZooRunner.GUI
             _animals.Add(animal);
         }
 
+        private void DrawBiomes(Box box, Graphics g, Rectangle rectSource)
+        {
+            for (int i = 0; i <= box.Area.Height; i += 100) // 100 => number of biome in a box
+            {
+                for (int n = 0; n <= box.Area.Width; n += 100)
+                {
+                    decimal offsetN = (decimal)n / (decimal)box.Area.Width * 100;
+                    double x = InferiorBoundaryX + Interval / 100 * (double)offsetN;
+
+                    decimal offsetI = (decimal)i / (decimal)box.Area.Height * 100;
+                    double y = SuperiorBoundaryY - Interval / 100 * (double)offsetI;
+
+                    Color biomeColor = Zoo.ColorAt(x, y);
+                    Brush biomeBrush = new SolidBrush(biomeColor);
+                    Rectangle biome = new Rectangle(n, i, 100, 100);
+                    g.FillRectangle(biomeBrush, biome);
+                }
+            }
+        }
+
         public AnimalsRedering AnimalsRepresentation { get; set; }
 
         public double Interval { get; set; }
@@ -145,5 +167,8 @@ namespace ZooRunner.GUI
 
         public double SuperiorBoundaryY { get; set; }
 
+        public ZooAdapter Zoo { get; set; }
+
+        public int BoxCount { get; set; }
     }
 }

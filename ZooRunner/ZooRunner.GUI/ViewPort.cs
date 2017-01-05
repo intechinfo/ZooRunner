@@ -222,19 +222,19 @@ namespace ZooRunner
             return location;           
         }
 
-        public void DriverAssignment(ZooAdapter zoo, List<AnimalAdapter> animals, AnimalsRedering animalsRepresentation)
+        public void DriversAssignment(ZooAdapter zoo, List<AnimalAdapter> animals, AnimalsRedering animalsRepresentation)
         {
-            UnsetDrivers();
+            SetDriver(zoo, animalsRepresentation);
 
             for (int n = 0; n < animals.Count; n++)
             {
                 bool shortCut = false;
 
-                double borneSupX = -1;
-                double borneInfX = -1;
+                double supBoundaryX = -1;
+                double infBoundaryX = -1;
 
-                double borneSupY = 1;
-                double borneInfY = 1;
+                double supBoundaryY = 1;
+                double infBoundaryY = 1;
 
                 decimal interval = 2m / (decimal)_map.BoxCount;
 
@@ -242,61 +242,71 @@ namespace ZooRunner
                 {
                     if (i == _map.BoxCount - 1)
                     {
-                        borneInfY = -1;
+                        infBoundaryY = -1;
                     }
                     else
                     {
-                        borneInfY -= (double)interval;
+                        infBoundaryY -= (double)interval;
                     }
                     for (int y = 0; y < _map.BoxCount; y++)
                     {
                         if (y == _map.BoxCount - 1)
                         {
-                            borneSupX = 1;
+                            supBoundaryX = 1;
                         }
                         else
                         {
-                            borneSupX += (double)interval;
+                            supBoundaryX += (double)interval;
                         }
-
-                        if (animals[n].X >= borneInfX && animals[n].X <= borneSupX && animals[n].Y <= borneSupY && animals[n].Y >= borneInfY)
+                        if (animals[n].X >= infBoundaryX && animals[n].X <= supBoundaryX && animals[n].Y <= supBoundaryY && animals[n].Y >= infBoundaryY)
                         {
-                            if (_map[i, y].Driver == null)
-                            {
-                                Driver driver = new Driver();
-                                driver.AddAnimal(animals[n]);
-                                driver.AnimalsRepresentation = animalsRepresentation;
-                                driver.InferiorBoundaryX = borneInfX;
-                                driver.SuperiorBoundaryY = borneSupY;
-                                driver.Interval = (double)interval;
-                                _map[i, y].Driver = driver;
-                            }
-                            else
-                            {
-                                _map[i, y].Driver.AddAnimal(animals[n]);
-                            }
+                            _map[i, y].Driver.AddAnimal(animals[n]);                            
+
                             shortCut = true;
                             break;
                         }
-                        borneInfX += (double)interval;
+                        infBoundaryX += (double)interval;
                     }
                     if (shortCut == true) break;
 
-                    borneSupY -= (double)interval;
-                    borneInfX = -1;
-                    borneSupX = -1;
+                    supBoundaryY -= (double)interval;
+                    infBoundaryX = -1;
+                    supBoundaryX = -1;
                 }
             }
         }
 
-        void UnsetDrivers()
+        public void SetDriver(ZooAdapter zoo, AnimalsRedering animalsRepresentation)
         {
-            for(int i = 0; i < _map.BoxCount; i++)
+            double supBoundaryX = -1;
+            double infBoundaryX = -1;
+
+            double supBoundaryY = 1;
+            double infBoundaryY = 1;
+
+            decimal interval = 2m / (decimal)_map.BoxCount;
+
+            for (int i = 0; i < _map.BoxCount; i++)
             {
-                for(int n = 0; n < _map.BoxCount; n++)
+                infBoundaryY -= (double)interval;
+
+                for (int y = 0; y < _map.BoxCount; y++)
                 {
-                    _map[i, n].Driver = null;
+                    supBoundaryX += (double)interval;
+
+                    Driver driver = new Driver();
+                    driver.InferiorBoundaryX = infBoundaryX;
+                    driver.SuperiorBoundaryY = supBoundaryY;
+                    driver.Interval = (double)interval;
+                    driver.Zoo = zoo;
+                    driver.AnimalsRepresentation = animalsRepresentation;
+                    _map[i, y].Driver = driver;
+
+                    infBoundaryX += (double)interval;
                 }
+                supBoundaryY -= (double)interval;
+                infBoundaryX = -1;
+                supBoundaryX = -1;
             }
         }
     }
