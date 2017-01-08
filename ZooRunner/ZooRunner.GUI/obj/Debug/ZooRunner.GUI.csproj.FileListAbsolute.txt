@@ -43,3 +43,4 @@ C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner.GUI\obj\Debug\ZooRunner.GUI.csproj.Gene
 C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner.GUI\obj\Debug\ZooRunner.GUI.ControlPanel.resources
 C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner.GUI\obj\Debug\ZooRunner.GUI.AnimalsRepresentation.resources
 C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner.GUI\obj\Debug\ZooRunner.GUI.Informations.resources
+C:\Dev\ITI.ZooRunner\ZooRunner\ZooRunner.GUI\obj\Debug\ZooRunner.GUI.Scale.resources

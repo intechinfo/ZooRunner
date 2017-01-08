@@ -17,7 +17,7 @@ namespace ZooRunner
         readonly MethodInfo _updateMethod;
         readonly MethodInfo _colorAtMethod;
         readonly double _meterDefinition;
-        readonly int _withInMeter;
+        readonly int _widthInMeter;
         readonly int _mapSize;
 
         ZooAdapter(object zoo, Type zooType)
@@ -29,8 +29,8 @@ namespace ZooRunner
             _updateMethod = _zooType.GetMethod("Update");
             _colorAtMethod = _zooType.GetMethod("ColorAt");
             _meterDefinition = (double)_zooType.GetProperty("MeterDefinition").GetGetMethod().Invoke(zoo,null);
-            _withInMeter = (int)(1 / _meterDefinition) * 2;
-            _mapSize = _withInMeter * 1000;
+            _widthInMeter = (int)(1 / _meterDefinition) * 2;
+            _mapSize = _widthInMeter * 1000;
         }
 
         public static ZooAdapter Load( string fileName )
@@ -74,7 +74,7 @@ namespace ZooRunner
             return color;
         }
 
-        public int WithInMeter => _withInMeter;
+        public int WithInMeter => _widthInMeter;
 
         public int MapSize => _mapSize;
 

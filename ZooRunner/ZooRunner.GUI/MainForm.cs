@@ -21,6 +21,8 @@ namespace ZooRunner.GUI
         {
             _zooViewPortControl.Enabled = true;
             _zooViewPortControl.SetZoo(e);
+            _scale.MeterDefinition = e.MeterDefinition;
+            _scale.Enabled = true;
         }
 
 
@@ -52,6 +54,11 @@ namespace ZooRunner.GUI
         private void OnAreaChanged(object sender, string e)
         {
             _informations.DisplayInfos(e);
+        }
+
+        private void OnClientScaleFactorChanged(object sender, double e)
+        {
+            _scale.ClientScaleFactor = e;
         }
     }
 }

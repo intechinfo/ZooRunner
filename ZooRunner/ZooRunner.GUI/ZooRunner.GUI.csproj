@@ -82,6 +82,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scale.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scale.Designer.cs">
+      <DependentUpon>Scale.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewPort.cs" />
     <Compile Include="ZooViewPortControl.cs">
       <SubType>Component</SubType>
@@ -114,6 +120,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Scale.resx">
+      <DependentUpon>Scale.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
