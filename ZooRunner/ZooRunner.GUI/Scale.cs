@@ -116,14 +116,14 @@ namespace ZooRunner.GUI
                 int medianeScale = sizeInPixel / 2;
 
 
-                Point a = new Point(medianeForm - medianeScale, this.Size.Height / 2);
-                Point b = new Point(medianeForm + medianeScale - 1, this.Size.Height / 2);
+                Point a = new Point(medianeForm - medianeScale, this.Size.Height - 5);
+                Point b = new Point(medianeForm + medianeScale - 1, this.Size.Height - 5);
 
                 Point c = new Point(a.X, a.Y - 5);
                 Point d = new Point(b.X, b.Y - 5);
 
-                Point f = new Point(medianeForm, this.Size.Height / 2);
-                Point g = new Point(medianeForm, this.Size.Height / 2 - 5);
+                Point f = new Point(medianeForm, this.Size.Height - 5);
+                Point g = new Point(f.X, f.Y - 5);
 
 
                 e.Graphics.DrawLine(pen, a, b);

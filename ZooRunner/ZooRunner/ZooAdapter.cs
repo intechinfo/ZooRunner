@@ -29,8 +29,8 @@ namespace ZooRunner
             _updateMethod = _zooType.GetMethod("Update");
             _colorAtMethod = _zooType.GetMethod("ColorAt");
             _meterDefinition = (double)_zooType.GetProperty("MeterDefinition").GetGetMethod().Invoke(zoo,null);
-            _widthInMeter = (int)(1 / _meterDefinition) * 2;
-            _mapSize = _widthInMeter * 1000;
+            _widthInMeter = (int)(1 / _meterDefinition) * 2; // in meters
+            _mapSize = _widthInMeter * 1000; // in cetimeters
         }
 
         public static ZooAdapter Load( string fileName )
@@ -78,7 +78,6 @@ namespace ZooRunner
 
         public int MapSize => _mapSize;
 
-        public double MeterDefinition => _meterDefinition;
-         
+        public double MeterDefinition => _meterDefinition;         
     }
 }

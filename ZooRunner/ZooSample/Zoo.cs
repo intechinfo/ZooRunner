@@ -71,7 +71,7 @@ namespace ZooSample
             foreach (Animal a in _animals.Values) a.Update();
         }
 
-        public double MeterDefinition => 0.01;
+        public double MeterDefinition => 0.001;
 
         public Color ColorAt(double x,double y)
         {

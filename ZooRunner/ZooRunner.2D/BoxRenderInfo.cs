@@ -22,7 +22,7 @@ namespace ZooRunner
             OffsetY = offsetY;
         }
 
-        static Pen _gridPen = new Pen(Color.Red, 1.0f);
+        static Pen _gridPen = new Pen(Color.Black, 1.0f);
 
         public void Draw( Graphics g, float scaleFactor, bool showGridLines)
         {
