@@ -79,7 +79,6 @@ namespace ZooSample
             {
                 return Color.Black;
             }
-
             return Color.Chartreuse;
         }
     }

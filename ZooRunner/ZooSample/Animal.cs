@@ -48,6 +48,5 @@ namespace ZooSample
         }
 
         internal abstract void Update();
-
     }
 }

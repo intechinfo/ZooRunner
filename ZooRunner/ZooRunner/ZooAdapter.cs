@@ -19,6 +19,7 @@ namespace ZooRunner
         readonly double _meterDefinition;
         readonly int _widthInMeter;
         readonly int _mapSize;
+        readonly MethodInfo _findMethod;
 
         ZooAdapter(object zoo, Type zooType)
         {
@@ -31,6 +32,7 @@ namespace ZooRunner
             _meterDefinition = (double)_zooType.GetProperty("MeterDefinition").GetGetMethod().Invoke(zoo,null);
             _widthInMeter = (int)(1 / _meterDefinition) * 2; // in meters
             _mapSize = _widthInMeter * 1000; // in cetimeters
+            _findMethod = _zooType.GetMethod("Find");
         }
 
         public static ZooAdapter Load( string fileName )
@@ -72,6 +74,12 @@ namespace ZooRunner
             var returnObject = _colorAtMethod.Invoke(_zoo, new object[] { x, y });
             Color color = (Color)returnObject;
             return color;
+        }
+
+        public void Find(AnimalAdapter animal)
+        {
+            //_findMethod.MakeGenericMethod(typeof(AnimalAdapter)).Invoke(_zoo, new object[] { animal.Name });
+            //_findMethod.Invoke(_zoo, new object[] { animal.Name });
         }
 
         public int WithInMeter => _widthInMeter;

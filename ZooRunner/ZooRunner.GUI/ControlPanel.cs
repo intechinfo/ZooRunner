@@ -107,7 +107,7 @@ namespace ZooRunner.GUI
             AnimalsRepresentation representation = new AnimalsRepresentation(_zoo, _animalsRedering);
             if (representation.ShowDialog() == DialogResult.OK)
             {
-                AnimalsRederingChange?.Invoke(this, _animalsRedering); // bug ici (même adresse mémoire), crée une liste intermediaire
+                AnimalsRederingChange?.Invoke(this, _animalsRedering); // bug ici (même adresse mémoire), créer une liste intermediaire
             }
             representation.Dispose();
         }
