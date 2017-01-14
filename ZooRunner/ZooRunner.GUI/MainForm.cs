@@ -22,6 +22,7 @@ namespace ZooRunner.GUI
             _zooViewPortControl.Enabled = true;
             _zooViewPortControl.SetZoo(e);
             _scale.MeterDefinition = e.MeterDefinition;
+            _scale.MapWithInMeter = e.WithInMeter;
             _scale.Enabled = true;
         }
 

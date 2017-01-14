@@ -14,6 +14,7 @@ namespace ZooRunner.GUI
     {
         double _clientScaleFactor;
         double _meterDefinition;
+        int _mapWithInMeter;
 
         public Scale()
         {
@@ -35,6 +36,14 @@ namespace ZooRunner.GUI
             set
             {
                 _meterDefinition = value;
+            }
+        }
+
+        public int MapWithInMeter
+        {
+            set
+            {
+                _mapWithInMeter = value;
             }
         }
 
