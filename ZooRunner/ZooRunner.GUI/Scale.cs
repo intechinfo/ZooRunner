@@ -12,7 +12,7 @@ namespace ZooRunner.GUI
 {
     public partial class Scale : UserControl
     {
-        double _clientScaleFactor;
+        double _userZoomFactor;
         double _meterDefinition;
         int _mapWithInMeter;
 
@@ -21,12 +21,12 @@ namespace ZooRunner.GUI
             InitializeComponent();
         }
 
-        public double ClientScaleFactor
+        public double UserZoomFactor
         {
             set
             {
-                if (value == _clientScaleFactor) return;
-                _clientScaleFactor = value;
+                if (value == _userZoomFactor) return;
+                _userZoomFactor = value;
                 Invalidate();
             }
         }
@@ -59,67 +59,13 @@ namespace ZooRunner.GUI
                 string left;
                 string middle;
 
-                if (_clientScaleFactor > 0.8)
-                {
-                    sizeInMeter = 5;
-                    left = "0";
-                    middle = "2.5";
-                    right = "5";
+                sizeInMeter = this.Width / 2;
+                left = "0";
+                middle = "500";
+                right = "1000";
 
-                }
-                else if (_clientScaleFactor > 0.3)
-                {
-                    sizeInMeter = 10;
-                    left = "0";
-                    middle = "5";
-                    right = "10";
-
-                }
-                else if (_clientScaleFactor > 0.15)
-                {
-                    sizeInMeter = 20;
-                    left = "0";
-                    middle = "10";
-                    right = "20";
-
-                }
-                else if (_clientScaleFactor > 0.05)
-                {
-                    sizeInMeter = 50;
-                    left = "0";
-                    middle = "25";
-                    right = "50";
-                }
-                else if (_clientScaleFactor > 0.025)
-                {
-                    sizeInMeter = 100;
-                    left = "0";
-                    middle = "50";
-                    right = "100";
-                }
-                else if (_clientScaleFactor > 0.012)
-                {
-                    sizeInMeter = 200;
-                    left = "0";
-                    middle = "100";
-                    right = "200";
-                }
-                else
-                {
-                    sizeInMeter = 500;
-                    left = "0";
-                    middle = "250";
-                    right = "500";
-                }
-
-                double step = sizeInMeter / 0.01;
-                step = step * _clientScaleFactor;
+                double step = sizeInMeter * _userZoomFactor;
                 int sizeInPixel = (int)step;
-
-                if (sizeInPixel > this.Size.Width)
-                {
-                    sizeInPixel = this.Size.Width;
-                }
 
                 int medianeForm = this.Size.Width / 2;
                 int medianeScale = sizeInPixel / 2;

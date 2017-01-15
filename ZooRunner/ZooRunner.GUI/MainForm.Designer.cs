@@ -75,7 +75,7 @@ namespace ZooRunner.GUI
             this._zooViewPortControl.Text = "zooViewPortControl";
             this._zooViewPortControl.MouseLeaveControl += new System.EventHandler(this.OnMouseLeaveControl);
             this._zooViewPortControl.AreaChanged += new System.EventHandler<string>(this.OnAreaChanged);
-            this._zooViewPortControl.ClientScaleFactorChanged += new System.EventHandler<double>(this.OnClientScaleFactorChanged);
+            this._zooViewPortControl.UserZoomFactorChanged += new System.EventHandler<double>(this.OnUserZoomFactorChanged);
             // 
             // _controlPanel
             // 
@@ -103,7 +103,7 @@ namespace ZooRunner.GUI
             this.Controls.Add(this._zooViewPortControl);
             this.Controls.Add(this._controlPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(942, 570);
             this.Name = "MainForm";
             this.Text = "ZooRunner";

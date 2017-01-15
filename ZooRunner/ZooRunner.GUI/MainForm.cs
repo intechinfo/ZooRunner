@@ -57,9 +57,9 @@ namespace ZooRunner.GUI
             _informations.DisplayInfos(e);
         }
 
-        private void OnClientScaleFactorChanged(object sender, double e)
+        private void OnUserZoomFactorChanged(object sender, double e)
         {
-            _scale.ClientScaleFactor = e;
+            _scale.UserZoomFactor = e;
         }
     }
 }
