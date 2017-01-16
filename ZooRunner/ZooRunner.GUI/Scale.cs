@@ -12,64 +12,73 @@ namespace ZooRunner.GUI
 {
     public partial class Scale : UserControl
     {
-        double _userZoomFactor;
-        double _meterDefinition;
-        int _mapWithInMeter;
+        int _zooWithInMeter;
+        int _viewPortWidth;
+        int _mapWidth;
 
         public Scale()
         {
             InitializeComponent();
         }
 
-        public double UserZoomFactor
+        public int ZooWithInMeter
         {
             set
             {
-                if (value == _userZoomFactor) return;
-                _userZoomFactor = value;
+                _zooWithInMeter = value;
+            }
+        }
+
+        public int MapWith
+        {
+            set
+            {
+                _mapWidth = value;
+            }
+        }
+
+        public int ViewPortWidth
+        {
+            set
+            {
+                if (_viewPortWidth == value) return;
+                _viewPortWidth = value;
                 Invalidate();
-            }
-        }
-
-        public double MeterDefinition
-        {
-            set
-            {
-                _meterDefinition = value;
-            }
-        }
-
-        public int MapWithInMeter
-        {
-            set
-            {
-                _mapWithInMeter = value;
             }
         }
 
         private void scale_Paint(object sender, PaintEventArgs e)
         {
-            if (this.Enabled)
+            if (this.Enabled && _mapWidth != 0 && _viewPortWidth != 0)
             {
                 Pen pen = new Pen(Color.Black);
                 Font drawFont = new Font("Arial", 16);
                 SolidBrush drawBrush = new SolidBrush(Color.Black);
-                int sizeInMeter;
-                string right;
-                string left;
-                string middle;
 
-                sizeInMeter = this.Width / 2;
-                left = "0";
-                middle = "500";
-                right = "1000";
+                int left = 0;
+                int middle = _zooWithInMeter / 4;
+                int right = _zooWithInMeter / 2;
 
-                double step = sizeInMeter * _userZoomFactor;
-                int sizeInPixel = (int)step;
+                double percentage = (double)_mapWidth / _viewPortWidth * 100;
+                percentage = percentage / 2;
+
+                if(percentage > 70)
+                {
+                    percentage = percentage / 2;
+                    middle = middle / 2;
+                    right = right / 2;
+                }
+                if(percentage > 70)
+                {
+                    percentage = percentage / 2;
+                    middle = middle / 2;
+                    right = right / 2;
+                }
+
+                double sizeInPixel = (this.Size.Width / 100) * percentage;
 
                 int medianeForm = this.Size.Width / 2;
-                int medianeScale = sizeInPixel / 2;
-
+                int medianeScale = (int)sizeInPixel / 2;
 
                 Point a = new Point(medianeForm - medianeScale, this.Size.Height - 5);
                 Point b = new Point(medianeForm + medianeScale - 1, this.Size.Height - 5);

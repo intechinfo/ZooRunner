@@ -40,7 +40,8 @@ namespace ZooRunner
 
         public event EventHandler MouseLeaveControl;
         public event EventHandler<string> AreaChanged;
-        public event EventHandler<double> UserZoomFactorChanged;
+        public event EventHandler<int> ViewPortWidthChanged;
+        public event EventHandler<int> MapWidthChanged;
 
 
         void _viewPort_AreaChanged(object sender, EventArgs e)
@@ -61,7 +62,7 @@ namespace ZooRunner
                     if(_zoo != null )
                     {
                         InitializeMap();
-                        UserZoomFactorChanged?.Invoke(this, _viewPort.UserZoomFactor);
+                        ViewPortWidthChanged?.Invoke(this, _viewPort.Area.Width);
                     }
                 }
             }
@@ -93,7 +94,8 @@ namespace ZooRunner
             _viewPort.ShowGridLines = _showGridLines;
             _viewPort.SetClientSize(ClientSize);
             _viewPort.AreaChanged += _viewPort_AreaChanged;
-            UserZoomFactorChanged?.Invoke(this, _viewPort.UserZoomFactor);
+            ViewPortWidthChanged?.Invoke(this, _viewPort.Area.Width);
+            MapWidthChanged?.Invoke(this, _viewPort.Map.MapWidth);
             Invalidate();
 
             // 10 => One box is 10 meter x 10 meter.
@@ -220,7 +222,7 @@ namespace ZooRunner
                 b.Append(this.ClientSize).AppendLine();
                 string informations = b.ToString();
                 AreaChanged?.Invoke(this, informations);
-                UserZoomFactorChanged?.Invoke(this, _viewPort.UserZoomFactor);
+                ViewPortWidthChanged?.Invoke(this, _viewPort.Area.Width);
             }
         }
 

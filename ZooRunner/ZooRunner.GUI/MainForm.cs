@@ -21,8 +21,7 @@ namespace ZooRunner.GUI
         {
             _zooViewPortControl.Enabled = true;
             _zooViewPortControl.SetZoo(e);
-            _scale.MeterDefinition = e.MeterDefinition;
-            _scale.MapWithInMeter = e.WithInMeter;
+            _scale.ZooWithInMeter = e.WithInMeter;
             _scale.Enabled = true;
         }
 
@@ -57,9 +56,19 @@ namespace ZooRunner.GUI
             _informations.DisplayInfos(e);
         }
 
-        private void OnUserZoomFactorChanged(object sender, double e)
+        private void OnViewPortWidthChanged(object sender, int e)
         {
-            _scale.UserZoomFactor = e;
+            _scale.ViewPortWidth = e;
+        }
+
+        private void OnMapWidthChanged(object sender, int e)
+        {
+            _scale.MapWith = e;
+        }
+
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+            _scale.Invalidate();
         }
     }
 }

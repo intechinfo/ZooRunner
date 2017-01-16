@@ -8,8 +8,8 @@ namespace ZooSample
 {
     public struct Point
     {
-        public readonly double X;
-        public readonly double Y;
+        public double X;
+        public double Y;
 
         public Point(double x, double y)
         {
