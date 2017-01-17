@@ -47,6 +47,11 @@ namespace ZooSample
             return true;
         }
 
+        public void Die()
+        {
+            _ctx.Die(this);
+        }
+
         internal abstract void Update();
     }
 }

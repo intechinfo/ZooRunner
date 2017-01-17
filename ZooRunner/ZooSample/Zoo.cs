@@ -66,6 +66,11 @@ namespace ZooSample
             return b as T;
         }
 
+        public void Die(Animal a)
+        {
+            _animals.Remove(a.Name);
+        }
+
         public void Update()
         {
             foreach (Animal a in _animals.Values) a.Update();

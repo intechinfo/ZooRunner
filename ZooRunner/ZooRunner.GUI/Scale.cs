@@ -74,6 +74,12 @@ namespace ZooRunner.GUI
                     middle = middle / 2;
                     right = right / 2;
                 }
+                if(percentage > 70)
+                {
+                    percentage = percentage / 2;
+                    middle = middle / 2;
+                    right = right / 2;
+                }
 
                 double sizeInPixel = (this.Size.Width / 100) * percentage;
 

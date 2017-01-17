@@ -217,7 +217,8 @@ namespace ZooRunner
                 b.Append(_viewPort.Area.Size).AppendLine();
                 b.Append(_viewPort.Area.Location).AppendLine();
                 b.Append("Zoom: ").AppendLine();
-                b.Append(_viewPort.UserZoomFactor * 100 + "%").AppendLine();
+                //b.Append(_viewPort.UserZoomFactor * 100 + "%").AppendLine();
+                b.Append(_viewPort.ClientScaleFactor).AppendLine();
                 b.Append("ClientSize: ").AppendLine();
                 b.Append(this.ClientSize).AppendLine();
                 string informations = b.ToString();
@@ -231,5 +232,6 @@ namespace ZooRunner
             DisplayInfo();
             base.OnEnabledChanged(e);
         }
+
     }
 }
