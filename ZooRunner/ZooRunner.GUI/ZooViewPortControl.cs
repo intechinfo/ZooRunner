@@ -22,6 +22,8 @@ namespace ZooRunner
         bool _mousePressed;
         Point _mouseDown;
         bool _showGridLines;
+        Cursor _grab;
+        Cursor _grabbing;
 
         public ZooViewPortControl()
         {
@@ -36,6 +38,8 @@ namespace ZooRunner
             _zoomScale = 25;
             _mousePressed = false;
             _mouseDown = new Point();
+            _grab = new Cursor("ifm_grab.cur");
+            _grabbing = new Cursor("ifm_move.cur");
         }
 
         public event EventHandler MouseLeaveControl;
@@ -127,7 +131,7 @@ namespace ZooRunner
         protected override void OnMouseEnter(EventArgs e)
         {
             this.BackColor = Color.White;
-            this.Cursor = Cursors.Hand;
+            this.Cursor = _grabbing;
             this.Focus();
         }
 
@@ -152,7 +156,7 @@ namespace ZooRunner
             {
                 if (!_mousePressed)
                 {
-                    this.Cursor = Cursors.SizeAll;
+                    this.Cursor = _grab;
                     _mousePressed = true;
                     _mouseDown = e.Location;
                 }
@@ -163,7 +167,7 @@ namespace ZooRunner
         {
             if(e.Button == MouseButtons.Left)
             {
-                this.Cursor = Cursors.Hand;
+                this.Cursor = _grabbing;
                 _mousePressed = false;
             }
         }
@@ -217,8 +221,7 @@ namespace ZooRunner
                 b.Append(_viewPort.Area.Size).AppendLine();
                 b.Append(_viewPort.Area.Location).AppendLine();
                 b.Append("Zoom: ").AppendLine();
-                //b.Append(_viewPort.UserZoomFactor * 100 + "%").AppendLine();
-                b.Append(_viewPort.ClientScaleFactor).AppendLine();
+                b.Append(_viewPort.UserZoomFactor * 100 + "%").AppendLine();
                 b.Append("ClientSize: ").AppendLine();
                 b.Append(this.ClientSize).AppendLine();
                 string informations = b.ToString();
