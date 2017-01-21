@@ -48,7 +48,7 @@ namespace ZooRunner.GUI
 
         private void OnAnimalsRederingChange(object sender, AnimalsRedering e)
         {
-            _zooViewPortControl.AnimalsRepresentation = e;
+            _zooViewPortControl.AnimalsShapes = e;
         }
 
         private void OnAreaChanged(object sender, string e)

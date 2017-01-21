@@ -28,10 +28,25 @@ namespace ZooRunner
             _zooType = zooType;
             _animalTypes = CreateAnimalTypes( zoo, zooType );
             _updateMethod = _zooType.GetMethod("Update");
-            _colorAtMethod = _zooType.GetMethod("ColorAt");
-            _meterDefinition = (double)_zooType.GetProperty("MeterDefinition").GetGetMethod().Invoke(zoo,null);
-            _widthInMeter = (int)(1 / _meterDefinition) * 2; // in meters
-            _mapSize = _widthInMeter * 1000; // in cetimeters
+            try
+            {
+                _colorAtMethod = _zooType.GetMethod("ColorAt");
+            }
+            catch(Exception)
+            {
+                _colorAtMethod = null;
+            }
+            
+            try
+            {
+                _meterDefinition = (double)_zooType.GetProperty("MeterDefinition").GetGetMethod().Invoke(zoo, null);
+            }
+            catch(Exception)
+            {
+                _meterDefinition = 0.001;
+            }           
+            _widthInMeter = (int)(1 / _meterDefinition) * 2;
+            _mapSize = _widthInMeter * 1000;
             _findMethod = _zooType.GetMethod("Find");
         }
 
@@ -86,6 +101,6 @@ namespace ZooRunner
 
         public int MapSize => _mapSize;
 
-        public double MeterDefinition => _meterDefinition;         
+        public double MeterDefinition => _meterDefinition;     
     }
 }

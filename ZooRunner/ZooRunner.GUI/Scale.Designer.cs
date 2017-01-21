@@ -32,12 +32,13 @@
             // 
             // Scale
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Enabled = false;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Scale";
-            this.Padding = new System.Windows.Forms.Padding(4);
-            this.Size = new System.Drawing.Size(1208, 100);
+            this.Padding = new System.Windows.Forms.Padding(3);
+            this.Size = new System.Drawing.Size(80, 620);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.scale_Paint);
             this.ResumeLayout(false);
 

@@ -13,5 +13,9 @@ namespace ZooRunner
         void Draw(Box box ,Graphics g, Rectangle rectSource, float scaleFactor);
 
         void AddAnimal(AnimalAdapter animal);
+
+        void ClearAnimals();
+
+        object CastAnimalsRedering { set; } // <= circular dependency
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,8 @@ namespace ZooRunner
         bool _showGridLines;
         Cursor _grab;
         Cursor _grabbing;
+        Stopwatch _drawWatch;
+        Stopwatch _zooWatch;
 
         public ZooViewPortControl()
         {
@@ -33,13 +36,15 @@ namespace ZooRunner
             _viewPort = new ViewPort(_map, 1);
             _viewPort.AreaChanged += _viewPort_AreaChanged;
             _zoomMax = 1000;
-            _zoomMin = 100;
+            _zoomMin = 0;
             _zoomValue = 1000;
-            _zoomScale = 25;
+            _zoomScale = 50;
             _mousePressed = false;
             _mouseDown = new Point();
             _grab = new Cursor("ifm_grab.cur");
             _grabbing = new Cursor("ifm_move.cur");
+            _drawWatch = new Stopwatch();
+            _zooWatch = new Stopwatch();
         }
 
         public event EventHandler MouseLeaveControl;
@@ -59,7 +64,7 @@ namespace ZooRunner
             get { return _boxCount; }
             set
             {
-                if (value < 1 || value > 500) throw new ArgumentException( "BoxCount must be between 1 and 500." );
+                if (value < 1 || value > 10) throw new ArgumentException( "BoxCount must be between 1 and 10." );
                 if( _boxCount != value )
                 {
                     _boxCount = value;
@@ -77,6 +82,9 @@ namespace ZooRunner
             if (_zoo == zoo) return;
             if( zoo != null )
             {
+                if (_zooWatch.IsRunning) _zooWatch.Reset();
+                _zooWatch.Start();
+                _drawWatch.Reset();
                 _zoo = zoo;
                 InitializeMap();
             }
@@ -93,20 +101,16 @@ namespace ZooRunner
         void InitializeMap()
         {
             if(_viewPort != null ) _viewPort.AreaChanged -= _viewPort_AreaChanged;
+            _zoomValue = 1000;
             _map = new Map(10, _boxCount);
             _viewPort = new ViewPort(_map, 5);
             _viewPort.ShowGridLines = _showGridLines;
             _viewPort.SetClientSize(ClientSize);
             _viewPort.AreaChanged += _viewPort_AreaChanged;
-            ViewPortWidthChanged?.Invoke(this, _viewPort.Area.Width);
+            _viewPort.SetDriver(_zoo);
+            DisplayInfo();
             MapWidthChanged?.Invoke(this, _viewPort.Map.MapWidth);
             Invalidate();
-
-            // 10 => One box is 10 meter x 10 meter.
-            // 20 => 20 x 20 boxes.
-            // 5 => User will be able to see at most a quarter of a box.
-            //_map = new Map(10, _boxCount);
-            //_viewPort = new ViewPort(_map, 5);
         }
 
         public ViewPort ViewPort => _viewPort; 
@@ -130,7 +134,6 @@ namespace ZooRunner
 
         protected override void OnMouseEnter(EventArgs e)
         {
-            this.BackColor = Color.White;
             this.Cursor = _grabbing;
             this.Focus();
         }
@@ -186,15 +189,15 @@ namespace ZooRunner
 
         protected override void OnMouseLeave(EventArgs e)
         {
-            this.BackColor = Color.WhiteSmoke;
             MouseLeaveControl?.Invoke(this, EventArgs.Empty);
             base.OnLeave(e);
         }
 
         public void TimerTick(List<AnimalAdapter> animals)
-        {
-            _viewPort.DriversAssignment(_zoo, animals, AnimalsRepresentation);
+        {           
+            _viewPort.DriversAssignment(_zoo, animals, AnimalsShapes);
             Invalidate();
+            DisplayInfo();
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -205,25 +208,27 @@ namespace ZooRunner
             }
             else
             {
+                _drawWatch.Start();
                 _viewPort.Draw(e.Graphics);
+                _drawWatch.Stop();
             }
             base.OnPaint(e);
         }
 
-        public AnimalsRedering AnimalsRepresentation { get; set; }
+        public AnimalsRedering AnimalsShapes { get; set; }
 
         void DisplayInfo()
         {
             if (this.Enabled == true)
-            {
+            {               
                 StringBuilder b = new StringBuilder();
-                b.Append("ViewPort: ").AppendLine();
-                b.Append(_viewPort.Area.Size).AppendLine();
-                b.Append(_viewPort.Area.Location).AppendLine();
                 b.Append("Zoom: ").AppendLine();
                 b.Append(_viewPort.UserZoomFactor * 100 + "%").AppendLine();
-                b.Append("ClientSize: ").AppendLine();
-                b.Append(this.ClientSize).AppendLine();
+                b.Append("Zoo runtime").AppendLine();
+                b.Append(TimeFormat(_zooWatch)).AppendLine();
+                b.Append("Draw runtime").AppendLine();
+                b.Append(TimeFormat(_drawWatch)).AppendLine();
+                b.Append("Update runtime").AppendLine();
                 string informations = b.ToString();
                 AreaChanged?.Invoke(this, informations);
                 ViewPortWidthChanged?.Invoke(this, _viewPort.Area.Width);
@@ -234,6 +239,17 @@ namespace ZooRunner
         {
             DisplayInfo();
             base.OnEnabledChanged(e);
+        }
+
+        private string TimeFormat(Stopwatch watch)
+        {
+            TimeSpan ts = watch.Elapsed;
+
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+            ts.Hours, ts.Minutes, ts.Seconds,
+            ts.Milliseconds / 10);
+
+            return elapsedTime;
         }
 
     }

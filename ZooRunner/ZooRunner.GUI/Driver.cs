@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,14 +12,25 @@ namespace ZooRunner.GUI
     class Driver : IBoxDriver
     {
         List<AnimalAdapter> _animals;
+        bool _showBiomes;
+        Bitmap _background;
 
         public Driver()
         {
             _animals = new List<AnimalAdapter>();
+            _showBiomes = true;
         }
 
         public void Draw(Box box, Graphics g, Rectangle rectSource, float scaleFactor)
         {
+            if (_showBiomes)
+            {
+                DrawBiomes(box, g, scaleFactor);
+                _showBiomes = false;
+            }
+
+            g.DrawImage(_background, 0, 0);
+
             for (int i = 0; i < _animals.Count; i++)
             {
                 double doubleX = 0;
@@ -36,7 +49,7 @@ namespace ZooRunner.GUI
                 if (doubleY < 0) doubleY = doubleY * -1;
 
                 // Animals size compensation
-                int animalsSize = 100;
+                int animalsSize = 10;
                 doubleX -= animalsSize / 2;
                 doubleY -= animalsSize / 2;
 
@@ -45,19 +58,19 @@ namespace ZooRunner.GUI
 
                 Rectangle animalBody = new Rectangle(x, y, animalsSize, animalsSize);
 
-                if (AnimalsRepresentation != null && AnimalsRepresentation.AnimalsRepresentation.ContainsKey(_animals[i].GetType))
+                if (AnimalsShapes != null && AnimalsShapes.AnimalsRepresentation.ContainsKey(_animals[i].GetType))
                 {
-                    Pen customPen = new Pen(AnimalsRepresentation.AnimalsRepresentation[_animals[i].GetType].ChangeColor);
+                    Pen customPen = new Pen(AnimalsShapes.AnimalsRepresentation[_animals[i].GetType].ChangeColor);
 
-                    if (AnimalsRepresentation.AnimalsRepresentation[_animals[i].GetType].Figure == "Rectangle")
+                    if (AnimalsShapes.AnimalsRepresentation[_animals[i].GetType].Figure == "Rectangle")
                     {
                         g.DrawRectangle(customPen, animalBody);
                     }
-                    else if(AnimalsRepresentation.AnimalsRepresentation[_animals[i].GetType].Figure == "Ellipse")
+                    else if(AnimalsShapes.AnimalsRepresentation[_animals[i].GetType].Figure == "Ellipse")
                     {
                         g.DrawEllipse(customPen, animalBody);
                     }
-                    else if(AnimalsRepresentation.AnimalsRepresentation[_animals[i].GetType].Figure == "Triangle")
+                    else if(AnimalsShapes.AnimalsRepresentation[_animals[i].GetType].Figure == "Triangle")
                     {
                         Point one = new Point(x, y);
                         Point two = new Point(x + animalsSize, y);
@@ -72,7 +85,7 @@ namespace ZooRunner.GUI
 
                         g.DrawPolygon(customPen, trianglePoints);
                     }
-                    else if(AnimalsRepresentation.AnimalsRepresentation[_animals[i].GetType].Figure == "Star")
+                    else if(AnimalsShapes.AnimalsRepresentation[_animals[i].GetType].Figure == "Star")
                     {
                         Point one = new Point(x + animalsSize / 2, y);
                         Point two = new Point(x +  animalsSize / 3 * 2, y + animalsSize / 4);
@@ -137,12 +150,77 @@ namespace ZooRunner.GUI
             _animals.Add(animal);
         }
 
-        public AnimalsRedering AnimalsRepresentation { get; set; }
+        public void ClearAnimals()
+        {
+            _animals.Clear();
+        }
+
+        private void DrawBiomes(Box box, Graphics g, float scalefactor)
+        {
+            Bitmap backGround = new Bitmap((int)(box.Area.Width * scalefactor), (int)(box.Area.Height * scalefactor));
+
+            for (int i = 0; i < backGround.Width; i++)
+            {
+                for (int n = 0; n < backGround.Height; n++)
+                {
+                    decimal offsetN = (decimal)n / (decimal)backGround.Width * 100;
+                    double x = InferiorBoundaryX + Interval / 100 * (double)offsetN;
+
+                    decimal offsetI = (decimal)i / (decimal)backGround.Height * 100;
+                    double y = SuperiorBoundaryY - Interval / 100 * (double)offsetI;
+
+                    x = Math.Round(x, 5);
+                    y = Math.Round(y, 5);
+
+                    Color customColor = Zoo.ColorAt(x, y);
+                    backGround.SetPixel(n, i, customColor);
+                }
+            }
+            _background = ResizeImage(backGround, box.Area.Width, box.Area.Height);
+        }
+
+        public static Bitmap ResizeImage(Image image, int width, int height)
+        {
+            var destRect = new Rectangle(0, 0, width, height);
+
+            var destImage = new Bitmap(width, height);
+
+            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            using (var graphics = Graphics.FromImage(destImage))
+            {
+                graphics.CompositingMode = CompositingMode.SourceCopy;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                using (var wrapMode = new ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                }
+            }
+
+            return destImage;
+        }
+
+        public AnimalsRedering AnimalsShapes { get; set; }
 
         public double Interval { get; set; }
 
         public double InferiorBoundaryX { get; set; }
 
         public double SuperiorBoundaryY { get; set; }
+
+        public ZooAdapter Zoo { get; set; }
+
+        public object CastAnimalsRedering {
+            set
+            {
+                AnimalsShapes = (AnimalsRedering)value;
+            }
+        }
+
     }
 }

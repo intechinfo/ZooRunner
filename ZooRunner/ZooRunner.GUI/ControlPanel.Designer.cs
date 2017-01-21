@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this._panel = new System.Windows.Forms.Panel();
             this._representationButton = new System.Windows.Forms.Button();
             this._showGridLinesCheckBox = new System.Windows.Forms.CheckBox();
             this._boxCountLabel = new System.Windows.Forms.Label();
@@ -42,34 +42,34 @@
             this._dllBouton = new System.Windows.Forms.Button();
             this._dllOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this._gameLoopTimer = new System.Windows.Forms.Timer(this.components);
-            this.panel1.SuspendLayout();
+            this._panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._boxCountNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._timerTrackBar)).BeginInit();
             this.SuspendLayout();
             // 
-            // panel1
+            // _panel
             // 
-            this.panel1.Controls.Add(this._representationButton);
-            this.panel1.Controls.Add(this._showGridLinesCheckBox);
-            this.panel1.Controls.Add(this._boxCountLabel);
-            this.panel1.Controls.Add(this._boxCountNumericUpDown);
-            this.panel1.Controls.Add(this._fastLabel);
-            this.panel1.Controls.Add(this._slowLabel);
-            this.panel1.Controls.Add(this._timerTrackBar);
-            this.panel1.Controls.Add(this._gameLoopBouton);
-            this.panel1.Controls.Add(this._createAnimalsBouton);
-            this.panel1.Controls.Add(this._dllBouton);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(693, 120);
-            this.panel1.TabIndex = 0;
+            this._panel.Controls.Add(this._representationButton);
+            this._panel.Controls.Add(this._showGridLinesCheckBox);
+            this._panel.Controls.Add(this._boxCountLabel);
+            this._panel.Controls.Add(this._boxCountNumericUpDown);
+            this._panel.Controls.Add(this._fastLabel);
+            this._panel.Controls.Add(this._slowLabel);
+            this._panel.Controls.Add(this._timerTrackBar);
+            this._panel.Controls.Add(this._gameLoopBouton);
+            this._panel.Controls.Add(this._createAnimalsBouton);
+            this._panel.Controls.Add(this._dllBouton);
+            this._panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._panel.Location = new System.Drawing.Point(0, 0);
+            this._panel.Margin = new System.Windows.Forms.Padding(2);
+            this._panel.Name = "_panel";
+            this._panel.Size = new System.Drawing.Size(620, 80);
+            this._panel.TabIndex = 0;
             // 
             // _representationButton
             // 
             this._representationButton.Enabled = false;
-            this._representationButton.Location = new System.Drawing.Point(160, 31);
+            this._representationButton.Location = new System.Drawing.Point(163, 3);
             this._representationButton.Name = "_representationButton";
             this._representationButton.Size = new System.Drawing.Size(98, 26);
             this._representationButton.TabIndex = 9;
@@ -81,7 +81,7 @@
             // 
             this._showGridLinesCheckBox.AutoSize = true;
             this._showGridLinesCheckBox.Enabled = false;
-            this._showGridLinesCheckBox.Location = new System.Drawing.Point(161, 77);
+            this._showGridLinesCheckBox.Location = new System.Drawing.Point(164, 57);
             this._showGridLinesCheckBox.Name = "_showGridLinesCheckBox";
             this._showGridLinesCheckBox.Size = new System.Drawing.Size(97, 17);
             this._showGridLinesCheckBox.TabIndex = 8;
@@ -93,7 +93,7 @@
             // 
             this._boxCountLabel.AutoSize = true;
             this._boxCountLabel.Enabled = false;
-            this._boxCountLabel.Location = new System.Drawing.Point(3, 78);
+            this._boxCountLabel.Location = new System.Drawing.Point(3, 58);
             this._boxCountLabel.Name = "_boxCountLabel";
             this._boxCountLabel.Size = new System.Drawing.Size(61, 13);
             this._boxCountLabel.TabIndex = 7;
@@ -102,7 +102,12 @@
             // _boxCountNumericUpDown
             // 
             this._boxCountNumericUpDown.Enabled = false;
-            this._boxCountNumericUpDown.Location = new System.Drawing.Point(63, 76);
+            this._boxCountNumericUpDown.Location = new System.Drawing.Point(66, 56);
+            this._boxCountNumericUpDown.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this._boxCountNumericUpDown.Minimum = new decimal(new int[] {
             1,
             0,
@@ -123,7 +128,7 @@
             // 
             this._fastLabel.AutoSize = true;
             this._fastLabel.Enabled = false;
-            this._fastLabel.Location = new System.Drawing.Point(660, 38);
+            this._fastLabel.Location = new System.Drawing.Point(591, 10);
             this._fastLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this._fastLabel.Name = "_fastLabel";
             this._fastLabel.Size = new System.Drawing.Size(27, 13);
@@ -134,7 +139,7 @@
             // 
             this._slowLabel.AutoSize = true;
             this._slowLabel.Enabled = false;
-            this._slowLabel.Location = new System.Drawing.Point(338, 38);
+            this._slowLabel.Location = new System.Drawing.Point(341, 9);
             this._slowLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this._slowLabel.Name = "_slowLabel";
             this._slowLabel.Size = new System.Drawing.Size(30, 13);
@@ -144,11 +149,13 @@
             // _timerTrackBar
             // 
             this._timerTrackBar.Enabled = false;
-            this._timerTrackBar.Location = new System.Drawing.Point(372, 31);
-            this._timerTrackBar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this._timerTrackBar.LargeChange = 1;
+            this._timerTrackBar.Location = new System.Drawing.Point(372, 9);
+            this._timerTrackBar.Margin = new System.Windows.Forms.Padding(2);
+            this._timerTrackBar.Maximum = 7;
             this._timerTrackBar.Minimum = 1;
             this._timerTrackBar.Name = "_timerTrackBar";
-            this._timerTrackBar.Size = new System.Drawing.Size(284, 45);
+            this._timerTrackBar.Size = new System.Drawing.Size(215, 45);
             this._timerTrackBar.TabIndex = 2;
             this._timerTrackBar.Value = 1;
             this._timerTrackBar.ValueChanged += new System.EventHandler(this._timerTrackBar_ValueChanged);
@@ -156,8 +163,8 @@
             // _gameLoopBouton
             // 
             this._gameLoopBouton.Enabled = false;
-            this._gameLoopBouton.Location = new System.Drawing.Point(263, 31);
-            this._gameLoopBouton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this._gameLoopBouton.Location = new System.Drawing.Point(266, 3);
+            this._gameLoopBouton.Margin = new System.Windows.Forms.Padding(2);
             this._gameLoopBouton.Name = "_gameLoopBouton";
             this._gameLoopBouton.Size = new System.Drawing.Size(71, 26);
             this._gameLoopBouton.TabIndex = 2;
@@ -168,8 +175,8 @@
             // _createAnimalsBouton
             // 
             this._createAnimalsBouton.Enabled = false;
-            this._createAnimalsBouton.Location = new System.Drawing.Point(63, 31);
-            this._createAnimalsBouton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this._createAnimalsBouton.Location = new System.Drawing.Point(66, 2);
+            this._createAnimalsBouton.Margin = new System.Windows.Forms.Padding(2);
             this._createAnimalsBouton.Name = "_createAnimalsBouton";
             this._createAnimalsBouton.Size = new System.Drawing.Size(92, 26);
             this._createAnimalsBouton.TabIndex = 1;
@@ -179,8 +186,8 @@
             // 
             // _dllBouton
             // 
-            this._dllBouton.Location = new System.Drawing.Point(2, 31);
-            this._dllBouton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this._dllBouton.Location = new System.Drawing.Point(6, 2);
+            this._dllBouton.Margin = new System.Windows.Forms.Padding(2);
             this._dllBouton.Name = "_dllBouton";
             this._dllBouton.Size = new System.Drawing.Size(56, 26);
             this._dllBouton.TabIndex = 0;
@@ -197,12 +204,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Controls.Add(this._panel);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ControlPanel";
-            this.Size = new System.Drawing.Size(693, 120);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.Size = new System.Drawing.Size(620, 80);
+            this._panel.ResumeLayout(false);
+            this._panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._boxCountNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._timerTrackBar)).EndInit();
             this.ResumeLayout(false);
@@ -211,7 +218,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel _panel;
         private System.Windows.Forms.Button _dllBouton;
         private System.Windows.Forms.Button _createAnimalsBouton;
         private System.Windows.Forms.Button _gameLoopBouton;

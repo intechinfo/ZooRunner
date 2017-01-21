@@ -222,9 +222,9 @@ namespace ZooRunner
             return location;           
         }
 
-        public void DriversAssignment(ZooAdapter zoo, List<AnimalAdapter> animals, AnimalsRedering animalsRepresentation)
+        public void DriversAssignment(ZooAdapter zoo, List<AnimalAdapter> animals, AnimalsRedering animalsShapes)
         {
-            UnsetDrivers();
+            UnsetDriversAnimals();
 
             for (int n = 0; n < animals.Count; n++)
             {
@@ -258,23 +258,11 @@ namespace ZooRunner
                         {
                             supBoundaryX += (double)interval;
                         }
-
                         if (animals[n].X >= infBoundaryX && animals[n].X <= supBoundaryX && animals[n].Y <= supBoundaryY && animals[n].Y >= infBoundaryY)
                         {
-                            if (_map[i, y].Driver == null)
-                            {
-                                Driver driver = new Driver();
-                                driver.AddAnimal(animals[n]);
-                                driver.AnimalsRepresentation = animalsRepresentation;
-                                driver.InferiorBoundaryX = infBoundaryX;
-                                driver.SuperiorBoundaryY = supBoundaryY;
-                                driver.Interval = (double)interval;
-                                _map[i, y].Driver = driver;
-                            }
-                            else
-                            {
-                                _map[i, y].Driver.AddAnimal(animals[n]);
-                            }
+                            _map[i, y].Driver.AddAnimal(animals[n]);
+                            _map[i, y].Driver.CastAnimalsRedering = animalsShapes;
+
                             shortCut = true;
                             break;
                         }
@@ -289,14 +277,47 @@ namespace ZooRunner
             }
         }
 
-        void UnsetDrivers()
+        public void UnsetDriversAnimals()
         {
             for (int i = 0; i < _map.BoxCount; i++)
             {
                 for (int n = 0; n < _map.BoxCount; n++)
                 {
-                    _map[i, n].Driver = null;
+                    _map[i, n].Driver.ClearAnimals();
                 }
+            }
+        }
+
+        public void SetDriver(ZooAdapter zoo)
+        {
+            double supBoundaryX = -1;
+            double infBoundaryX = -1;
+
+            double supBoundaryY = 1;
+            double infBoundaryY = 1;
+
+            decimal interval = 2m / (decimal)_map.BoxCount;
+
+            for (int i = 0; i < _map.BoxCount; i++)
+            {
+                infBoundaryY -= (double)interval;
+
+                for (int y = 0; y < _map.BoxCount; y++)
+                {
+                    supBoundaryX += (double)interval;
+
+                    Driver driver = new Driver();
+                    driver.InferiorBoundaryX = infBoundaryX;
+                    driver.SuperiorBoundaryY = supBoundaryY;
+                    driver.Interval = (double)interval;
+                    driver.Zoo = zoo;
+                    _map[i, y].Driver = driver;
+
+                    infBoundaryX += (double)interval;
+                }
+                supBoundaryY -= (double)interval;
+                infBoundaryX = -1;
+                supBoundaryX = -1;
             }
         }
     }
