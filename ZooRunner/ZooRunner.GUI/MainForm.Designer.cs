@@ -75,9 +75,10 @@ namespace ZooRunner.GUI
             this._zooViewPortControl.Text = "zooViewPortControl";
             this._zooViewPortControl.MouseLeaveControl += new System.EventHandler(this.OnMouseLeaveControl);
             this._zooViewPortControl.AreaChanged += new System.EventHandler<string>(this.OnAreaChanged);
-            this._zooViewPortControl.ViewPortWidthChanged += new System.EventHandler<int>(this.OnViewPortWidthChanged);
+            this._zooViewPortControl.ViewPortHeightChanged += new System.EventHandler<int>(this.OnViewPortHeightChanged);
             this._zooViewPortControl.MapWidthChanged += new System.EventHandler<int>(this.OnMapWidthChanged);
             this._zooViewPortControl.WatchsUpdates += new System.EventHandler<string>(this.OnWatchsUpdates);
+            this._zooViewPortControl.EngineInformationsChanged += new System.EventHandler<string>(this.OnEngineInformationsChanged);
             // 
             // _controlPanel
             // 

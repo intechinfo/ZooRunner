@@ -57,9 +57,9 @@ namespace ZooRunner.GUI
             _informations.DisplayInfos(e);
         }
 
-        private void OnViewPortWidthChanged(object sender, int e)
+        private void OnViewPortHeightChanged(object sender, int e)
         {
-            _scale.ViewPortWidth = e;
+            _scale.ViewPortHeight = e;
         }
 
         private void OnMapWidthChanged(object sender, int e)
@@ -75,6 +75,11 @@ namespace ZooRunner.GUI
         private void OnWatchsUpdates(object sender, string e)
         {
             _informations.DisplayWatchs(e);
+        }
+
+        private void OnEngineInformationsChanged(object sender, string e)
+        {
+            _controlPanel.DisplayEngineInformations(e);
         }
     }
 }

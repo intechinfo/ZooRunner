@@ -42,6 +42,8 @@
             this._dllBouton = new System.Windows.Forms.Button();
             this._dllOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this._gameLoopTimer = new System.Windows.Forms.Timer(this.components);
+            this._calculatorButton = new System.Windows.Forms.Button();
+            this._engineTextBox = new System.Windows.Forms.TextBox();
             this._panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._boxCountNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._timerTrackBar)).BeginInit();
@@ -49,6 +51,8 @@
             // 
             // _panel
             // 
+            this._panel.Controls.Add(this._engineTextBox);
+            this._panel.Controls.Add(this._calculatorButton);
             this._panel.Controls.Add(this._representationButton);
             this._panel.Controls.Add(this._showGridLinesCheckBox);
             this._panel.Controls.Add(this._boxCountLabel);
@@ -63,7 +67,7 @@
             this._panel.Location = new System.Drawing.Point(0, 0);
             this._panel.Margin = new System.Windows.Forms.Padding(2);
             this._panel.Name = "_panel";
-            this._panel.Size = new System.Drawing.Size(620, 80);
+            this._panel.Size = new System.Drawing.Size(620, 96);
             this._panel.TabIndex = 0;
             // 
             // _representationButton
@@ -81,7 +85,7 @@
             // 
             this._showGridLinesCheckBox.AutoSize = true;
             this._showGridLinesCheckBox.Enabled = false;
-            this._showGridLinesCheckBox.Location = new System.Drawing.Point(164, 57);
+            this._showGridLinesCheckBox.Location = new System.Drawing.Point(439, 63);
             this._showGridLinesCheckBox.Name = "_showGridLinesCheckBox";
             this._showGridLinesCheckBox.Size = new System.Drawing.Size(97, 17);
             this._showGridLinesCheckBox.TabIndex = 8;
@@ -93,7 +97,7 @@
             // 
             this._boxCountLabel.AutoSize = true;
             this._boxCountLabel.Enabled = false;
-            this._boxCountLabel.Location = new System.Drawing.Point(3, 58);
+            this._boxCountLabel.Location = new System.Drawing.Point(276, 65);
             this._boxCountLabel.Name = "_boxCountLabel";
             this._boxCountLabel.Size = new System.Drawing.Size(61, 13);
             this._boxCountLabel.TabIndex = 7;
@@ -102,7 +106,7 @@
             // _boxCountNumericUpDown
             // 
             this._boxCountNumericUpDown.Enabled = false;
-            this._boxCountNumericUpDown.Location = new System.Drawing.Point(66, 56);
+            this._boxCountNumericUpDown.Location = new System.Drawing.Point(341, 63);
             this._boxCountNumericUpDown.Maximum = new decimal(new int[] {
             10,
             0,
@@ -200,6 +204,27 @@
             this._gameLoopTimer.Interval = 10000;
             this._gameLoopTimer.Tick += new System.EventHandler(this._gameLoopTimer_Tick);
             // 
+            // _calculatorButton
+            // 
+            this._calculatorButton.Enabled = false;
+            this._calculatorButton.Location = new System.Drawing.Point(542, 59);
+            this._calculatorButton.Name = "_calculatorButton";
+            this._calculatorButton.Size = new System.Drawing.Size(75, 23);
+            this._calculatorButton.TabIndex = 10;
+            this._calculatorButton.Text = "Calculator";
+            this._calculatorButton.UseVisualStyleBackColor = true;
+            this._calculatorButton.Click += new System.EventHandler(this._calculatorButton_Click);
+            // 
+            // _engineTextBox
+            // 
+            this._engineTextBox.Enabled = false;
+            this._engineTextBox.Location = new System.Drawing.Point(0, 47);
+            this._engineTextBox.Multiline = true;
+            this._engineTextBox.Name = "_engineTextBox";
+            this._engineTextBox.ReadOnly = true;
+            this._engineTextBox.Size = new System.Drawing.Size(270, 49);
+            this._engineTextBox.TabIndex = 11;
+            // 
             // ControlPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -207,7 +232,7 @@
             this.Controls.Add(this._panel);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ControlPanel";
-            this.Size = new System.Drawing.Size(620, 80);
+            this.Size = new System.Drawing.Size(620, 96);
             this._panel.ResumeLayout(false);
             this._panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._boxCountNumericUpDown)).EndInit();
@@ -231,5 +256,7 @@
         private System.Windows.Forms.NumericUpDown _boxCountNumericUpDown;
         private System.Windows.Forms.CheckBox _showGridLinesCheckBox;
         private System.Windows.Forms.Button _representationButton;
+        private System.Windows.Forms.Button _calculatorButton;
+        private System.Windows.Forms.TextBox _engineTextBox;
     }
 }

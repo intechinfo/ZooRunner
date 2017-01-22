@@ -55,9 +55,10 @@ namespace ZooRunner
 
         public event EventHandler MouseLeaveControl;
         public event EventHandler<string> AreaChanged;
-        public event EventHandler<int> ViewPortWidthChanged;
+        public event EventHandler<int> ViewPortHeightChanged;
         public event EventHandler<int> MapWidthChanged;
         public event EventHandler<string> WatchsUpdates;
+        public event EventHandler<string> EngineInformationsChanged;
 
 
         void _viewPort_AreaChanged(object sender, EventArgs e)
@@ -78,7 +79,7 @@ namespace ZooRunner
                     if(_zoo != null )
                     {
                         InitializeMap();
-                        ViewPortWidthChanged?.Invoke(this, _viewPort.Area.Width);
+                        ViewPortHeightChanged?.Invoke(this, _viewPort.Area.Height);
                     }
                 }
             }
@@ -234,7 +235,13 @@ namespace ZooRunner
                 b.Append(_viewPort.UserZoomFactor * 100 + "%").AppendLine();
                 string informations = b.ToString();
                 AreaChanged?.Invoke(this, informations);
-                ViewPortWidthChanged?.Invoke(this, _viewPort.Area.Width);
+                StringBuilder b2 = new StringBuilder();
+                b2.Append("ViewPort: ").Append(_viewPort.Area).AppendLine();
+                b2.Append("ClientScaleFactor: ").Append(_viewPort.ClientScaleFactor).AppendLine();
+                b2.Append("Client size : ").Append(this.ClientSize);
+                string engineinfos = b2.ToString();
+                EngineInformationsChanged?.Invoke(this, engineinfos);
+                ViewPortHeightChanged?.Invoke(this, _viewPort.Area.Height);
             }
         }
 

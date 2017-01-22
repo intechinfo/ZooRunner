@@ -45,6 +45,8 @@ namespace ZooRunner.GUI
                 _boxCountNumericUpDown.Enabled = true;
                 _showGridLinesCheckBox.Enabled = true;
                 _representationButton.Enabled = true;
+                _calculatorButton.Enabled = true;
+                _engineTextBox.Enabled = true;
             }
         }
 
@@ -110,6 +112,16 @@ namespace ZooRunner.GUI
                 AnimalsRederingChange?.Invoke(this, _animalsRedering); // bug ici (même adresse mémoire), créer une liste intermediaire
             }
             representation.Dispose();
+        }
+
+        private void _calculatorButton_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("calc");
+        }
+
+        public void DisplayEngineInformations(string infos)
+        {
+            _engineTextBox.Text = infos;
         }
     }
 }

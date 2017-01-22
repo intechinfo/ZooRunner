@@ -13,7 +13,7 @@ namespace ZooRunner.GUI
     public partial class Scale : UserControl
     {
         int _zooWithInMeter;
-        int _viewPortWidth;
+        int _viewPortHeight;
         int _mapWidth;
 
         public Scale()
@@ -21,7 +21,7 @@ namespace ZooRunner.GUI
             InitializeComponent();
         }
 
-        public int ZooWithInMeter
+        public int ZooWithInMeter // Square Width = Height
         {
             set
             {
@@ -29,7 +29,7 @@ namespace ZooRunner.GUI
             }
         }
 
-        public int MapWith
+        public int MapWith // Square Width = Height
         {
             set
             {
@@ -37,19 +37,19 @@ namespace ZooRunner.GUI
             }
         }
 
-        public int ViewPortWidth
+        public int ViewPortHeight
         {
             set
             {
-                if (_viewPortWidth == value) return;
-                _viewPortWidth = value;
+                if (_viewPortHeight == value) return;
+                _viewPortHeight = value;
                 Invalidate();
             }
         }
 
         private void scale_Paint(object sender, PaintEventArgs e)
         {
-            if (this.Enabled && _mapWidth != 0 && _viewPortWidth != 0)
+            if (this.Enabled && _mapWidth != 0 && _viewPortHeight != 0)
             {
                 Pen pen = new Pen(Color.Black);
                 Font drawFont = new Font("Arial", 14);
@@ -59,7 +59,7 @@ namespace ZooRunner.GUI
                 double middle = _zooWithInMeter / 4;
                 double right = _zooWithInMeter / 2;
 
-                double percentage = (double)_mapWidth / _viewPortWidth * 100;
+                double percentage = (double)_mapWidth / _viewPortHeight * 100;
                 percentage = percentage / 2;
 
                 while(percentage > 70)
