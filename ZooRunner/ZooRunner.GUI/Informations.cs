@@ -19,7 +19,12 @@ namespace ZooRunner.GUI
 
         public void DisplayInfos(string informations)
         {
-            _informationsTextBox.Text = informations;
+            _zoomTextBox.Text = informations;
+        }
+
+        public void DisplayWatchs(string watchs)
+        {
+            this.Invoke((MethodInvoker)delegate { _watchsTextBox.Text = watchs; });
         }
     }
 }

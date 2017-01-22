@@ -28,24 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this._informationsTextBox = new System.Windows.Forms.TextBox();
+            this._zoomTextBox = new System.Windows.Forms.TextBox();
+            this._watchsTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // _informationsTextBox
+            // _zoomTextBox
             // 
-            this._informationsTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._informationsTextBox.Location = new System.Drawing.Point(0, 0);
-            this._informationsTextBox.Multiline = true;
-            this._informationsTextBox.Name = "_informationsTextBox";
-            this._informationsTextBox.ReadOnly = true;
-            this._informationsTextBox.Size = new System.Drawing.Size(150, 150);
-            this._informationsTextBox.TabIndex = 0;
+            this._zoomTextBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this._zoomTextBox.Location = new System.Drawing.Point(0, 0);
+            this._zoomTextBox.Multiline = true;
+            this._zoomTextBox.Name = "_zoomTextBox";
+            this._zoomTextBox.ReadOnly = true;
+            this._zoomTextBox.Size = new System.Drawing.Size(150, 32);
+            this._zoomTextBox.TabIndex = 0;
+            // 
+            // _watchsTextBox
+            // 
+            this._watchsTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._watchsTextBox.Location = new System.Drawing.Point(0, 32);
+            this._watchsTextBox.Multiline = true;
+            this._watchsTextBox.Name = "_watchsTextBox";
+            this._watchsTextBox.ReadOnly = true;
+            this._watchsTextBox.Size = new System.Drawing.Size(150, 118);
+            this._watchsTextBox.TabIndex = 1;
             // 
             // Informations
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this._informationsTextBox);
+            this.Controls.Add(this._watchsTextBox);
+            this.Controls.Add(this._zoomTextBox);
+            this.Enabled = false;
             this.Name = "Informations";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -54,6 +67,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox _informationsTextBox;
+        private System.Windows.Forms.TextBox _zoomTextBox;
+        private System.Windows.Forms.TextBox _watchsTextBox;
     }
 }

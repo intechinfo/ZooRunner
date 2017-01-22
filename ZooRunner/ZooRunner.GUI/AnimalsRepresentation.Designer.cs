@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AnimalsRepresentation));
             this._typeLabel = new System.Windows.Forms.Label();
             this._typeComboBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -129,6 +130,7 @@
             this.Controls.Add(this._typeComboBox);
             this.Controls.Add(this._typeLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AnimalsRepresentation";
             this.Text = "Animals representation";
             this.Load += new System.EventHandler(this.AnimalsRepresentation_Load);

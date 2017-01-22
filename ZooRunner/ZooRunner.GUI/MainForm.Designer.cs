@@ -40,7 +40,8 @@ namespace ZooRunner.GUI
             // _scale
             // 
             this._scale.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this._scale.BackColor = System.Drawing.SystemColors.Info;
+            this._scale.BackColor = System.Drawing.SystemColors.Control;
+            this._scale.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this._scale.Enabled = false;
             this._scale.Location = new System.Drawing.Point(635, 11);
             this._scale.Margin = new System.Windows.Forms.Padding(2);
@@ -52,16 +53,17 @@ namespace ZooRunner.GUI
             // _informations
             // 
             this._informations.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this._informations.Location = new System.Drawing.Point(636, 634);
+            this._informations.Enabled = false;
+            this._informations.Location = new System.Drawing.Point(635, 635);
             this._informations.Name = "_informations";
-            this._informations.Size = new System.Drawing.Size(90, 85);
+            this._informations.Size = new System.Drawing.Size(90, 96);
             this._informations.TabIndex = 6;
             // 
             // _zooViewPortControl
             // 
             this._zooViewPortControl.Anchor = System.Windows.Forms.AnchorStyles.None;
             this._zooViewPortControl.AnimalsShapes = null;
-            this._zooViewPortControl.BackColor = System.Drawing.SystemColors.Control;
+            this._zooViewPortControl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this._zooViewPortControl.BoxCount = 3;
             this._zooViewPortControl.Enabled = false;
             this._zooViewPortControl.Location = new System.Drawing.Point(11, 11);
@@ -75,15 +77,17 @@ namespace ZooRunner.GUI
             this._zooViewPortControl.AreaChanged += new System.EventHandler<string>(this.OnAreaChanged);
             this._zooViewPortControl.ViewPortWidthChanged += new System.EventHandler<int>(this.OnViewPortWidthChanged);
             this._zooViewPortControl.MapWidthChanged += new System.EventHandler<int>(this.OnMapWidthChanged);
+            this._zooViewPortControl.WatchsUpdates += new System.EventHandler<string>(this.OnWatchsUpdates);
             // 
             // _controlPanel
             // 
             this._controlPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this._controlPanel.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this._controlPanel.BackColor = System.Drawing.SystemColors.Control;
+            this._controlPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this._controlPanel.Location = new System.Drawing.Point(11, 635);
             this._controlPanel.Margin = new System.Windows.Forms.Padding(2);
             this._controlPanel.Name = "_controlPanel";
-            this._controlPanel.Size = new System.Drawing.Size(620, 85);
+            this._controlPanel.Size = new System.Drawing.Size(620, 96);
             this._controlPanel.TabIndex = 4;
             this._controlPanel.UserGivesDll += new System.EventHandler<ZooRunner.ZooAdapter>(this.OnUserGivesDll);
             this._controlPanel.TimerTick += new System.EventHandler<System.Collections.Generic.List<ZooRunner.AnimalAdapter>>(this.OnTimerTick);
@@ -95,8 +99,8 @@ namespace ZooRunner.GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(736, 731);
+            this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ClientSize = new System.Drawing.Size(736, 742);
             this.Controls.Add(this._scale);
             this.Controls.Add(this._informations);
             this.Controls.Add(this._zooViewPortControl);

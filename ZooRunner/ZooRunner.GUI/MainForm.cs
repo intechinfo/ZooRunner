@@ -23,6 +23,7 @@ namespace ZooRunner.GUI
             _zooViewPortControl.SetZoo(e);
             _scale.ZooWithInMeter = e.WithInMeter;
             _scale.Enabled = true;
+            _informations.Enabled = true;
         }
 
 
@@ -69,6 +70,11 @@ namespace ZooRunner.GUI
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
             _scale.Invalidate();
+        }
+
+        private void OnWatchsUpdates(object sender, string e)
+        {
+            _informations.DisplayWatchs(e);
         }
     }
 }

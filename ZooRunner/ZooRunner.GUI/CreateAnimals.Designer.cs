@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateAnimals));
             this._okButton = new System.Windows.Forms.Button();
             this._cancelButton = new System.Windows.Forms.Button();
             this._addButton = new System.Windows.Forms.Button();
@@ -87,6 +88,11 @@
             // 
             this._animalsNumericUpDown.Location = new System.Drawing.Point(211, 51);
             this._animalsNumericUpDown.Margin = new System.Windows.Forms.Padding(2);
+            this._animalsNumericUpDown.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this._animalsNumericUpDown.Minimum = new decimal(new int[] {
             1,
             0,
@@ -134,6 +140,7 @@
             this.Controls.Add(this._okButton);
             this.Controls.Add(this._animalsNumericUpDown);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CreateAnimals";
             this.Text = "Create Animals";

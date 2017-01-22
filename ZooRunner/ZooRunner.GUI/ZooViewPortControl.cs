@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 using ZooRunner.GUI;
 
@@ -27,6 +28,7 @@ namespace ZooRunner
         Cursor _grabbing;
         Stopwatch _drawWatch;
         Stopwatch _zooWatch;
+        System.Timers.Timer _timer;
 
         public ZooViewPortControl()
         {
@@ -45,12 +47,17 @@ namespace ZooRunner
             _grabbing = new Cursor("ifm_move.cur");
             _drawWatch = new Stopwatch();
             _zooWatch = new Stopwatch();
+            _timer = new System.Timers.Timer();
+            _timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            _timer.Interval = 1000;
+            _timer.Start();
         }
 
         public event EventHandler MouseLeaveControl;
         public event EventHandler<string> AreaChanged;
         public event EventHandler<int> ViewPortWidthChanged;
         public event EventHandler<int> MapWidthChanged;
+        public event EventHandler<string> WatchsUpdates;
 
 
         void _viewPort_AreaChanged(object sender, EventArgs e)
@@ -83,6 +90,7 @@ namespace ZooRunner
             if( zoo != null )
             {
                 if (_zooWatch.IsRunning) _zooWatch.Reset();
+                if (_drawWatch.IsRunning) _drawWatch.Reset();
                 _zooWatch.Start();
                 _drawWatch.Reset();
                 _zoo = zoo;
@@ -224,11 +232,6 @@ namespace ZooRunner
                 StringBuilder b = new StringBuilder();
                 b.Append("Zoom: ").AppendLine();
                 b.Append(_viewPort.UserZoomFactor * 100 + "%").AppendLine();
-                b.Append("Zoo runtime").AppendLine();
-                b.Append(TimeFormat(_zooWatch)).AppendLine();
-                b.Append("Draw runtime").AppendLine();
-                b.Append(TimeFormat(_drawWatch)).AppendLine();
-                b.Append("Update runtime").AppendLine();
                 string informations = b.ToString();
                 AreaChanged?.Invoke(this, informations);
                 ViewPortWidthChanged?.Invoke(this, _viewPort.Area.Width);
@@ -239,6 +242,20 @@ namespace ZooRunner
         {
             DisplayInfo();
             base.OnEnabledChanged(e);
+        }
+
+        private void OnTimedEvent(object sender, ElapsedEventArgs e)
+        {
+            if(this.Enabled)
+            {
+                StringBuilder b = new StringBuilder();
+                b.Append("Zoo runtime :").AppendLine();
+                b.Append(TimeFormat(_zooWatch)).AppendLine();
+                b.Append("Draw runtime :").AppendLine();
+                b.Append(TimeFormat(_drawWatch)).AppendLine();
+                string watchs = b.ToString();
+                WatchsUpdates?.Invoke(this, watchs);
+            }
         }
 
         private string TimeFormat(Stopwatch watch)
