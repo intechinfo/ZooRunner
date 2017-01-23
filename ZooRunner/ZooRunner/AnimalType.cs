@@ -56,5 +56,6 @@ namespace ZooRunner
             return new AnimalAdapter(a, this);
         }
 
+        public Type Type => _animalType;
     }
 }

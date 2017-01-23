@@ -28,15 +28,7 @@ namespace ZooRunner
             _zooType = zooType;
             _animalTypes = CreateAnimalTypes( zoo, zooType );
             _updateMethod = _zooType.GetMethod("Update");
-            try
-            {
-                _colorAtMethod = _zooType.GetMethod("ColorAt");
-            }
-            catch(Exception)
-            {
-                _colorAtMethod = null;
-            }
-            
+            _colorAtMethod = _zooType.GetMethod("ColorAt"); 
             try
             {
                 _meterDefinition = (double)_zooType.GetProperty("MeterDefinition").GetGetMethod().Invoke(zoo, null);
@@ -91,10 +83,11 @@ namespace ZooRunner
             return color;
         }
 
-        public void Find(AnimalAdapter animal)
+        public AnimalAdapter Find(AnimalAdapter animal)
         {
-            //_findMethod.MakeGenericMethod(typeof(AnimalAdapter)).Invoke(_zoo, new object[] { animal.Name });
-            //_findMethod.Invoke(_zoo, new object[] { animal.Name });
+            var returnObject = _findMethod.MakeGenericMethod(animal.AnimalType.Type).Invoke(_zoo, new object[] { animal.Name });
+            AnimalAdapter a = (AnimalAdapter)returnObject;
+            return a;
         }
 
         public int WithInMeter => _widthInMeter;

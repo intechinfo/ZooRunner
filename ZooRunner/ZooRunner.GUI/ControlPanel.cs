@@ -91,6 +91,12 @@ namespace ZooRunner.GUI
         private void _gameLoopTimer_Tick(object sender, EventArgs e)
         {
             _zoo.Update();
+            
+            for(int i = 0; i > _animals.Count; i++)
+            {
+                AnimalAdapter a = _zoo.Find(_animals[i]);
+                if (a == null) _animals.RemoveAt(i);
+            }
             TimerTick?.Invoke(this, _animals);
         }
 

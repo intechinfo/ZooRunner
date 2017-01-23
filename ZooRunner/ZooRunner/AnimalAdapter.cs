@@ -25,5 +25,7 @@ namespace ZooRunner
         public double Y => _type.GetPositionYFor(_animal);
 
         public string GetType => _type.Name;
+
+        public AnimalType AnimalType => _type;
     }
 }

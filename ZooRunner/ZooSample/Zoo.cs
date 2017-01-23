@@ -60,8 +60,6 @@ namespace ZooSample
 
         public T Find<T>(string name) where T : Animal
         {
-            // TODO: C# avancé montrer comment faire ça:
-            // return _animals.GetWithDefault( name, null );
             Animal b;
             _animals.TryGetValue(name, out b);
             return b as T;
