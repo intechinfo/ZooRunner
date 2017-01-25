@@ -52,7 +52,7 @@ namespace ZooRunner.GUI
                 if (doubleY < 0) doubleY = doubleY * -1;
 
                 // Animals size compensation
-                int animalsSize = 100;
+                int animalsSize = 30;
                 doubleX -= animalsSize / 2;
                 doubleY -= animalsSize / 2;
 

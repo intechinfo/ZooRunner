@@ -87,7 +87,7 @@ namespace ZooSample
         //public Color ColorAt(double x, double y)
         //{
         //    Color myColor = new Color();
-        //    if(y > Math.Cos(x) - 0.4)
+        //    if (y > Math.Cos(x) - 0.4)
         //    {
         //        myColor = Color.Blue;
         //    }

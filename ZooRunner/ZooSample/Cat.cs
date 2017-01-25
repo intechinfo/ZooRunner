@@ -27,7 +27,12 @@ namespace ZooSample
             if (y > 1) y = -1;
             else if (y < -1) y = 1;
 
-            SetPosition(new Point (x, y));
+            //if (x > 1) Die();
+            //else if (x < -1) Die();
+            //if (y > 1) Die();
+            //else if (y < -1) Die();
+
+            SetPosition(new Point(x, y));
         }
 
         public void MoveRandom()
@@ -37,7 +42,7 @@ namespace ZooSample
 
         internal override void Update()
         {
-            if(_isRandomWalking)
+            if (_isRandomWalking)
             {
                 SetDirection();
                 _isRandomWalking = false;

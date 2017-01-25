@@ -97,7 +97,7 @@ namespace ZooRunner
             }
             catch (Exception)
             {
-                meterDefinition = 0.001;
+                meterDefinition = 0.01;
             }
 
             return meterDefinition;
