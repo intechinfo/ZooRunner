@@ -11,6 +11,7 @@ namespace ZooSample
     public class Zoo
     {
         readonly Dictionary<string, Animal> _animals;
+        readonly Dictionary<string, Animal> _animalsThatWillDie;
         readonly Random _random;
 
         public Zoo()
@@ -27,6 +28,7 @@ namespace ZooSample
         {
             _random = random;
             _animals = new Dictionary<string, Animal>();
+            _animalsThatWillDie = new Dictionary<string, Animal>();
         }
 
         internal bool Probability(double p)
@@ -58,33 +60,47 @@ namespace ZooSample
             return bird;
         }
 
-        public T Find<T>(string name) where T : Animal
-        {
-            Animal b;
-            _animals.TryGetValue(name, out b);
-            return b as T;
-        }
+        //public T Find<T>(string name) where T : Animal
+        //{
+        //    Animal b;
+        //    _animals.TryGetValue(name, out b);
+        //    return b as T;
+        //}
 
         public void Die(Animal a)
         {
-            _animals.Remove(a.Name);
+            _animalsThatWillDie.Add(a.Name, a);
         }
 
         public void Update()
         {
             foreach (Animal a in _animals.Values) a.Update();
-        }
 
-        public double MeterDefinition => 0.001;
-
-        public Color ColorAt(double x,double y)
-        {
-            if (x <= y)
+            foreach(Animal a in _animalsThatWillDie.Values)
             {
-                return Color.Blue;
+                if (_animals.ContainsKey(a.Name)) _animals.Remove(a.Name);
             }
-            return Color.Chartreuse;
         }
+
+        //public double MeterDefinition => 0.01;
+
+        //public Color ColorAt(double x, double y)
+        //{
+        //    Color myColor = new Color();
+        //    if(y > Math.Cos(x) - 0.4)
+        //    {
+        //        myColor = Color.Blue;
+        //    }
+        //    else if (y <= Math.Tan(x))
+        //    {
+        //        myColor = Color.Chartreuse;
+        //    }
+        //    else
+        //    {
+        //        myColor = Color.Brown;
+        //    }
+        //    return myColor;
+        //}
 
     }
 }

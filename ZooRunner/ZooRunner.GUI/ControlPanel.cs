@@ -91,11 +91,14 @@ namespace ZooRunner.GUI
         private void _gameLoopTimer_Tick(object sender, EventArgs e)
         {
             _zoo.Update();
-            
-            for(int i = 0; i > _animals.Count; i++)
+
+            if (_zoo.CollectFindMethod)
             {
-                AnimalAdapter a = _zoo.Find(_animals[i]);
-                if (a == null) _animals.RemoveAt(i);
+                for (int i = _animals.Count - 1; i >= 0; i--)
+                {
+                    bool isAlive = _zoo.Find(_animals[i]);
+                    if (!isAlive) _animals.RemoveAt(i);
+                }
             }
             TimerTick?.Invoke(this, _animals);
         }
@@ -115,7 +118,7 @@ namespace ZooRunner.GUI
             AnimalsRepresentation representation = new AnimalsRepresentation(_zoo, _animalsRedering);
             if (representation.ShowDialog() == DialogResult.OK)
             {
-                AnimalsRederingChange?.Invoke(this, _animalsRedering); // bug ici (même adresse mémoire), créer une liste intermediaire
+                AnimalsRederingChange?.Invoke(this, _animalsRedering); // (même adresse mémoire), créer une liste intermediaire
             }
             representation.Dispose();
         }

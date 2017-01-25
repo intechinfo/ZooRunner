@@ -23,13 +23,16 @@ namespace ZooRunner.GUI
 
         public void Draw(Box box, Graphics g, Rectangle rectSource, float scaleFactor)
         {
-            if (_showBiomes)
+            if (Zoo.CollectColorAtMethod)
             {
-                DrawBiomes(box, g, scaleFactor);
-                _showBiomes = false;
-            }
+                if (_showBiomes)
+                {
+                    DrawBiomes(box, g, scaleFactor);
+                    _showBiomes = false;
+                }
 
-            g.DrawImage(_background, 0, 0);
+                g.DrawImage(_background, 0, 0);
+            }
 
             for (int i = 0; i < _animals.Count; i++)
             {
@@ -49,7 +52,7 @@ namespace ZooRunner.GUI
                 if (doubleY < 0) doubleY = doubleY * -1;
 
                 // Animals size compensation
-                int animalsSize = 10;
+                int animalsSize = 100;
                 doubleX -= animalsSize / 2;
                 doubleY -= animalsSize / 2;
 
@@ -58,19 +61,19 @@ namespace ZooRunner.GUI
 
                 Rectangle animalBody = new Rectangle(x, y, animalsSize, animalsSize);
 
-                if (AnimalsShapes != null && AnimalsShapes.AnimalsRepresentation.ContainsKey(_animals[i].GetType))
+                if (AnimalsShapes != null && AnimalsShapes.AnimalsRepresentation.ContainsKey(_animals[i].TypeName))
                 {
-                    Pen customPen = new Pen(AnimalsShapes.AnimalsRepresentation[_animals[i].GetType].ChangeColor);
+                    Pen customPen = new Pen(AnimalsShapes.AnimalsRepresentation[_animals[i].TypeName].ChangeColor);
 
-                    if (AnimalsShapes.AnimalsRepresentation[_animals[i].GetType].Figure == "Rectangle")
+                    if (AnimalsShapes.AnimalsRepresentation[_animals[i].TypeName].Figure == "Rectangle")
                     {
                         g.DrawRectangle(customPen, animalBody);
                     }
-                    else if(AnimalsShapes.AnimalsRepresentation[_animals[i].GetType].Figure == "Ellipse")
+                    else if(AnimalsShapes.AnimalsRepresentation[_animals[i].TypeName].Figure == "Ellipse")
                     {
                         g.DrawEllipse(customPen, animalBody);
                     }
-                    else if(AnimalsShapes.AnimalsRepresentation[_animals[i].GetType].Figure == "Triangle")
+                    else if(AnimalsShapes.AnimalsRepresentation[_animals[i].TypeName].Figure == "Triangle")
                     {
                         Point one = new Point(x, y);
                         Point two = new Point(x + animalsSize, y);
@@ -85,7 +88,7 @@ namespace ZooRunner.GUI
 
                         g.DrawPolygon(customPen, trianglePoints);
                     }
-                    else if(AnimalsShapes.AnimalsRepresentation[_animals[i].GetType].Figure == "Star")
+                    else if(AnimalsShapes.AnimalsRepresentation[_animals[i].TypeName].Figure == "Star")
                     {
                         Point one = new Point(x + animalsSize / 2, y);
                         Point two = new Point(x +  animalsSize / 3 * 2, y + animalsSize / 4);
@@ -169,14 +172,11 @@ namespace ZooRunner.GUI
                     decimal offsetI = (decimal)i / (decimal)backGround.Height * 100;
                     double y = SuperiorBoundaryY - Interval / 100 * (double)offsetI;
 
-                    x = Math.Round(x, 5);
-                    y = Math.Round(y, 5);
-
                     Color customColor = Zoo.ColorAt(x, y);
                     backGround.SetPixel(n, i, customColor);
                 }
             }
-            _background = ResizeImage(backGround, box.Area.Width, box.Area.Height);
+            _background = ResizeImage(backGround, box.Area.Width, box.Area.Height); //  for override aberration add for exemple 5
         }
 
         public static Bitmap ResizeImage(Image image, int width, int height)

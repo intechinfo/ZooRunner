@@ -20,6 +20,8 @@ namespace ZooRunner
         readonly int _widthInMeter;
         readonly int _mapSize;
         readonly MethodInfo _findMethod;
+        bool _collectColorAtMethod;
+        bool _collectFindMethod;
 
         ZooAdapter(object zoo, Type zooType)
         {
@@ -28,18 +30,11 @@ namespace ZooRunner
             _zooType = zooType;
             _animalTypes = CreateAnimalTypes( zoo, zooType );
             _updateMethod = _zooType.GetMethod("Update");
-            _colorAtMethod = _zooType.GetMethod("ColorAt"); 
-            try
-            {
-                _meterDefinition = (double)_zooType.GetProperty("MeterDefinition").GetGetMethod().Invoke(zoo, null);
-            }
-            catch(Exception)
-            {
-                _meterDefinition = 0.001;
-            }           
+            _colorAtMethod = RetrieveColorAt();
+            _meterDefinition = RetrieveMeterDefinition(_zoo);        
             _widthInMeter = (int)(1 / _meterDefinition) * 2;
             _mapSize = _widthInMeter * 1000;
-            _findMethod = _zooType.GetMethod("Find");
+            _findMethod = RetrieveFind();
         }
 
         public static ZooAdapter Load( string fileName )
@@ -78,22 +73,72 @@ namespace ZooRunner
 
         public Color ColorAt(double x, double y)
         {
+            if (!_collectColorAtMethod) throw new Exception("You can't use ColorAt() without a ColorAt method in your zoo");
             var returnObject = _colorAtMethod.Invoke(_zoo, new object[] { x, y });
             Color color = (Color)returnObject;
             return color;
         }
 
-        public AnimalAdapter Find(AnimalAdapter animal)
+        public bool Find(AnimalAdapter animal)
         {
+            if (!_collectFindMethod) throw new Exception("You can't use Find() without a find method in your zoo");
             var returnObject = _findMethod.MakeGenericMethod(animal.AnimalType.Type).Invoke(_zoo, new object[] { animal.Name });
-            AnimalAdapter a = (AnimalAdapter)returnObject;
-            return a;
+            if (returnObject == null) return false;
+            return true;
+        }
+
+        private double RetrieveMeterDefinition(object zoo)
+        {
+            double meterDefinition;
+
+            try
+            {
+                meterDefinition = (double)_zooType.GetProperty("MeterDefinition").GetGetMethod().Invoke(zoo, null);
+            }
+            catch (Exception)
+            {
+                meterDefinition = 0.001;
+            }
+
+            return meterDefinition;
+        }
+
+        private MethodInfo RetrieveColorAt()
+        {
+            MethodInfo colorAtMethod;
+
+            colorAtMethod = _zooType.GetMethod("ColorAt");
+            _collectColorAtMethod = true;
+
+            if(colorAtMethod == null)
+            {
+                _collectColorAtMethod = false;
+            }
+
+            return colorAtMethod;
+        }
+
+        private MethodInfo RetrieveFind()
+        {
+            MethodInfo findMethod;
+            findMethod = _zooType.GetMethod("Find");
+            _collectFindMethod = true;
+
+            if(findMethod == null)
+            {
+                _collectFindMethod = false;
+            }
+            return findMethod;
         }
 
         public int WithInMeter => _widthInMeter;
 
         public int MapSize => _mapSize;
 
-        public double MeterDefinition => _meterDefinition;     
+        public double MeterDefinition => _meterDefinition;
+
+        public bool CollectColorAtMethod => _collectColorAtMethod;
+
+        public bool CollectFindMethod => _collectFindMethod;     
     }
 }

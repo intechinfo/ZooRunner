@@ -9,7 +9,7 @@ namespace ZooRunner.GUI
 {
     public class AnimalsRedering
     {
-        Dictionary<string, AnimalsTypeRendering> _animalsRedering;
+        readonly Dictionary<string, AnimalsTypeRendering> _animalsRedering;
 
         public AnimalsRedering()
         {
