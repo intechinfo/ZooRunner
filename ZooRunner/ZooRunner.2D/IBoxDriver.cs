@@ -17,5 +17,7 @@ namespace ZooRunner
         void ClearAnimals();
 
         object CastAnimalsRedering { set; } // <= circular dependency
+
+        Bitmap BackGround { get; }
     }
 }

@@ -52,12 +52,13 @@ namespace ZooRunner.GUI
             if (this.Enabled && _mapWidth != 0 && _viewPortHeight != 0)
             {
                 Pen pen = new Pen(Color.Black);
-                Font drawFont = new Font("Arial", 14);
+                Font drawFont = new Font("Arial", 12);
                 SolidBrush drawBrush = new SolidBrush(Color.Black);
 
-                double left = 0;
-                double middle = _zooWithInMeter / 4;
-                double right = _zooWithInMeter / 2;
+                decimal left = 0;
+                decimal middle = (decimal)_zooWithInMeter / 4;
+                decimal right = (decimal)_zooWithInMeter / 2;
+                string unity = " m";
 
                 double percentage = (double)_mapWidth / _viewPortHeight * 100;
                 percentage = percentage / 2;
@@ -70,6 +71,19 @@ namespace ZooRunner.GUI
                     right = right / 2;
 
                 }
+
+                if(right >= 1000)
+                {
+                    unity = " km";
+                    middle = middle / 1000;
+                    right = right / 1000;
+                }
+                else if(right <= 1)
+                {
+                    unity = " cm";
+                    middle *= 100;
+                    right *= 100;
+                }               
 
                 double sizeInPixel = (this.Size.Height / 100) * percentage;
 
@@ -90,9 +104,9 @@ namespace ZooRunner.GUI
                 e.Graphics.DrawLine(pen, b, d);
                 e.Graphics.DrawLine(pen, f, g);
 
-                e.Graphics.DrawString(left + " m", drawFont, drawBrush, a.X + 5, a.Y - 10);
-                e.Graphics.DrawString(middle + " m", drawFont, drawBrush, f.X + 5, f.Y - 10);
-                e.Graphics.DrawString(right + " m", drawFont, drawBrush, b.X + 5, b.Y - 10);
+                e.Graphics.DrawString(left + unity, drawFont, drawBrush, a.X + 5, a.Y - 10);
+                e.Graphics.DrawString((double)middle + unity, drawFont, drawBrush, f.X + 5, f.Y - 10);
+                e.Graphics.DrawString((double)right + unity, drawFont, drawBrush, b.X + 5, b.Y - 10);
 
                 e.Graphics.Dispose();
             }

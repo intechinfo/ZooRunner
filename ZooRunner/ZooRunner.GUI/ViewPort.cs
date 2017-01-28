@@ -320,5 +320,23 @@ namespace ZooRunner
                 supBoundaryX = -1;
             }
         }
+
+        public void CreateAndSaveBackgroundImage(string path)
+        {
+            using (Bitmap bmp = new Bitmap(_map.Area.Width, _map.Area.Height))
+            {
+                using (Graphics g = Graphics.FromImage(bmp))
+                {
+                    for(int i = 0; i < _map.BoxCount; i++)
+                    {
+                        for (int n = 0; n < _map.BoxCount; n++)
+                        {
+                            g.DrawImage(_map[n,i].Driver.BackGround, _map[n, i].Area.X, _map[n, i].Area.Y, _map[n, i].Area.Width, _map[n, i].Area.Height);
+                        }
+                    } 
+                    bmp.Save(path);
+                }
+            }
+        }
     }
 }

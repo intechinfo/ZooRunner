@@ -26,7 +26,6 @@ namespace ZooRunner.GUI
             _informations.Enabled = true;
         }
 
-
         private void OnBoxCountChange(object sender, int e)
         {
             _zooViewPortControl.BoxCount = e;
@@ -80,6 +79,11 @@ namespace ZooRunner.GUI
         private void OnEngineInformationsChanged(object sender, string e)
         {
             _controlPanel.DisplayEngineInformations(e);
+        }
+
+        private void OnBackgroundSaved(object sender, string e)
+        {
+            _zooViewPortControl.BackgroundSaved(e);
         }
     }
 }

@@ -30,6 +30,7 @@ namespace ZooRunner.GUI
         public event EventHandler<int> BoxCountChange;
         public event EventHandler <bool> ShowGridLines;
         public event EventHandler <AnimalsRedering> AnimalsRederingChange;
+        public event EventHandler<string> Backgroundsaved;
 
         private void _dllBouton_Click(object sender, EventArgs e)
         {
@@ -47,6 +48,7 @@ namespace ZooRunner.GUI
                 _representationButton.Enabled = true;
                 _calculatorButton.Enabled = true;
                 _engineTextBox.Enabled = true;
+                if(_zoo.CollectColorAtMethod) _backgroundSaveButton.Enabled = true;
             }
         }
 
@@ -131,6 +133,17 @@ namespace ZooRunner.GUI
         public void DisplayEngineInformations(string infos)
         {
             _engineTextBox.Text = infos;
+        }
+
+        private void _backgroundSaveButton_Click(object sender, EventArgs e)
+        {
+            _backgroundSaveFileDialog.Filter = "jpg files (*.jpg)|*.jpg";
+            _backgroundSaveFileDialog.ShowDialog();
+        }
+
+        private void _backgoundsaveFileDialog_FileOk(object sender, CancelEventArgs e)
+        {
+            Backgroundsaved?.Invoke(this, _backgroundSaveFileDialog.FileName);
         }
     }
 }

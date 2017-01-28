@@ -276,5 +276,10 @@ namespace ZooRunner
             return elapsedTime;
         }
 
+        public void BackgroundSaved(string path)
+        {
+            _viewPort.CreateAndSaveBackgroundImage(path);
+        }
+
     }
 }

@@ -12,23 +12,23 @@ namespace ZooRunner.GUI
     class Driver : IBoxDriver
     {
         List<AnimalAdapter> _animals;
-        bool _showBiomes;
+        bool _backgroundNeeded;
         Bitmap _background;
 
         public Driver()
         {
             _animals = new List<AnimalAdapter>();
-            _showBiomes = true;
+            _backgroundNeeded = true;
         }
 
         public void Draw(Box box, Graphics g, Rectangle rectSource, float scaleFactor)
         {
             if (Zoo.CollectColorAtMethod)
             {
-                if (_showBiomes)
+                if (_backgroundNeeded)
                 {
                     DrawBiomes(box, g, scaleFactor);
-                    _showBiomes = false;
+                    _backgroundNeeded = false;
                 }
 
                 g.DrawImage(_background, 0, 0);
@@ -176,7 +176,8 @@ namespace ZooRunner.GUI
                     backGround.SetPixel(n, i, customColor);
                 }
             }
-            _background = ResizeImage(backGround, box.Area.Width, box.Area.Height); //  for override aberration add for exemple 5
+            _background = ResizeImage(backGround, box.Area.Width + 5, box.Area.Height + 5); //  for override aberration add for exemple 5
+            //_background = backGround;
         }
 
         public static Bitmap ResizeImage(Image image, int width, int height)
@@ -221,6 +222,8 @@ namespace ZooRunner.GUI
                 AnimalsShapes = (AnimalsRedering)value;
             }
         }
+
+        public Bitmap BackGround => _background;
 
     }
 }

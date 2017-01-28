@@ -27,11 +27,11 @@ namespace ZooSample
             if (y > 1) y = -1;
             else if (y < -1) y = 1;
 
-            //if (x > 1) Die();
-            //else if (x < -1) Die();
-            //if (y > 1) Die();
-            //else if (y < -1) Die();
-
+            //if (x > 1.0) Die();
+            //else if (x < -1.0) Die();
+            //if (y > 1.0) Die();
+            //else if (y < -1.0) Die();
+            if (Context.ColorAt(x, y) == System.Drawing.Color.Blue) Die();
             SetPosition(new Point(x, y));
         }
 

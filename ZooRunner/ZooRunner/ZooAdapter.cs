@@ -93,9 +93,12 @@ namespace ZooRunner
 
             try
             {
-                meterDefinition = (double)_zooType.GetProperty("MeterDefinition").GetGetMethod().Invoke(zoo, null);
+                meterDefinition = (double)_zooType.GetProperty("MeterDefinition")?.GetGetMethod()?.Invoke(zoo, null);
+                if (meterDefinition == 0.0) meterDefinition = 0.01;
+                else if (meterDefinition > 1.0) meterDefinition = 1.0;
+                else if (meterDefinition < 4e-5) meterDefinition = 4e-5;
             }
-            catch (Exception)
+            catch 
             {
                 meterDefinition = 0.01;
             }
