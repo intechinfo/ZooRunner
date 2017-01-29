@@ -213,7 +213,7 @@ namespace ZooRunner
         {
             if (_viewPort == null || _zoo == null || this.IsInDesignMode())
             {
-                e.Graphics.FillRectangle(Brushes.Yellow, e.ClipRectangle);
+                e.Graphics.FillRectangle(Brushes.Gray, e.ClipRectangle);
             }
             else
             {

@@ -22,16 +22,16 @@ namespace ZooSample
             double x = X + (destination.X / percentSpeed);
             double y = Y + (destination.Y / percentSpeed);
 
-            if (x > 1) x = -1;
-            else if (x < -1) x = 1;
-            if (y > 1) y = -1;
-            else if (y < -1) y = 1;
+            //if (x > 1) x = -1;
+            //else if (x < -1) x = 1;
+            //if (y > 1) y = -1;
+            //else if (y < -1) y = 1;
 
-            //if (x > 1.0) Die();
-            //else if (x < -1.0) Die();
-            //if (y > 1.0) Die();
-            //else if (y < -1.0) Die();
-            if (Context.ColorAt(x, y) == System.Drawing.Color.Blue) Die();
+            if (x > 1.0) Die();
+            else if (x < -1.0) Die();
+            if (y > 1.0) Die();
+            else if (y < -1.0) Die();
+            //if (Context.ColorAt(x, y) == System.Drawing.Color.Blue) Die();
             SetPosition(new Point(x, y));
         }
 

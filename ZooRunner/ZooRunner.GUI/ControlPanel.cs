@@ -16,6 +16,7 @@ namespace ZooRunner.GUI
         List<AnimalAdapter> _animals;
         bool _timer;
         AnimalsRedering _animalsRedering;
+        ToolTip _animalsCountToolTip;
 
         public ControlPanel()
         {
@@ -23,6 +24,7 @@ namespace ZooRunner.GUI
             _animals = new List<AnimalAdapter>();
             _timer = false;
             _animalsRedering = new AnimalsRedering();
+            _animalsCountToolTip = new ToolTip();
         }
 
         public event EventHandler<ZooAdapter> UserGivesDll;
@@ -53,11 +55,12 @@ namespace ZooRunner.GUI
         }
 
         private void _createAnimalsBouton_Click(object sender, EventArgs e)
-        {
+        {            
             CreateAnimals createAnimals = new CreateAnimals(_zoo);
             if (createAnimals.ShowDialog() == DialogResult.OK)
             {
                 _animals.AddRange(createAnimals.Animals);
+                _animalsCountToolTip.SetToolTip(_createAnimalsBouton, "Animals count : " + _animals.Count.ToString());
             }
             createAnimals.Dispose();
         }
@@ -102,6 +105,7 @@ namespace ZooRunner.GUI
                     if (!isAlive) _animals.RemoveAt(i);
                 }
             }
+            _animalsCountToolTip.SetToolTip(_createAnimalsBouton, "Animals count : " + _animals.Count.ToString());
             TimerTick?.Invoke(this, _animals);
         }
 
@@ -137,13 +141,18 @@ namespace ZooRunner.GUI
 
         private void _backgroundSaveButton_Click(object sender, EventArgs e)
         {
-            _backgroundSaveFileDialog.Filter = "jpg files (*.jpg)|*.jpg";
+            _backgroundSaveFileDialog.Filter = "jpg file (*.jpg)|*.jpg";
             _backgroundSaveFileDialog.ShowDialog();
         }
 
         private void _backgoundsaveFileDialog_FileOk(object sender, CancelEventArgs e)
         {
             Backgroundsaved?.Invoke(this, _backgroundSaveFileDialog.FileName);
+        }
+
+        private void ControlPanel_Load(object sender, EventArgs e)
+        {
+            _animalsCountToolTip.SetToolTip(_createAnimalsBouton, "Animals count : " + _animals.Count.ToString());
         }
     }
 }

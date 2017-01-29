@@ -251,6 +251,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ControlPanel";
             this.Size = new System.Drawing.Size(620, 96);
+            this.Load += new System.EventHandler(this.ControlPanel_Load);
             this._panel.ResumeLayout(false);
             this._panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._boxCountNumericUpDown)).EndInit();
