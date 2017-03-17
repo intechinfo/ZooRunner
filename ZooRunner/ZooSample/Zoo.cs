@@ -11,80 +11,80 @@ namespace ZooSample
     public class Zoo
     {
         readonly Dictionary<string, Animal> _animals;
-        readonly Dictionary<string, Animal> _animalsThatWillDie;
+        readonly List<Animal> _animalsThatWillDie;
         readonly Random _random;
 
         public Zoo()
-            : this(new Random())
+            : this( new Random() )
         {
         }
 
-        public Zoo(int randomSeed)
-            : this(new Random(randomSeed))
+        public Zoo( int randomSeed )
+            : this( new Random( randomSeed ) )
         {
         }
 
-        Zoo(Random random)
+        Zoo( Random random )
         {
             _random = random;
             _animals = new Dictionary<string, Animal>();
-            _animalsThatWillDie = new Dictionary<string, Animal>();
+            _animalsThatWillDie = new List<Animal>();
         }
 
-        internal bool Probability(double p)
+        internal bool Probability( double p )
         {
             return _random.NextDouble() < p;
         }
-            
+
         internal Random Randomizer => _random;
 
-        public Cat CreateCat(string name)
+        public Cat CreateCat( string name )
         {
-            Cat cat = new Cat(this, name);
-            _animals[name] = cat;
+            Cat cat = new Cat( this, name );
+            _animals[ name ] = cat;
             return cat;
         }
 
-        internal bool Rename(Animal a, string newName)
+        internal bool Rename( Animal a, string newName )
         {
-            if (_animals.ContainsKey(newName)) return false;
-            _animals.Remove(a.Name);
-            _animals.Add(newName, a);
+            if( _animals.ContainsKey( newName ) ) return false;
+            _animals.Remove( a.Name );
+            _animals.Add( newName, a );
             return true;
         }
 
-        public Bird CreateBird(string name)
+        public Bird CreateBird( string name )
         {
-            Bird bird = new Bird(this, name);
-            _animals[name] = bird;
+            Bird bird = new Bird( this, name );
+            _animals[ name ] = bird;
             return bird;
         }
 
-        public T Find<T>(string name) where T : Animal
+        public T Find<T>( string name ) where T : Animal
         {
             Animal b;
-            _animals.TryGetValue(name, out b);
+            _animals.TryGetValue( name, out b );
             return b as T;
         }
 
-        public void Die(Animal a)
+        public void Die( Animal a )
         {
-            _animalsThatWillDie.Add(a.Name, a);
+            _animalsThatWillDie.Add( a );
         }
 
         public void Update()
         {
-            foreach (Animal a in _animals.Values) a.Update();
+            foreach( Animal a in _animals.Values ) a.Update();
 
-            foreach(Animal a in _animalsThatWillDie.Values)
+            foreach( Animal a in _animalsThatWillDie )
             {
-                if (_animals.ContainsKey(a.Name)) _animals.Remove(a.Name);
+                _animals.Remove( a.Name );
             }
         }
 
         public double MeterDefinition => 0.0001;
 
-        public Color ColorAt(double x, double y)
+        public Color ColorAt( double x, double y )
         {
             //Color myColor = new Color();
             //if (y > Math.Cos(x) - 0.4)
@@ -103,7 +103,7 @@ namespace ZooSample
             x *= Math.PI;
             y *= Math.PI;
 
-            return Color.FromArgb((int)((Math.Sin(x) * 255) + 255) / 2, (int)((Math.Cos(y) * 255) + 255) / 2, (int)((Math.Sin(x * y) * 255) + 255) / 2);
+            return Color.FromArgb( ( int )( ( Math.Sin( x ) * 255 ) + 255 ) / 2, ( int )( ( Math.Cos( y ) * 255 ) + 255 ) / 2, ( int )( ( Math.Sin( x * y ) * 255 ) + 255 ) / 2 );
         }
 
     }

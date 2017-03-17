@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
@@ -43,8 +45,14 @@ namespace ZooRunner
             _zoomScale = 50;
             _mousePressed = false;
             _mouseDown = new Point();
-            _grab = new Cursor("ifm_grab.cur");
-            _grabbing = new Cursor("ifm_move.cur");
+            using( Stream s = Assembly.GetExecutingAssembly().GetManifestResourceStream( "ZooRunner.GUI.Icons.ifm_grab.cur" ) )
+            {
+                _grab = new Cursor( s );
+            }
+            using( Stream s = Assembly.GetExecutingAssembly().GetManifestResourceStream( "ZooRunner.GUI.Icons.ifm_move.cur" ) )
+            {
+                _grabbing = new Cursor( s );
+            }
             _drawWatch = new Stopwatch();
             _zooWatch = new Stopwatch();
             _timer = new System.Timers.Timer();

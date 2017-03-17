@@ -28,18 +28,18 @@ namespace ZooRunner.GUI
         }
 
         public event EventHandler<ZooAdapter> UserGivesDll;
-        public event EventHandler <List<AnimalAdapter>> TimerTick;
+        public event EventHandler<List<AnimalAdapter>> TimerTick;
         public event EventHandler<int> BoxCountChange;
-        public event EventHandler <bool> ShowGridLines;
-        public event EventHandler <AnimalsRedering> AnimalsRederingChange;
+        public event EventHandler<bool> ShowGridLines;
+        public event EventHandler<AnimalsRedering> AnimalsRederingChange;
         public event EventHandler<string> Backgroundsaved;
 
-        private void _dllBouton_Click(object sender, EventArgs e)
+        private void _dllBouton_Click( object sender, EventArgs e )
         {
-            if (_dllOpenFileDialog.ShowDialog() == DialogResult.OK)
+            if( _dllOpenFileDialog.ShowDialog() == DialogResult.OK )
             {
-                _zoo = ZooAdapter.Load(_dllOpenFileDialog.FileName);
-                UserGivesDll?.Invoke(this, _zoo);
+                _zoo = ZooAdapter.Load( _dllOpenFileDialog.FileName );
+                UserGivesDll?.Invoke( this, _zoo );
                 this.Text = _dllOpenFileDialog.FileName;
                 _animals.Clear();
                 _createAnimalsBouton.Enabled = true;
@@ -50,24 +50,24 @@ namespace ZooRunner.GUI
                 _representationButton.Enabled = true;
                 _calculatorButton.Enabled = true;
                 _engineTextBox.Enabled = true;
-                if(_zoo.CollectColorAtMethod) _backgroundSaveButton.Enabled = true;
+                if( _zoo.CollectColorAtMethod ) _backgroundSaveButton.Enabled = true;
             }
         }
 
-        private void _createAnimalsBouton_Click(object sender, EventArgs e)
-        {            
-            CreateAnimals createAnimals = new CreateAnimals(_zoo);
-            if (createAnimals.ShowDialog() == DialogResult.OK)
+        private void _createAnimalsBouton_Click( object sender, EventArgs e )
+        {
+            CreateAnimals createAnimals = new CreateAnimals( _zoo );
+            if( createAnimals.ShowDialog() == DialogResult.OK )
             {
-                _animals.AddRange(createAnimals.Animals);
-                _animalsCountToolTip.SetToolTip(_createAnimalsBouton, "Animals count : " + _animals.Count.ToString());
+                _animals.AddRange( createAnimals.Animals );
+                _animalsCountToolTip.SetToolTip( _createAnimalsBouton, "Animals count : " + _animals.Count.ToString() );
             }
             createAnimals.Dispose();
         }
 
-        private void _gameLoopBouton_Click(object sender, EventArgs e)
+        private void _gameLoopBouton_Click( object sender, EventArgs e )
         {
-            if (_timer == false)
+            if( _timer == false )
             {
                 _gameLoopTimer.Start();
                 _timer = true;
@@ -88,71 +88,66 @@ namespace ZooRunner.GUI
             }
         }
 
-        private void _timerTrackBar_ValueChanged(object sender, EventArgs e)
+        private void _timerTrackBar_ValueChanged( object sender, EventArgs e )
         {
-            _gameLoopTimer.Interval = 10000 / _timerTrackBar.Value;
+            _gameLoopTimer.Interval = 1000 / _timerTrackBar.Value;
         }
 
-        private void _gameLoopTimer_Tick(object sender, EventArgs e)
+        private void _gameLoopTimer_Tick( object sender, EventArgs e )
         {
             _zoo.Update();
-
-            if (_zoo.CollectFindMethod)
+            for( int i = _animals.Count - 1; i >= 0; i-- )
             {
-                for (int i = _animals.Count - 1; i >= 0; i--)
-                {
-                    bool isAlive = _zoo.Find(_animals[i]);
-                    if (!isAlive) _animals.RemoveAt(i);
-                }
+                if( !_animals[ i ].IsAlive ) _animals.RemoveAt( i );
             }
-            _animalsCountToolTip.SetToolTip(_createAnimalsBouton, "Animals count : " + _animals.Count.ToString());
-            TimerTick?.Invoke(this, _animals);
+            _animalsCountToolTip.SetToolTip( _createAnimalsBouton, "Animals count : " + _animals.Count.ToString() );
+            TimerTick?.Invoke( this, _animals );
         }
 
-        private void _boxCountNumericUpDown_ValueChanged(object sender, EventArgs e)
+        private void _boxCountNumericUpDown_ValueChanged( object sender, EventArgs e )
         {
-            BoxCountChange?.Invoke(this, (int)_boxCountNumericUpDown.Value);
+            BoxCountChange?.Invoke( this, ( int )_boxCountNumericUpDown.Value );
         }
 
-        private void _showGridLinesCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void _showGridLinesCheckBox_CheckedChanged( object sender, EventArgs e )
         {
-            ShowGridLines?.Invoke(sender, _showGridLinesCheckBox.Checked);
+            ShowGridLines?.Invoke( sender, _showGridLinesCheckBox.Checked );
         }
 
-        private void _representationButton_Click(object sender, EventArgs e)
+        private void _representationButton_Click( object sender, EventArgs e )
         {
-            AnimalsRepresentation representation = new AnimalsRepresentation(_zoo, _animalsRedering);
-            if (representation.ShowDialog() == DialogResult.OK)
+            AnimalsRepresentation representation = new AnimalsRepresentation( _zoo, _animalsRedering );
+            if( representation.ShowDialog() == DialogResult.OK )
             {
-                AnimalsRederingChange?.Invoke(this, _animalsRedering); // (même adresse mémoire), créer une liste intermediaire
+                AnimalsRederingChange?.Invoke( this, _animalsRedering ); // (même adresse mémoire), créer une liste intermediaire
             }
             representation.Dispose();
         }
 
-        private void _calculatorButton_Click(object sender, EventArgs e)
+        private void _calculatorButton_Click( object sender, EventArgs e )
         {
-            System.Diagnostics.Process.Start("calc");
+            System.Diagnostics.Process.Start( "calc" );
         }
 
-        public void DisplayEngineInformations(string infos)
+        public void DisplayEngineInformations( string infos )
         {
             _engineTextBox.Text = infos;
         }
 
-        private void _backgroundSaveButton_Click(object sender, EventArgs e)
+        private void _backgroundSaveButton_Click( object sender, EventArgs e )
         {
             _backgroundSaveFileDialog.Filter = "jpg file (*.jpg)|*.jpg";
             _backgroundSaveFileDialog.ShowDialog();
         }
 
-        private void _backgoundsaveFileDialog_FileOk(object sender, CancelEventArgs e)
+        private void _backgoundsaveFileDialog_FileOk( object sender, CancelEventArgs e )
         {
-            Backgroundsaved?.Invoke(this, _backgroundSaveFileDialog.FileName);
+            Backgroundsaved?.Invoke( this, _backgroundSaveFileDialog.FileName );
         }
 
-        private void ControlPanel_Load(object sender, EventArgs e)
+        private void ControlPanel_Load( object sender, EventArgs e )
         {
-            _animalsCountToolTip.SetToolTip(_createAnimalsBouton, "Animals count : " + _animals.Count.ToString());
+            _animalsCountToolTip.SetToolTip( _createAnimalsBouton, "Animals count : " + _animals.Count.ToString() );
         }
     }
 }

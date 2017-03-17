@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ZooRunner
 {
@@ -14,54 +13,78 @@ namespace ZooRunner
         readonly object _zoo;
         readonly Type _zooType;
         readonly List<AnimalType> _animalTypes;
-        readonly MethodInfo _updateMethod;
-        readonly MethodInfo _colorAtMethod;
+        readonly Action _update;
+        readonly Func<double, double, Color> _colorAt;
         readonly double _meterDefinition;
         readonly int _widthInMeter;
         readonly int _mapSize;
-        readonly MethodInfo _findMethod;
-        bool _collectColorAtMethod;
-        bool _collectFindMethod;
 
-        ZooAdapter(object zoo, Type zooType)
+        ZooAdapter( object zoo, Type zooType )
         {
-            Debug.Assert(zoo != null);
+            Debug.Assert( zoo != null );
             _zoo = zoo;
             _zooType = zooType;
             _animalTypes = CreateAnimalTypes( zoo, zooType );
-            _updateMethod = _zooType.GetMethod("Update");
-            _colorAtMethod = RetrieveColorAt();
-            _meterDefinition = RetrieveMeterDefinition(_zoo);        
-            _widthInMeter = (int)(1 / _meterDefinition) * 2;
+            _update = BuildUpdate( zooType, zoo );
+            CollectColorAtMethod = TryBuildColorAt( zooType, zoo, out _colorAt );
+            _meterDefinition = RetrieveMeterDefinition( _zoo );
+            _widthInMeter = ( int )( 1 / _meterDefinition ) * 2;
             _mapSize = _widthInMeter * 1000;
-            _findMethod = RetrieveFind();
+        }
+
+        static bool TryBuildColorAt( Type zooType, object zoo, out Func<double, double, Color> colorAt )
+        {
+            colorAt = null;
+            MethodInfo colorAtInfo = RetrieveColorAt( zooType, zoo );
+            if( colorAtInfo == null ) return false;
+
+            var xParam = Expression.Parameter( typeof( double ), "x" );
+            var yParam = Expression.Parameter( typeof( double ), "y" );
+            colorAt = Expression.Lambda<Func<double, double, Color>>(
+                Expression.Call(
+                    Expression.Constant( zoo ),
+                    colorAtInfo,
+                    xParam,
+                    yParam ),
+                xParam,
+                yParam ).Compile();
+
+            return true;
+        }
+
+        static Action BuildUpdate( Type zooType, object zoo )
+        {
+            MethodInfo updateInfo = zooType.GetMethod( "Update" );
+            if( updateInfo == null ) return () => { };
+            return Expression.Lambda<Action>( Expression.Call( Expression.Constant( zoo ), updateInfo ) ).Compile();
         }
 
         public static ZooAdapter Load( string fileName )
         {
-            Assembly a = Assembly.LoadFile(fileName);
+            Assembly a = Assembly.LoadFile( fileName );
             var zooType = a.GetExportedTypes().Where( t => t.Name == "Zoo" ).Single();
-            object zoo = Activator.CreateInstance(zooType);
-            return new ZooAdapter(zoo, zooType);
+            object zoo = Activator.CreateInstance( zooType );
+            return new ZooAdapter( zoo, zooType );
         }
 
-        static List<AnimalType> CreateAnimalTypes(object zoo, Type zooType )
+        static List<AnimalType> CreateAnimalTypes( object zoo, Type zooType )
         {
             List<AnimalType> result = new List<AnimalType>();
-            var allMethods = zooType.GetMethods(BindingFlags.Instance | BindingFlags.Public);
-            var createMethods = allMethods.Where(m => m.Name.StartsWith("Create")
-                                                       && m.ReturnType != typeof(void));
+            var allMethods = zooType.GetMethods( BindingFlags.Instance | BindingFlags.Public );
+            var createMethods = allMethods.Where( m => m.Name.StartsWith( "Create" )
+                                                        && m.ReturnType != typeof( void ) );
             foreach( var m in createMethods )
             {
                 var parameters = m.GetParameters();
-                if( parameters.Length == 1 && parameters[0].ParameterType == typeof(string) )
+                if( parameters.Length == 1 && parameters[ 0 ].ParameterType == typeof( string ) )
                 {
                     Type animalType = m.ReturnType;
                     MethodInfo factoryMethod = m;
-                    MethodInfo getName = animalType.GetProperty("Name").GetGetMethod();
-                    MethodInfo getX = animalType.GetProperty("X").GetGetMethod();
-                    MethodInfo getY = animalType.GetProperty("Y").GetGetMethod();
-                    result.Add(new AnimalType(zoo, animalType, factoryMethod, getName, getX, getY));
+                    MethodInfo getName = animalType.GetProperty( "Name" ).GetGetMethod();
+                    MethodInfo getX = animalType.GetProperty( "X" ).GetGetMethod();
+                    MethodInfo getY = animalType.GetProperty( "Y" ).GetGetMethod();
+                    MethodInfo isAlive = animalType.GetProperty( "IsAlive" ).GetGetMethod();
+                    result.Add( new AnimalType( zoo, animalType, factoryMethod, getName, getX, getY, isAlive ) );
                 }
             }
             return result;
@@ -69,36 +92,25 @@ namespace ZooRunner
 
         public IReadOnlyList<AnimalType> AnimalTypes => _animalTypes;
 
-        public void Update() => _updateMethod.Invoke(_zoo, null);
+        public void Update() => _update();
 
-        public Color ColorAt(double x, double y)
+        public Color ColorAt( double x, double y )
         {
-            if (!_collectColorAtMethod) throw new Exception("You can't use ColorAt() without a ColorAt method in your zoo");
-            var returnObject = _colorAtMethod.Invoke(_zoo, new object[] { x, y });
-            Color color = (Color)returnObject;
-            return color;
+            return _colorAt( x, y );
         }
 
-        public bool Find(AnimalAdapter animal)
-        {
-            if (!_collectFindMethod) throw new Exception("You can't use Find() without a find method in your zoo");
-            var returnObject = _findMethod.MakeGenericMethod(animal.AnimalType.Type).Invoke(_zoo, new object[] { animal.Name });
-            if (returnObject == null) return false;
-            return true;
-        }
-
-        private double RetrieveMeterDefinition(object zoo)
+        private double RetrieveMeterDefinition( object zoo )
         {
             double meterDefinition;
 
             try
             {
-                meterDefinition = (double)_zooType.GetProperty("MeterDefinition")?.GetGetMethod()?.Invoke(zoo, null);
-                if (meterDefinition == 0.0) meterDefinition = 0.01;
-                else if (meterDefinition > 1.0) meterDefinition = 1.0;
-                else if (meterDefinition < 4e-5) meterDefinition = 4e-5;
+                meterDefinition = ( double )_zooType.GetProperty( "MeterDefinition" )?.GetGetMethod()?.Invoke( zoo, null );
+                if( meterDefinition == 0.0 ) meterDefinition = 0.01;
+                else if( meterDefinition > 1.0 ) meterDefinition = 1.0;
+                else if( meterDefinition < 4e-5 ) meterDefinition = 4e-5;
             }
-            catch 
+            catch
             {
                 meterDefinition = 0.01;
             }
@@ -106,32 +118,9 @@ namespace ZooRunner
             return meterDefinition;
         }
 
-        private MethodInfo RetrieveColorAt()
+        static MethodInfo RetrieveColorAt( Type zooType, object zoo )
         {
-            MethodInfo colorAtMethod;
-
-            colorAtMethod = _zooType.GetMethod("ColorAt");
-            _collectColorAtMethod = true;
-
-            if(colorAtMethod == null)
-            {
-                _collectColorAtMethod = false;
-            }
-
-            return colorAtMethod;
-        }
-
-        private MethodInfo RetrieveFind()
-        {
-            MethodInfo findMethod;
-            findMethod = _zooType.GetMethod("Find");
-            _collectFindMethod = true;
-
-            if(findMethod == null)
-            {
-                _collectFindMethod = false;
-            }
-            return findMethod;
+            return zooType.GetMethod( "ColorAt" );
         }
 
         public int WithInMeter => _widthInMeter;
@@ -140,8 +129,6 @@ namespace ZooRunner
 
         public double MeterDefinition => _meterDefinition;
 
-        public bool CollectColorAtMethod => _collectColorAtMethod;
-
-        public bool CollectFindMethod => _collectFindMethod;     
+        public bool CollectColorAtMethod { get; }
     }
 }

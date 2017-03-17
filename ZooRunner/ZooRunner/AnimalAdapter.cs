@@ -12,7 +12,7 @@ namespace ZooRunner
         readonly object _animal;
         readonly AnimalType _type;
 
-        public AnimalAdapter( object animal, AnimalType type)
+        public AnimalAdapter( object animal, AnimalType type )
         {
             _animal = animal;
             _type = type;
@@ -20,12 +20,14 @@ namespace ZooRunner
 
         public string Name => _type.GetNameFor( _animal );
 
-        public double X => _type.GetPositionXFor(_animal);
+        public double X => _type.GetPositionXFor( _animal );
 
-        public double Y => _type.GetPositionYFor(_animal);
+        public double Y => _type.GetPositionYFor( _animal );
 
         public string TypeName => _type.Name;
 
         public AnimalType AnimalType => _type;
+
+        public bool IsAlive => _type.GetIsAliveFor( _animal );
     }
 }

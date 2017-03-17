@@ -15,7 +15,6 @@ namespace ZooRunner
         readonly int _boxCount;
         readonly int _boxWidth;
         readonly int _mapWidth;
-        bool _displayBoxGrid;
 
         public Map(int boxWidthInMeter, int boxCount)
         {

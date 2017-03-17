@@ -14,16 +14,17 @@ namespace ZooRunner
         readonly MethodInfo _getNameMethod;
         readonly MethodInfo _getPositionXMethod;
         readonly MethodInfo _getPositionYMethod;
+        readonly MethodInfo _isAliveMethod;
         readonly object _zoo;
 
         public AnimalType(
-            object zoo, 
+            object zoo,
             Type animalType,
             MethodInfo factoryMethod,
             MethodInfo getNameMethod,
             MethodInfo getPositionXMethod,
-            MethodInfo getPositionYMethod
-            )
+            MethodInfo getPositionYMethod,
+            MethodInfo isAliveMethod )
         {
             _zoo = zoo;
             _animalType = animalType;
@@ -31,31 +32,37 @@ namespace ZooRunner
             _getNameMethod = getNameMethod;
             _getPositionXMethod = getPositionXMethod;
             _getPositionYMethod = getPositionYMethod;
+            _isAliveMethod = isAliveMethod;
         }
 
-        internal string GetNameFor(object animal)
+        internal string GetNameFor( object animal )
         {
-            return (string)_getNameMethod.Invoke(animal, null);
+            return ( string )_getNameMethod.Invoke( animal, null );
         }
 
-        internal double GetPositionXFor(object animal)
+        internal double GetPositionXFor( object animal )
         {
-            return (double)_getPositionXMethod.Invoke(animal, null);
+            return ( double )_getPositionXMethod.Invoke( animal, null );
         }
 
-        internal double GetPositionYFor(object animal)
+        internal double GetPositionYFor( object animal )
         {
-            return (double)_getPositionYMethod.Invoke(animal, null);
+            return ( double )_getPositionYMethod.Invoke( animal, null );
         }
 
         public string Name => _animalType.Name;
 
         public AnimalAdapter CreateInstance( string name )
         {
-            object a = _factoryMethod.Invoke(_zoo, new[] { name });
-            return new AnimalAdapter(a, this);
+            object a = _factoryMethod.Invoke( _zoo, new[] { name } );
+            return new AnimalAdapter( a, this );
         }
 
         public Type Type => _animalType;
+
+        internal bool GetIsAliveFor( object animal )
+        {
+            return ( bool )_isAliveMethod.Invoke( animal, null );
+        }
     }
 }

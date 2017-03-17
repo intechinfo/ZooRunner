@@ -8,11 +8,11 @@ namespace ZooSample
 {
     public abstract class Animal
     {
-        readonly Zoo _ctx;
+        Zoo _ctx;
         string _name;
         Point _pos;
 
-        protected Animal(Zoo context, string name)
+        protected Animal( Zoo context, string name )
         {
             _ctx = context;
             _name = name;
@@ -30,18 +30,18 @@ namespace ZooSample
         /// Only concrete animals can set their position. 
         /// </summary>
         /// <param name="newPosition">The new position of this animal.</param>
-        protected void SetPosition(Point newPosition)
+        protected void SetPosition( Point newPosition )
         {
             _pos = newPosition;
         }
 
         protected Zoo Context => _ctx;
 
-        public bool Rename(string newName)
+        public bool Rename( string newName )
         {
-            if (_name != newName)
+            if( _name != newName )
             {
-                if (!_ctx.Rename(this, newName)) return false;
+                if( !_ctx.Rename( this, newName ) ) return false;
                 _name = newName;
             }
             return true;
@@ -49,9 +49,12 @@ namespace ZooSample
 
         public void Die()
         {
-            _ctx.Die(this);
+            _ctx.Die( this );
+            _ctx = null;
         }
 
         internal abstract void Update();
+
+        public bool IsAlive => _ctx != null;
     }
 }
