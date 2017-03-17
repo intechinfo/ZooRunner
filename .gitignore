@@ -1,0 +1,13 @@
+ZooRunner/.vs/
+ZooRunner/packages/
+ZooRunner/ZooRunner.2D/bin/
+ZooRunner/ZooRunner.2D/obj/
+ZooRunner/ZooRunner.GUI/bin/
+ZooRunner/ZooRunner.GUI/obj/
+*.user
+ZooRunner/ZooRunner.Tests/bin/
+ZooRunner/ZooRunner.Tests/obj/
+ZooRunner/ZooRunner/bin/
+ZooRunner/ZooRunner/obj/
+ZooRunner/ZooSample/bin/
+ZooRunner/ZooSample/obj/
