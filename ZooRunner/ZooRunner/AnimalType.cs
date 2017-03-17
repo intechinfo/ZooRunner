@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,12 +11,12 @@ namespace ZooRunner
     public class AnimalType
     {
         readonly Type _animalType;
-        readonly MethodInfo _factoryMethod;
-        readonly MethodInfo _getNameMethod;
-        readonly MethodInfo _getPositionXMethod;
-        readonly MethodInfo _getPositionYMethod;
-        readonly MethodInfo _isAliveMethod;
         readonly object _zoo;
+        readonly Func<object, string> _getName;
+        readonly Func<object, double> _getPositionX;
+        readonly Func<object, double> _getPositionY;
+        readonly Func<object, bool> _isAlive;
+        readonly Func<string, object> _create;
 
         public AnimalType(
             object zoo,
@@ -24,45 +25,65 @@ namespace ZooRunner
             MethodInfo getNameMethod,
             MethodInfo getPositionXMethod,
             MethodInfo getPositionYMethod,
-            MethodInfo isAliveMethod )
+            MethodInfo getIsAliveMethod )
         {
             _zoo = zoo;
             _animalType = animalType;
-            _factoryMethod = factoryMethod;
-            _getNameMethod = getNameMethod;
-            _getPositionXMethod = getPositionXMethod;
-            _getPositionYMethod = getPositionYMethod;
-            _isAliveMethod = isAliveMethod;
+            _create = BuildCreate( zoo, factoryMethod, animalType );
+            _getName = BuildAnimalGetter<string>( getNameMethod, animalType );
+            _getPositionX = BuildAnimalGetter<double>( getPositionXMethod, animalType );
+            _getPositionY = BuildAnimalGetter<double>( getPositionYMethod, animalType );
+            _isAlive = BuildAnimalGetter<bool>( getIsAliveMethod, animalType );
+        }
+
+        static Func<string, object> BuildCreate( object zoo, MethodInfo factoryMethod, Type animalType )
+        {
+            var name = Expression.Parameter( typeof( string ) );
+            return Expression.Lambda<Func<string, object>>(
+               Expression.Call(
+                   Expression.Constant( zoo ),
+                   factoryMethod,
+                   name ),
+               name ).Compile();
+        }
+
+        static Func<object, T> BuildAnimalGetter<T>( MethodInfo getMethod, Type animalType )
+        {
+            var animal = Expression.Parameter( typeof( object ) );
+            return Expression.Lambda<Func<object, T>>(
+                Expression.Call(
+                    Expression.Convert( animal, animalType ),
+                    getMethod ),
+                animal ).Compile();
         }
 
         internal string GetNameFor( object animal )
         {
-            return ( string )_getNameMethod.Invoke( animal, null );
+            return _getName( animal );
         }
 
         internal double GetPositionXFor( object animal )
         {
-            return ( double )_getPositionXMethod.Invoke( animal, null );
+            return _getPositionX( animal );
         }
 
         internal double GetPositionYFor( object animal )
         {
-            return ( double )_getPositionYMethod.Invoke( animal, null );
+            return _getPositionY( animal );
         }
 
         public string Name => _animalType.Name;
 
         public AnimalAdapter CreateInstance( string name )
         {
-            object a = _factoryMethod.Invoke( _zoo, new[] { name } );
-            return new AnimalAdapter( a, this );
+            return new AnimalAdapter( _create( name ), this );
         }
 
         public Type Type => _animalType;
 
         internal bool GetIsAliveFor( object animal )
         {
-            return ( bool )_isAliveMethod.Invoke( animal, null );
+            return _isAlive( animal );
         }
     }
 }
