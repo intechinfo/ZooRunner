@@ -16,17 +16,17 @@ namespace ZooRunner.GUI
             _animalsRedering = new Dictionary<string, AnimalsTypeRendering>();
         }
 
-        public void Add(string typeName, string figure, Color color)
+        public void Add(string typeName, Shape shape, Color color)
         {
             if(!_animalsRedering.ContainsKey(typeName))
             {
-                AnimalsTypeRendering newtype = new AnimalsTypeRendering(figure, color);
+                AnimalsTypeRendering newtype = new AnimalsTypeRendering(shape, color);
                 _animalsRedering.Add(typeName, newtype); 
             }
             else
             {
                 _animalsRedering[typeName].ChangeColor = color;
-                _animalsRedering[typeName].Figure = figure;
+                _animalsRedering[typeName].Shape = shape;
             }
         }
         public Dictionary<string, AnimalsTypeRendering> AnimalsRepresentation => _animalsRedering;

@@ -88,6 +88,8 @@
     <Compile Include="Scale.Designer.cs">
       <DependentUpon>Scale.cs</DependentUpon>
     </Compile>
+    <Compile Include="Shape.cs" />
+    <Compile Include="ShapeDrawing.Helpers.cs" />
     <Compile Include="ViewPort.cs" />
     <Compile Include="ZooViewPortControl.cs">
       <SubType>Component</SubType>

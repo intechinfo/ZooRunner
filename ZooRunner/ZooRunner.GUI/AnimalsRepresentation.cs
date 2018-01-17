@@ -32,11 +32,11 @@ namespace ZooRunner.GUI
             }
             _typeComboBox.SelectedIndex = 0;
 
-            _figureComboBox.Items.Add("Rectangle");
-            _figureComboBox.Items.Add("Ellipse");
-            _figureComboBox.Items.Add("Triangle");
-            _figureComboBox.Items.Add("Rhombus");
-            _figureComboBox.Items.Add("Star");
+            _figureComboBox.Items.Add(Shape.Rectangle);
+            _figureComboBox.Items.Add(Shape.Ellipse);
+            _figureComboBox.Items.Add(Shape.Triangle);
+            _figureComboBox.Items.Add(Shape.Rhombus);
+            _figureComboBox.Items.Add(Shape.Star);
             _figureComboBox.SelectedIndex = 0;
         }
 
@@ -50,7 +50,13 @@ namespace ZooRunner.GUI
 
         private void _modifyButton_Click(object sender, EventArgs e)
         {
-            _animalsRedering.Add(_typeComboBox.SelectedItem.ToString(), _figureComboBox.SelectedItem.ToString(), _colorDialog.Color);       
+            _animalsRedering.Add
+            (
+                _typeComboBox.SelectedItem.ToString(),
+                //_figureComboBox.SelectedItem.ToString(),
+                (Shape)_figureComboBox.SelectedItem,
+                _colorDialog.Color
+            );       
         }
     }
 }

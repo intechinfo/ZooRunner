@@ -52,12 +52,12 @@ namespace ZooRunner.GUI
                 if (doubleY < 0) doubleY = doubleY * -1;
 
                 // Animals size compensation
-                int animalsSize = 30;
+                int animalsSize = 30; // Hard Code must to change
                 doubleX -= animalsSize / 2;
                 doubleY -= animalsSize / 2;
 
-                int x = (int)doubleX;
-                int y = (int)doubleY;
+                int x = Convert.ToInt32(doubleX);
+                int y = Convert.ToInt32(doubleY);
 
                 Rectangle animalBody = new Rectangle(x, y, animalsSize, animalsSize);
 
@@ -65,79 +65,26 @@ namespace ZooRunner.GUI
                 {
                     Pen customPen = new Pen(AnimalsShapes.AnimalsRepresentation[_animals[i].TypeName].ChangeColor);
 
-                    if (AnimalsShapes.AnimalsRepresentation[_animals[i].TypeName].Figure == "Rectangle")
+                    if (AnimalsShapes.AnimalsRepresentation[_animals[i].TypeName].Shape == Shape.Rectangle)
                     {
                         g.DrawRectangle(customPen, animalBody);
                     }
-                    else if(AnimalsShapes.AnimalsRepresentation[_animals[i].TypeName].Figure == "Ellipse")
+                    else if(AnimalsShapes.AnimalsRepresentation[_animals[i].TypeName].Shape == Shape.Ellipse)
                     {
                         g.DrawEllipse(customPen, animalBody);
                     }
-                    else if(AnimalsShapes.AnimalsRepresentation[_animals[i].TypeName].Figure == "Triangle")
+                    else if(AnimalsShapes.AnimalsRepresentation[_animals[i].TypeName].Shape == Shape.Triangle)
                     {
-                        Point one = new Point(x, y);
-                        Point two = new Point(x + animalsSize, y);
-                        Point tree = new Point(x + animalsSize / 2, y + animalsSize);
-
-                        Point[] trianglePoints =
-                        {
-                            one,
-                            two,
-                            tree
-                        };
-
-                        g.DrawPolygon(customPen, trianglePoints);
+                        ShapeDrawingHelpers.DrawTriangle(g, customPen, x, y, animalsSize);
                     }
-                    else if(AnimalsShapes.AnimalsRepresentation[_animals[i].TypeName].Figure == "Star")
+                    else if(AnimalsShapes.AnimalsRepresentation[_animals[i].TypeName].Shape == Shape.Star)
                     {
-                        Point one = new Point(x + animalsSize / 2, y);
-                        Point two = new Point(x +  animalsSize / 3 * 2, y + animalsSize / 4);
-                        Point tree = new Point(x + animalsSize, y + animalsSize / 4);
-                        Point four = new Point(x + animalsSize / 6 * 5, y + animalsSize / 2);
-                        Point five = new Point(x + animalsSize, y + animalsSize / 4 * 3);
-                        Point six = new Point(x + animalsSize / 3 * 2, y + animalsSize / 4 * 3);
-                        Point seven = new Point(x + animalsSize / 2, y + animalsSize);
-                        Point eight = new Point(x + animalsSize / 3, y + animalsSize / 4 * 3);
-                        Point nine = new Point(x, y + animalsSize / 4 * 3);
-                        Point ten = new Point(x + animalsSize / 6, y + animalsSize / 2);
-                        Point eleven = new Point(x, y + animalsSize / 4);
-                        Point twelve = new Point(x + animalsSize / 3 , y + animalsSize / 4);
-
-                        Point[] starPoints =
-                        {
-                            one,
-                            two,
-                            tree,
-                            four,
-                            five,
-                            six,
-                            seven,
-                            eight,
-                            nine,
-                            ten,
-                            eleven,
-                            twelve
-                        };
-
-                        g.DrawPolygon(customPen, starPoints);
+                        ShapeDrawingHelpers.DrawStar(g, customPen, x, y, animalsSize);
 
                     }
                     else
                     {
-                        Point one = new Point(x + animalsSize / 2, y);
-                        Point two = new Point(x + animalsSize, y + animalsSize / 2);
-                        Point tree = new Point(x + animalsSize / 2, y + animalsSize);
-                        Point four = new Point(x, y + animalsSize / 2);
-
-                        Point[] rhombusPoints =
-                        {
-                            one,
-                            two,
-                            tree,
-                            four
-                        };
-
-                        g.DrawPolygon(customPen, rhombusPoints);
+                        ShapeDrawingHelpers.DrawRhombus(g, customPen, x, y, animalsSize);
                     }
                 }
                 else

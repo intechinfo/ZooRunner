@@ -82,24 +82,10 @@ namespace ZooSample
             }
         }
 
-        public double MeterDefinition => 0.0001;
+        public double MeterDefinition => 0.001;
 
         public Color ColorAt( double x, double y )
         {
-            //Color myColor = new Color();
-            //if (y > Math.Cos(x) - 0.4)
-            //{
-            //    myColor = Color.Blue;
-            //}
-            //else if (y <= Math.Tan(x))
-            //{
-            //    myColor = Color.Chartreuse;
-            //}
-            //else
-            //{
-            //    myColor = Color.Brown;
-            //}
-
             x *= Math.PI;
             y *= Math.PI;
 

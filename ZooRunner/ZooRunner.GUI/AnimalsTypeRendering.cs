@@ -9,12 +9,12 @@ namespace ZooRunner.GUI
 {
     public class AnimalsTypeRendering
     {
-        string _figure;
+        Shape _shape;
         Color _color;
 
-        public AnimalsTypeRendering(string figure, Color color)
+        public AnimalsTypeRendering(Shape shape, Color color)
         {
-            _figure = figure;
+            _shape = shape;
             _color = color;
         }
 
@@ -24,10 +24,10 @@ namespace ZooRunner.GUI
             set { _color = value; }
         }
 
-        public string Figure
+        public Shape Shape
         {
-            get { return _figure; }
-            set { _figure = value; }
+            get { return _shape; }
+            set { _shape = value; }
         }
     }
 }
