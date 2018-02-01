@@ -149,8 +149,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Icons\ifm_grab.cur" />
-    <EmbeddedResource Include="Icons\ifm_move.cur" />
+    <EmbeddedResource Include="Icons\grab.cur" />
+    <EmbeddedResource Include="Icons\hand.cur" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

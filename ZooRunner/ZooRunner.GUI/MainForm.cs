@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,11 +17,11 @@ namespace ZooRunner.GUI
             InitializeComponent();
         }
 
-        private void OnUserGivesDll(object sender, ZooAdapter e)
+        private void OnUserGivesDll( object sender, ZooAdapter e )
         {
             _zooViewPortControl.Enabled = true;
-            _zooViewPortControl.SetZoo(e);
-            _scale.ZooWithInMeter = e.WithInMeter;
+            _zooViewPortControl.SetZoo( e );
+            _scale.ZooWidthInMeter = e.WithInMeter;
             _scale.Enabled = true;
             _informations.Enabled = true;
         }
@@ -34,11 +34,6 @@ namespace ZooRunner.GUI
         private void OnShowGridLines(object sender, bool e)
         {
             _zooViewPortControl.ShowGridLines = e;
-        }
-
-        private void OnMouseLeaveControl(object sender, EventArgs e)
-        {
-            _controlPanel.Focus();
         }
 
         private void OnTimerTick(object sender, List<AnimalAdapter> e)

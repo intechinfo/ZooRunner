@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -86,10 +86,10 @@ namespace ZooSample
 
         public Color ColorAt( double x, double y )
         {
-            x *= Math.PI;
-            y *= Math.PI;
-
-            return Color.FromArgb( ( int )( ( Math.Sin( x ) * 255 ) + 255 ) / 2, ( int )( ( Math.Cos( y ) * 255 ) + 255 ) / 2, ( int )( ( Math.Sin( x * y ) * 255 ) + 255 ) / 2 );
+            var sinX = Math.Sin( x ) + 1.0;
+            var sinY = Math.Sin( y ) + 1.0;
+            var sinXY = Math.Sin( x * y ) + 1.0;
+            return Color.FromArgb( (int)(sinX*255) % 256, (int)(sinY*200) % 256, (int)(sinXY * 250) % 256 );
         }
 
     }

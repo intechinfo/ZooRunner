@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace ZooRunner.GUI
 {
@@ -77,7 +77,6 @@ namespace ZooRunner.GUI
             this._zooViewPortControl.Size = new System.Drawing.Size(620, 620);
             this._zooViewPortControl.TabIndex = 5;
             this._zooViewPortControl.Text = "zooViewPortControl";
-            this._zooViewPortControl.MouseLeaveControl += new System.EventHandler(this.OnMouseLeaveControl);
             this._zooViewPortControl.AreaChanged += new System.EventHandler<string>(this.OnAreaChanged);
             this._zooViewPortControl.ViewPortHeightChanged += new System.EventHandler<int>(this.OnViewPortHeightChanged);
             this._zooViewPortControl.MapWidthChanged += new System.EventHandler<int>(this.OnMapWidthChanged);

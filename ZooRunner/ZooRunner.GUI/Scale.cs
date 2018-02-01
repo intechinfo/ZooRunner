@@ -21,7 +21,7 @@ namespace ZooRunner.GUI
             InitializeComponent();
         }
 
-        public int ZooWithInMeter // Square Width = Height
+        public int ZooWidthInMeter // Square Width = Height
         {
             set
             {

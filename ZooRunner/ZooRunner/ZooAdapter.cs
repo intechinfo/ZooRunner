@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -92,12 +92,9 @@ namespace ZooRunner
 
         public IReadOnlyList<AnimalType> AnimalTypes => _animalTypes;
 
-        public void Update() => _update();
+        public void Update() => _update.Invoke();
 
-        public Color ColorAt( double x, double y )
-        {
-            return _colorAt( x, y );
-        }
+        public Color ColorAt( double x, double y ) => _colorAt( x, y );
 
         private double RetrieveMeterDefinition( object zoo )
         {

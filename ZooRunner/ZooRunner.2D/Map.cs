@@ -31,34 +31,22 @@ namespace ZooRunner
             _mapWidth = _boxCount * _boxWidth;
         }
 
-        public int BoxCount
-        {
-            get { return _boxCount; }
-        }
+        public int BoxCount => _boxCount; 
 
         /// <summary>
         /// Gets the box width in centimeters.
         /// </summary>
-        public int BoxWidth
-        {
-            get { return _boxWidth; }
-        }
+        public int BoxWidth => _boxWidth; 
 
         /// <summary>
         /// Gets the map width in centimeters.
         /// </summary>
-        public int MapWidth
-        {
-            get { return _mapWidth; }
-        }
+        public int MapWidth => _mapWidth; 
 
         /// <summary>
         /// Gets the total area of the map in centimeters.
         /// </summary>
-        public Rectangle Area
-        {
-            get { return new Rectangle(0, 0, _boxWidth * _boxCount, _boxWidth * _boxCount); }
-        }
+        public Rectangle Area => new Rectangle(0, 0, _boxWidth * _boxCount, _boxWidth * _boxCount); 
 
         public Box this[int line, int column]
         {

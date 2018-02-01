@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -48,7 +48,7 @@ namespace ZooRunner
         /// <summary>
         /// Gets the current area of this ViewPort (in centimeters).
         /// </summary>
-        public Rectangle Area =>_viewPort; 
+        public Rectangle Area => _viewPort; 
 
         /// <summary>
         /// Fires whenever <see cref="Area"/> has changed.
@@ -64,20 +64,20 @@ namespace ZooRunner
             get { return _userZoomFactor; }
             set
             {
-                if (value <= 0)
+                if( value <= 0 )
                 {
                     _userZoomFactor = 0.0;
-                    SetActualZoomFactor(1.0);
+                    SetActualZoomFactor( 1.0 );
                 }
-                else if (value >= 1.0)
+                else if( value >= 1.0 )
                 {
                     _userZoomFactor = 1.0;
-                    SetActualZoomFactor(MinActualZoomFactor);
+                    SetActualZoomFactor( MinActualZoomFactor );
                 }
                 else
                 {
                     _userZoomFactor = value;
-                    SetActualZoomFactor((1.0 - value) * (1.0 - MinActualZoomFactor) + MinActualZoomFactor);
+                    SetActualZoomFactor( (1.0 - value) * (1.0 - MinActualZoomFactor) + MinActualZoomFactor );
                 }
             }
         }
@@ -90,23 +90,19 @@ namespace ZooRunner
             get { return (double)Math.Max(_viewPort.Width, _viewPort.Height) / (double)_map.MapWidth; }
         }
 
-        public float ClientScaleFactor
-        {
-            get { return _clientScaleFactor; }
+        public float ClientScaleFactor => _clientScaleFactor; 
 
-        }
-
-        public void Move(int deltaX, int deltaY)
+        public void MoveBy( int deltaX, int deltaY )
         {
-            if (DoMove(ref _viewPort, deltaX, deltaY))
+            if( DoMove( ref _viewPort, deltaX, deltaY ) )
             {
-                AreaChanged?.Invoke(this, EventArgs.Empty);
+                AreaChanged?.Invoke( this, EventArgs.Empty );
             }
         }
 
-        public void MoveTo(int x, int y)
+        public void MoveTo( int x, int y )
         {
-            Move(x - _viewPort.X, y - _viewPort.Y);
+            MoveBy( x - _viewPort.X, y - _viewPort.Y );
         }
 
         bool SetActualZoomFactor(double value)
@@ -170,56 +166,42 @@ namespace ZooRunner
             return prevX != r.X || prevY != r.Y;
         }
 
-        internal void SetClientSize(Size client)
+        internal void SetClientSize( Size client )
         {
-            Debug.Assert(_map.Area.Contains(_viewPort));
-            _maxClientSize = Math.Max(client.Width, client.Height);
+            Debug.Assert( _map.Area.Contains( _viewPort ) );
+            _maxClientSize = Math.Max( client.Width, client.Height );
             Rectangle newViewPort = _viewPort;
             bool keepH = _viewPort.Height > _viewPort.Width || (_viewPort.Height == _viewPort.Width && client.Height > client.Width);
-            if (keepH)
+            if( keepH )
             {
-                _clientScaleFactor = (float)_maxClientSize / (float)_viewPort.Height;
-                newViewPort.Width = (int)Math.Ceiling(_viewPort.Height * client.Width / (double)_maxClientSize);
-                if (newViewPort.Width < _minDisplayWidth) newViewPort.Width = _minDisplayWidth;
-                if (newViewPort.Right > _map.MapWidth)
+                _clientScaleFactor = (float)_maxClientSize / _viewPort.Height;
+                newViewPort.Width = (int)Math.Ceiling( _viewPort.Height * client.Width / (double)_maxClientSize );
+                if( newViewPort.Width < _minDisplayWidth ) newViewPort.Width = _minDisplayWidth;
+                if( newViewPort.Right > _map.MapWidth )
                 {
-                    DoMove(ref newViewPort, _map.MapWidth - newViewPort.Right, 0);
+                    DoMove( ref newViewPort, _map.MapWidth - newViewPort.Right, 0 );
                 }
             }
             else
             {
-                _clientScaleFactor = (float)_maxClientSize / (float)_viewPort.Width;
-                newViewPort.Height = (int)Math.Ceiling(_viewPort.Width * client.Height / (double)_maxClientSize);
-                if (newViewPort.Height < _minDisplayWidth) newViewPort.Height = _minDisplayWidth;
-                if (newViewPort.Bottom > _map.Area.Height)
+                _clientScaleFactor = (float)_maxClientSize / _viewPort.Width;
+                newViewPort.Height = (int)Math.Ceiling( _viewPort.Width * client.Height / (double)_maxClientSize );
+                if( newViewPort.Height < _minDisplayWidth ) newViewPort.Height = _minDisplayWidth;
+                if( newViewPort.Bottom > _map.Area.Height )
                 {
-                    DoMove(ref newViewPort, 0, _map.Area.Height - newViewPort.Bottom);
+                    DoMove( ref newViewPort, 0, _map.Area.Height - newViewPort.Bottom );
                 }
             }
-            Debug.Assert(_map.Area.Contains(newViewPort));
+            Debug.Assert( _map.Area.Contains( newViewPort ) );
             _viewPort = newViewPort;
-            _clientScaleFactor = (float)_maxClientSize / (float)Math.Max(_viewPort.Width, _viewPort.Height);
-            var h = AreaChanged;
-            if (h != null) h(this, EventArgs.Empty);
+            _clientScaleFactor = (float)_maxClientSize / Math.Max( _viewPort.Width, _viewPort.Height );
+            AreaChanged?.Invoke( this, EventArgs.Empty );
         }
 
-        internal void Draw(Graphics g)
+        internal void Draw( Graphics g )
         {
-            Debug.Assert(_map.Area.Contains(_viewPort));
-            _map.Draw(g, _viewPort, _clientScaleFactor, ShowGridLines);
-        }
-
-        public void MouseMove(Point location, Size controleSize)
-        {
-            Point transformation = MousePostionTransformation(_map, _viewPort, location, controleSize);
-            MoveTo(transformation.X, transformation.Y);
-        }
-
-        internal Point MousePostionTransformation(Map map, Rectangle viewport , Point location, Size controlSize)
-        {
-            location.X = (location.X * _map.Area.Width) / controlSize.Width;
-            location.Y = (location.Y * _map.Area.Height) / controlSize.Height;
-            return location;           
+            Debug.Assert( _map.Area.Contains( _viewPort ) );
+            _map.Draw( g, _viewPort, _clientScaleFactor, ShowGridLines );
         }
 
         public void DriversAssignment(ZooAdapter zoo, List<AnimalAdapter> animals, AnimalsRedering animalsShapes)
