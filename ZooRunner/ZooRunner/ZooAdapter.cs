@@ -35,7 +35,7 @@ namespace ZooRunner
         static bool TryBuildColorAt( Type zooType, object zoo, out Func<double, double, Color> colorAt )
         {
             colorAt = null;
-            MethodInfo colorAtInfo = RetrieveColorAt( zooType, zoo );
+            MethodInfo colorAtInfo = zooType.GetMethod("ColorAt");
             if( colorAtInfo == null ) return false;
 
             var xParam = Expression.Parameter( typeof( double ), "x" );
@@ -116,11 +116,6 @@ namespace ZooRunner
             }
 
             return meterDefinition;
-        }
-
-        static MethodInfo RetrieveColorAt( Type zooType, object zoo )
-        {
-            return zooType.GetMethod( "ColorAt" );
         }
 
         public int WithInMeter => _widthInMeter;
