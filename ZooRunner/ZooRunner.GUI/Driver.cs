@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -23,15 +23,15 @@ namespace ZooRunner.GUI
 
         public void Draw(Box box, Graphics g, Rectangle rectSource, float scaleFactor)
         {
-            if (Zoo.CollectColorAtMethod)
+            if( Zoo.CollectColorAtMethod )
             {
-                if (_backgroundNeeded)
+                if( _backgroundNeeded )
                 {
-                    DrawBiomes(box, g, scaleFactor);
+                    DrawBiomesUnsafe( box, scaleFactor );
                     _backgroundNeeded = false;
                 }
 
-                g.DrawImage(_background, 0, 0);
+                g.DrawImage( _background, 0, 0 );
             }
 
             for (int i = 0; i < _animals.Count; i++)
@@ -105,7 +105,7 @@ namespace ZooRunner.GUI
             _animals.Clear();
         }
 
-        private void DrawBiomes(Box box, Graphics g, float scalefactor)
+        private void DrawBiomes(Box box, float scalefactor)
         {
             Bitmap backGround = new Bitmap((int)(box.Area.Width * scalefactor), (int)(box.Area.Height * scalefactor));
 
@@ -124,7 +124,43 @@ namespace ZooRunner.GUI
                 }
             }
             _background = ResizeImage(backGround, box.Area.Width + 5, box.Area.Height + 5); //  for override aberration add for exemple 5
-            //_background = backGround;
+        }
+
+        private unsafe void DrawBiomesUnsafe(Box box, float scalefactor)
+        {
+            Bitmap backGround = new Bitmap( Convert.ToInt32(box.Area.Width * scalefactor), Convert.ToInt32(box.Area.Height * scalefactor));
+
+            BitmapData backGroundData = backGround.LockBits( new Rectangle( 0, 0, backGround.Width, backGround.Height ), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb );
+            int bytesPerPixel = 3;
+
+            byte* scan0 = (byte*)backGroundData.Scan0.ToPointer();
+            int stride = backGroundData.Stride;
+
+            for( int y = 0; y < backGroundData.Height; y++ )
+            {
+                byte* row = scan0 + (y * stride);
+
+                for( int x = 0; x < backGroundData.Width; x++ )
+                {
+                    int bIndex = x * bytesPerPixel;
+                    int gIndex = bIndex + 1;
+                    int rIndex = bIndex + 2;
+
+                    decimal offsetN = (decimal)x / (decimal)backGround.Width * 100;
+                    double doubleX = InferiorBoundaryX + Interval / 100 * (double)offsetN;
+
+                    decimal offsetI = (decimal)y / (decimal)backGround.Height * 100;
+                    double doubleY = SuperiorBoundaryY - Interval / 100 * (double)offsetI;
+
+                    Color color = Zoo.ColorAt(doubleX, doubleY);
+
+                    row[rIndex] = color.R;
+                    row[gIndex] = color.G;
+                    row[bIndex] = color.B;
+                }
+            }
+            backGround.UnlockBits(backGroundData);
+            _background = ResizeImage( backGround, box.Area.Width + 5, box.Area.Height + 5);
         }
 
         public static Bitmap ResizeImage(Image image, int width, int height)

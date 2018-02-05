@@ -88,11 +88,6 @@
             // 
             this._animalsNumericUpDown.Location = new System.Drawing.Point(211, 51);
             this._animalsNumericUpDown.Margin = new System.Windows.Forms.Padding(2);
-            this._animalsNumericUpDown.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
             this._animalsNumericUpDown.Minimum = new decimal(new int[] {
             1,
             0,
